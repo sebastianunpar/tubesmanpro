@@ -1,0 +1,110 @@
+<!-- bisa di hidden untuk tag <div> -->
+<!-- kasi keterangan, yang ada lambang * (merah), wajib diisi -->
+<!-- laporan kehadiran: 
+1. bisa pilih mau id pegawai khusus
+2. check seluruh pegawai 
+3. bisa pilih dari range tanggal berapa, default 1 minggu-->
+<!-- laporan gaji:
+ 1. harus ada perhitungan perhari, perhitungan per minggu -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Pegawai</title>
+    <link rel="stylesheet" href="ownerStyles.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+            <h1>Tambah Pegawai</h1>
+        </div>
+    </header>
+    <nav class="sidebar" id="sidebar">
+        <div class="xContainer">
+            <button id="x" onclick="toggleMenu()">X</button>
+        </div>
+        <ul>
+            <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
+            <li><a href="insert_data.html" id="addP" style="background-color: #444444;">Tambah Pegawai</a></li>
+            <li><a href="view_data.html" id="listP">List Pegawai</a></li>
+            <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
+            <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
+            <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
+            <li><a href="pay_salary.html" id="paySalary">Bayar Gaji</a></li>
+        </ul>
+        <div class="logoutContainer">
+            <button class="logout-btn" id="logOut">Logout</button>
+        </div>
+    </nav>
+    <main>
+        <div id="head">
+            <h1>Menambahkan Data Baru</h1>
+            <form action="data_success.html" method="POST">
+                <label for="table">Pilih data yang ingin ditambahkan:</label>
+                <select id="table" name="table">
+                    <option value="Pegawai">Pegawai</option>
+                    <option value="Jabatan">Jabatan</option>
+                    <option value="Alamat">Alamat</option>
+                    <!-- Setiap kali option dipilih, baru nonaktif hidden -->
+                </select><br>
+                <br>
+                <button type="submit">Lanjutkan</button>
+            </form>
+        </div>
+    
+        <div id="masuk_data_pegawai">
+            <h1>Masukkan Data Pegawai</h1>
+            <form action="proses_masukan_data.html" method="POST">
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" required><br>
+                <label for="no_hp">Nomor HP:</label>
+                <input type="text" id="no_hp" name="no_hp" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+    
+                <label for="alamat">Alamat:</label>
+                <br>
+                <label for="kecamatan">Pilih Kecamatan:</label>
+                <select id="kecamatan" name="kecamatan" onchange="loadKelurahan()" required>
+                    <!-- Opsi kecamatan -->
+                    <option value="">--Pilih Kecamatan--</option>
+                </select>
+                <br>
+                <label for="kelurahan">Pilih Kelurahan:</label>
+                <select id="kelurahan" name="kelurahan" required>
+                    <!-- Opsi kelurahan -->
+                    <option value="">--Pilih Kelurahan--</option>
+                </select>
+                <br>
+                <label for="alamat">Nama Jalan:</label>
+                <input type="text" id="alamat" name="alamat" required><br>
+        
+                <label for="jabatan">Jabatan:</label>
+                <select id="jabatan" name="jabatan" required>
+                    <option value="">--Pilih Jabatan--</option>
+                    <!-- Opsi jabatan -->
+                </select><br>
+            </form>
+        </div>
+    </main>
+    <footer>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        const logOutButton = document.querySelector('#logOut')
+        logOutButton.addEventListener ('click', (event) => {
+            event.preventDefault();
+            window.location.href = "ownerLogin.html";
+        });
+    </script>
+</body>
+</html>

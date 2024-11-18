@@ -1,16 +1,20 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+
 }
 
 header {
-    font-size: larger;
-    color: white;
-    display: flex;
-    justify-content: left;
+    display: flex; 
+    justify-content: center;
     align-items: center;
-    background-color: #1a2c58;
-    height: 55px;
+    background-color: #0056b3;
+    height: 70px;
+}
+
+header > h1 {
+    color: white;
 }
 
 main {
@@ -21,13 +25,14 @@ main {
 }
 
 div.loginContainer {
-    padding-top: 40px;
+    background-color: white;
+    padding: 40px 20px 80px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: solid 2px black;
-    height: 360px;
-    width: 400px;
+    width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
 }
 
 div > h2 {
@@ -43,20 +48,34 @@ input, button {
     box-sizing: border-box;
     width: 200px;
     height: 30px;
+    border-radius: 3px;
 }
 
 input {
+    border: solid 1px #b8b8b8;
     text-indent: 2px;
     font-size: large;
+    height: 33px;
 }
 
 button {
+    border-radius: 5px;
+    color: white;
+    background-color: #0056b3;
+    font-family: Arial, sans-serif;
     margin-top: 5px;
     font-size: medium;
+    border: none;
+    height: 35px;
+}
+
+button:hover {
+    background-color: #0065d1;
+    cursor: pointer;
 }
 
 label {
-    margin-bottom: 2px;
+    margin: 2px 0 1px 0;
 }
 
 form {
