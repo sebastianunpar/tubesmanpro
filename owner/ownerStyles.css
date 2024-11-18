@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-} 
+}
 
 /* Body styling */
 body {
@@ -12,7 +12,7 @@ body {
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
-    padding: 0;
+    padding: 0; 
 }
 
 /* Header styling */
@@ -20,6 +20,7 @@ header {
     background-color: #0056b3;
     color: white;
     padding: 10px;
+    height: 70px;
 }
 
 .header-container {
@@ -29,7 +30,7 @@ header {
 }
 
 header h1 {
-    margin: 0;
+    margin-right: 10px;
 }
 
 .hamburger-menu {
@@ -38,7 +39,7 @@ header h1 {
     color: white;
     font-size: 24px;
     cursor: pointer;
-    margin-right: 20px;
+    margin-left: 10px;
 }
 
 /* Sidebar styling */
@@ -98,6 +99,10 @@ header h1 {
 
 button#x {
     width: 20px;
+}
+
+button#x:hover {
+    cursor: pointer;;
 }
 
 .sidebar > a {
