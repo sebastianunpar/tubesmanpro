@@ -7,7 +7,7 @@ header {
     font-size: larger;
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     background-color: #1a2c58;
     height: 55px;
@@ -69,7 +69,6 @@ form + div {
     display: flex;
     justify-content: space-between;
 }
-
 
 
 main::-webkit-scrollbar {
