@@ -3,16 +3,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-} 
+}
 
 /* Body styling */
-body {
+body { 
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
-    padding: 0;
+    padding: 0; 
 }
 
 /* Header styling */
@@ -20,6 +20,7 @@ header {
     background-color: #0056b3;
     color: white;
     padding: 10px;
+    height: 70px;
 }
 
 .header-container {
@@ -29,7 +30,7 @@ header {
 }
 
 header h1 {
-    margin: 0;
+    margin-right: 10px;
 }
 
 .hamburger-menu {
@@ -38,7 +39,7 @@ header h1 {
     color: white;
     font-size: 24px;
     cursor: pointer;
-    margin-right: 20px;
+    margin-left: 10px;
 }
 
 /* Sidebar styling */
@@ -97,7 +98,15 @@ header h1 {
 }
 
 button#x {
-    width: 20px;
+    height: 25px;
+    width: 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+button#x:hover {
+    cursor: pointer;
+    background-color: #cacaca;
 }
 
 .sidebar > a {
@@ -111,9 +120,6 @@ button#x {
 main {
     padding: 20px;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 main h2 {
@@ -161,52 +167,4 @@ footer {
 
 .logout-btn:hover {
     background-color: #cc0000;
-}
-
-.profile-picture {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-}
-
-.attendance-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    font-size: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.attendance-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-.attendance-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.profile-picture {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 10px;
-}
-
-.profile-img {
-    border-radius: 200px;
-    width: 200px;
-    height: 200px;
 }
