@@ -8,7 +8,8 @@ button.addEventListener ('click', (event) => {
         event.preventDefault();
         window.location.href = "mainMenuPegawai.html";
     } else if (button.id === 'ownerLogin'){
-        window.location.href = "anotherPage.html";
+        event.preventDefault();
+        window.location.href = "mainMenuOwner.html";
     } else if (button.id === 'logOut'){
         event.preventDefault();
         window.location.href = "../index.html";
