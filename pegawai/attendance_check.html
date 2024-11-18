@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Kehadiran</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+            <h1>Cek Kehadiran</h1>
+        </div>
+    </header>
+    <nav class="sidebar" id="sidebar">
+        <div class="xContainer">
+            <button id="x" onclick="toggleMenu()">X</button>
+        </div>
+        <ul>
+            <li><a href="mainMenuPegawai.html">Dashboard</a></li>
+            <li><a href="profilePegawai.html">Profil</a></li>
+            <li><a href="salary_check.html">Cek Gaji</a></li>
+        </ul>
+        <div class="logoutContainer">
+            <button class="logout-btn" id="logOut">Logout</button>
+        </div>
+    </nav>
+    <main>
+        <section>
+            <h2>Absen Kehadiran</h2>
+            <div class="attendance">
+                <p><strong>Nama:</strong> John Doe</p>
+                <p><strong>ID Pegawai:</strong> 6182201999</p>
+                <p><strong>Status Kehadiran Hari Ini:</strong> <span id="attendance-status">Belum Hadir</span></p>
+                <button class="attendance-btn" id="attendanceButton">Klik Hadir</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        const logOutButton = document.querySelector('#logOut');
+        logOutButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.href = "../index.html";
+        });
+
+        const attendanceButton = document.querySelector('#attendanceButton');
+        const attendanceStatus = document.querySelector('#attendance-status');
+
+        attendanceButton.addEventListener('click', () => {
+            const currentDate = new Date();
+            const formattedTime = currentDate.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            attendanceStatus.textContent = `Hadir pada ${formattedTime}`;
+            attendanceButton.disabled = true; // Tombol menjadi tidak aktif setelah klik
+            attendanceButton.textContent = 'Sudah Hadir';
+            alert('Absen berhasil!');
+        });
+    </script>
+</body>
+</html>
