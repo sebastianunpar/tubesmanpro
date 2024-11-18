@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pegawai</title>
+    <title>Profil Pegawai</title>
     <link rel="stylesheet" href="styles.css">
     <script src="../js/script.js" defer></script>
 </head>
@@ -11,7 +11,7 @@
     <header>
         <div class="header-container">
             <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
-            <h1>Dashboard Pegawai</h1>
+            <h1>Profil Pegawai</h1>
         </div>
     </header>
     <nav class="sidebar" id="sidebar">
@@ -19,7 +19,7 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
-            <li><a href="profilePegawai.html">Profil</a></li> 
+            <li><a href="mainMenuPegawai.html">Dashboard</a></li>
             <li><a href="attendance_check.html">Cek Kehadiran</a></li>
             <li><a href="salary_check.html">Cek Gaji</a></li>
         </ul>
@@ -29,16 +29,22 @@
     </nav>
     <main>
         <section>
-            <h2>Ringkasan</h2>
-            <div class="summary">
-                <div class="card">
-                    <h3>Kehadiran Bulan Ini</h3>
-                    <p>22 Hari</p>
+            <h2>Informasi Profil</h2>
+            <div class="profile">
+                <div class="profile-picture">
+                    <img src="../assets/profile_cat.jpg" alt="Foto Profil" class="profile-img">
                 </div>
-                <div class="card">
-                    <h3>Total Gaji Bulan Ini</h3>
-                    <p>Rp 4.750.000</p>
+                <div class="profile-details">
+                    <p><strong>Nama:</strong> John Cat</p>
+                    <p><strong>ID Pegawai:</strong> 6182201999</p>
+                    <p><strong>Jabatan:</strong> Janitor</p>
+                    <p><strong>Kecamatan:</strong> Cidadap</p>
+                    <p><strong>Kelurahan:</strong> Ciumbuleuit</p>
+                    <p><strong>Alamat:</strong> jalan Ciumbuleuit no 20</p>
                 </div>
+            </div>
+            <div class="edit-profile">
+                <button class="edit-btn" onclick="editProfile()">Edit Profil</button>
             </div>
         </section>
     </main>
@@ -51,8 +57,12 @@
             sidebar.classList.toggle('active');
         }
 
-        const logOutButton = document.querySelector('#logOut')
-        logOutButton.addEventListener ('click', (event) => {
+        function editProfile() {
+            alert("Fitur edit profil akan segera hadir!");
+        }
+
+        const logOutButton = document.querySelector('#logOut');
+        logOutButton.addEventListener('click', (event) => {
             event.preventDefault();
             window.location.href = "../index.html";
         });
