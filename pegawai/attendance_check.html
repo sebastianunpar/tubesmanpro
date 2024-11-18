@@ -54,7 +54,11 @@
         });
 
         const attendanceButton = document.querySelector('#attendanceButton');
+        const attendanceExitButton = document.querySelector('#attendanceExitButton');
         const attendanceStatus = document.querySelector('#attendance-status');
+        const attendanceHadir = document.querySelector('#attendance-Hadir');
+        const attendancePulang = document.querySelector('#attendance-Pulang');
+        let isHadir = false
 
         attendanceButton.addEventListener('click', () => {
             const currentDate = new Date();
@@ -63,12 +67,42 @@
                 minute: '2-digit',
                 second: '2-digit'
             });
-
-            attendanceStatus.textContent = `Hadir pada ${formattedTime}`;
-            attendanceButton.disabled = true; // Tombol menjadi tidak aktif setelah klik
+            attendanceButton.classList.remove("attendance-btn:hover")
+            isHadir = true
+            attendanceStatus.textContent = `Hadir`;
+            attendanceHadir.textContent = `${formattedTime}`;
+            attendanceButton.disabled = true;
             attendanceButton.textContent = 'Sudah Hadir';
             alert('Absen berhasil!');
         });
+
+        attendanceExitButton.addEventListener('click', () => {
+            if(isHadir) {
+                const currentDate = new Date();
+                const formattedTime = currentDate.toLocaleTimeString('id-ID', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                attendancePulang.classList.remove("attendance-btn:hover")
+                attendancePulang.textContent = `${formattedTime}`;
+                attendanceExitButton.disabled = true;
+                attendanceExitButton.textContent = 'Sudah Keluar';
+                alert('Absen keluar berhasil!');
+            }
+        });
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('real-time').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);     
+        updateClock();y
     </script>
 </body>
 </html>
