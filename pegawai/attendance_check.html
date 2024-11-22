@@ -35,7 +35,51 @@
                 <p><strong>Nama:</strong> John Doe</p>
                 <p><strong>ID Pegawai:</strong> 6182201999</p>
                 <p><strong>Status Kehadiran Hari Ini:</strong> <span id="attendance-status">Belum Hadir</span></p>
+                <p><strong>Waktu Sekarang:</strong> <span id="real-time"></span></p>
                 <button class="attendance-btn" id="attendanceButton">Klik Hadir</button>
+                <button class="attendance-btn" id="attendanceExitButton">Klik Pulang</button>
+
+            </div>
+        </section>
+            
+        <section>
+            <h2>Riwayat Kehadiran</h2>
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Status</th>
+                        <th>Durasi Bekerja</th>
+                        <th>Gaji Harian</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">10-11-2024</td>
+                        <td>07:10:53</td>
+                        <td>Masuk</td>
+                        <td rowspan="2">8 jam 10 menit</td>
+                        <td rowspan="2">Rp 150.000</td>
+                    </tr>
+                    <tr>
+                        <td>15:20:46</td>
+                        <td>Pulang</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="2">11-11-2024</td>
+                        <td>07:07:49</td>
+                        <td>Masuk</td>
+                        <td rowspan="2">7 jam 40 menit</td>
+                        <td rowspan="2">Rp 148.000</td>
+                    </tr>
+                    <tr>
+                        <td>14:47:12</td>
+                        <td>Pulang</td>
+                    </tr>
+                    <tbody id="attendanceTableBody">
+
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>
@@ -57,53 +101,121 @@
         const attendanceButton = document.querySelector('#attendanceButton');
         const attendanceExitButton = document.querySelector('#attendanceExitButton');
         const attendanceStatus = document.querySelector('#attendance-status');
-        const attendanceHadir = document.querySelector('#attendance-Hadir');
-        const attendancePulang = document.querySelector('#attendance-Pulang');
-        let isHadir = false
+        const tableBody = document.querySelector('#attendanceTableBody');
+
+        let isHadir = false; // Status kehadiran
+        let clockInTime = null; // Waktu masuk
 
         attendanceButton.addEventListener('click', () => {
-            const currentDate = new Date();
-            const formattedTime = currentDate.toLocaleTimeString('id-ID', {
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('id-ID');
+            const formattedTime = now.toLocaleTimeString('id-ID', {
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
             });
-            attendanceButton.classList.remove("attendance-btn:hover")
-            isHadir = true
-            attendanceStatus.textContent = `Hadir`;
-            attendanceHadir.textContent = `${formattedTime}`;
-            attendanceButton.disabled = true;
-            attendanceButton.textContent = 'Sudah Hadir';
-            alert('Absen berhasil!');
+
+            // Jika belum hadir
+            if (!isHadir) {
+                isHadir = true;
+                clockInTime = now;
+                attendanceStatus.textContent = 'Hadir';
+
+                // Tambahkan baris baru ke tabel untuk waktu hadir
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td>${formattedTime}</td>
+                    <td>Masuk</td>
+                    <td>-</td>
+                    <td>-</td>
+                `;
+                newRow.setAttribute('id', 'current-row'); // Tandai baris saat ini
+                tableBody.appendChild(newRow);
+
+                // Ubah tombol hadir menjadi nonaktif dan ubah warna
+                attendanceButton.disabled = true;
+                attendanceButton.style.backgroundColor = 'grey';
+                attendanceExitButton.disabled = false; // Aktifkan tombol pulang
+                attendanceExitButton.style.backgroundColor = '';
+            }
         });
 
         attendanceExitButton.addEventListener('click', () => {
-            if(isHadir) {
-                const currentDate = new Date();
-                const formattedTime = currentDate.toLocaleTimeString('id-ID', {
+            const confirmExit = confirm('Apakah Anda yakin akan Pulang?');
+            if (confirmExit){
+                const now = new Date();
+                const formattedTime = now.toLocaleTimeString('id-ID', {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit'
                 });
-                attendancePulang.classList.remove("attendance-btn:hover")
-                attendancePulang.textContent = `${formattedTime}`;
-                attendanceExitButton.disabled = true;
-                attendanceExitButton.textContent = 'Sudah Keluar';
-                alert('Absen keluar berhasil!');
+    
+                if (isHadir) {
+                    isHadir = false;
+    
+                    // Hitung durasi kerja
+                    const duration = Math.floor((now - clockInTime) / (1000 * 60)); // Dalam menit
+                    const hours = Math.floor(duration / 60);
+                    const minutes = duration % 60;
+                    const salary = 160000; // Gaji tetap
+    
+                    // Tambahkan data pulang ke baris yang sama
+                    const currentRow = document.getElementById('current-row');
+                    const dateCell = currentRow.querySelector('td:first-child');
+                    const durationCell = currentRow.querySelector('td:nth-child(4)');
+                    const salaryCell = currentRow.querySelector('td:nth-child(5)');
+    
+                    dateCell.setAttribute('rowspan', '2');
+                    durationCell.setAttribute('rowspan', '2');
+                    salaryCell.setAttribute('rowspan', '2');
+    
+                    // Perbarui konten Durasi dan Gaji
+                    durationCell.textContent = `${hours} jam ${minutes} menit`;
+                    salaryCell.textContent = `Rp ${salary.toLocaleString('id-ID', { minimumFractionDigits: 0 })}`;
+    
+                    // Tambahkan baris baru untuk waktu pulang
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${formattedTime}</td>
+                        <td>Pulang</td>
+    
+                    `;
+                    tableBody.appendChild(newRow);
+    
+                    // Ubah tombol
+                    attendanceExitButton.disabled = true;
+                    attendanceExitButton.style.backgroundColor = 'grey';
+                    attendanceStatus.textContent = 'Sudah Pulang';
+                } else {
+                    alert('Anda belum klik hadir.');
+                }
+            }
+            else {
+                
             }
         });
 
+        // Atur default tombol pada load
+        document.addEventListener('DOMContentLoaded', () => {
+            attendanceExitButton.disabled = true; // Nonaktifkan tombol pulang saat load
+            attendanceExitButton.style.backgroundColor = 'grey';
+        });
+
+
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('real-time').textContent = timeString;
+            console.log('Current time:', now); // Debugging
+            const formattedTime = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('real-time').textContent = formattedTime;
         }
 
         setInterval(updateClock, 1000);     
-        updateClock();y
+        updateClock();
     </script>
 </body>
 </html>

@@ -29,7 +29,7 @@
         </div>
         <ul>
             <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
-            <li><a href="insert_data.html" id="addP" style="background-color: #444444;">Tambah Pegawai</a></li>
+            <li><a href="insert_data.html" id="addP" style="background-color: #444444;">Tambah Data</a></li>
             <li><a href="view_data.html" id="listP">List Pegawai</a></li>
             <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
             <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
@@ -46,47 +46,64 @@
             <form action="data_success.html" method="POST">
                 <label for="table">Pilih data yang ingin ditambahkan:</label>
                 <select id="table" name="table">
+                    <option value="Default">--Pilih Opsi--</option>
                     <option value="Pegawai">Pegawai</option>
                     <option value="Jabatan">Jabatan</option>
                     <!-- Setiap kali option dipilih, baru nonaktif hidden -->
                 </select><br>
                 <br>
-                <button type="submit">Lanjutkan</button>
+                <!-- <button type="submit">Lanjutkan</button> -->
             </form>
         </div>
     
         <div id="masuk_data_pegawai">
-            <h1>Masukkan Data Pegawai</h1>
-            <form action="proses_masukan_data.html" method="POST">
-                <label for="nama">Nama:</label>
-                <input type="text" id="nama" name="nama" required><br>
-                <label for="no_hp">Nomor HP:</label>
-                <input type="text" id="no_hp" name="no_hp" required><br>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br>
-    
-                <label for="alamat">Alamat:</label>
-                <br>
-                <label for="kecamatan">Pilih Kecamatan:</label>
-                <select id="kecamatan" name="kecamatan" onchange="loadKelurahan()" required>
-                    <!-- Opsi kecamatan -->
-                    <option value="">--Pilih Kecamatan--</option>
-                </select>
-                <br>
-                <label for="kelurahan">Pilih Kelurahan:</label>
-                <select id="kelurahan" name="kelurahan" required>
-                    <!-- Opsi kelurahan -->
-                    <option value="">--Pilih Kelurahan--</option>
-                </select>
-                <br>
-                <label for="alamat">Nama Jalan:</label>
-                <input type="text" id="alamat" name="alamat" required><br>
-        
-                <label for="jabatan">Jabatan:</label>
-                <select id="jabatan" name="jabatan" required>
-                    <option value="">--Pilih Jabatan--</option>
-                    <!-- Opsi jabatan -->
-                </select><br>
+            <form action="proses_masukan_data.html" method="POST" id="form_pegawai" style="display: none;">
+                <h1>Masukkan Data Pegawai</h1>
+                <table>
+                    <tr>
+                        <td><label for="nama">Nama: <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="nama" name="nama" required><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="no_hp">Nomor HP: <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="no_hp" name="no_hp" required><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email: <span style="color: red;">*</span></label></td>
+                        <td><input type="email" id="email" name="email" required><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="alamat">Alamat: <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="alamat" name="alamat" required><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="jabatan">Jabatan: <span style="color: red;">*</span></label></td>
+                        <td><select id="jabatan" name="jabatan" required>
+                            <option value="">--Pilih Jabatan--</option>
+                            <option value="">Barista</option>
+                            <option value="">Kasir</option>
+                            <option value="">Waiter</option>
+                            <option value="">Janitor</option>
+                            <option value="">Security</option>
+                        </select><br></td>
+                    </tr>
+                    <tr><td colspan="2"><button type="submit">Simpan Pegawai</button></td></tr>
+                </table>             
+            </form>
+
+            <form action="proses_masukan_jabatan.html" method="POST" id="form_jabatan" style="display: none;">
+                <h1>Masukkan Data Jabatan</h1>
+                <table>
+                    <tr>
+                        <td><label for="jabatan_name">Nama Jabatan: <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="jabatan_name" name="jabatan_name" rows="3" required style="resize: none;"></textarea><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="satuan_gaji">Nominal Satuan Gaji: <span style="color: red;">*</span></label></td>
+                        <td><input type="number" id="satuan_gaji" name="satuan_gaji" required><br></td>
+                    </tr>
+                    <tr><td colspan="2"><button type="submit">Simpan Jabatan</button></td></tr>
+                </table>  
             </form>
         </div>
     </main>
@@ -103,6 +120,22 @@
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
             window.location.href = "ownerLogin.html";
+        });
+        const tableSelect = document.getElementById('table');
+        const formPegawai = document.getElementById('form_pegawai');
+        const formJabatan = document.getElementById('form_jabatan');
+    
+        tableSelect.addEventListener('change', function () {
+            if (this.value === 'Pegawai') {
+                formPegawai.style.display = 'block';
+                formJabatan.style.display = 'none';
+            } else if (this.value === 'Jabatan') {
+                formPegawai.style.display = 'none';
+                formJabatan.style.display = 'block';
+            } else {
+                formPegawai.style.display = 'none';
+                formJabatan.style.display = 'none';
+            }
         });
     </script>
 </body>
