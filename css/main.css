@@ -2,14 +2,13 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-
 }
 
 header {
     display: flex; 
     justify-content: center;
     align-items: center;
-    background-color: #0056b3;
+    background-color: #0c1445;
     height: 70px;
 }
 
@@ -21,11 +20,13 @@ main {
     font-size: large;
     display: flex;
     justify-content: center;
-    padding: 200px;
+    padding-top: 20px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
 
 div.loginContainer {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
     padding: 40px 20px 80px 20px;
     display: flex;
     flex-direction: column;
@@ -61,7 +62,7 @@ input {
 button {
     border-radius: 5px;
     color: white;
-    background-color: #0056b3;
+    background-color: #0c1445;
     font-family: Arial, sans-serif;
     margin-top: 5px;
     font-size: medium;
@@ -70,7 +71,8 @@ button {
 }
 
 button:hover {
-    background-color: #0065d1;
+    background-color: #8e91a3;
+    color: black;
     cursor: pointer;
 }
 
