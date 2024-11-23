@@ -1,74 +1,65 @@
-drop table if exists Kecamatan
-drop table if exists Kelurahan
-drop table if exists Alamat
-drop table if exists Jabatan
-drop table if exists Pegawai
-drop table if exists DaftarKehadiran
-drop table if exists Pemilik
+DROP TABLE IF EXISTS Kecamatan CASCADE;
+DROP TABLE IF EXISTS Kelurahan CASCADE;
+DROP TABLE IF EXISTS Alamat CASCADE;
+DROP TABLE IF EXISTS Jabatan CASCADE;
+DROP TABLE IF EXISTS Pegawai CASCADE;
+DROP TABLE IF EXISTS DaftarKehadiran CASCADE;
+DROP TABLE IF EXISTS Pemilik CASCADE;
 
-create table Kecamatan(
-	idKecamatan int primary key identity not null,
-	namaKecamatan varchar(50),
-)
+CREATE SCHEMA public;
 
-create table Kelurahan(
-	idKelurahan int primary key identity not null,
-	namaKelurahan varchar(50),
-	idKecamatan int foreign key references Kecamatan (idKecamatan)
-)
+CREATE TABLE Kecamatan (
+    idKecamatan SERIAL PRIMARY KEY,
+    namaKecamatan VARCHAR(50)
+);
 
-create table Alamat(
-	idAlamat int primary key identity not null,
-	namaJalan varchar(60),
-	idKelurahan int foreign key references Kelurahan (idKelurahan) not null
-)
+CREATE TABLE Kelurahan (
+    idKelurahan SERIAL PRIMARY KEY,
+    namaKelurahan VARCHAR(50),
+    idKecamatan INT REFERENCES Kecamatan (idKecamatan)
+);
 
-create table Jabatan(
-	idJabatan int primary key identity not null,
-	namaJabatan varchar(30),
-	satuanGaji money
-)
+CREATE TABLE Alamat (
+    idAlamat SERIAL PRIMARY KEY,
+    namaJalan VARCHAR(60),
+    idKelurahan INT NOT NULL REFERENCES Kelurahan (idKelurahan)
+);
 
-create table Pegawai (
-	nomorHP nvarchar(20) primary key,
-	namaPegawai nvarchar(50),
-	email nvarchar(50),
-	idJabatan int foreign key references Jabatan (idJabatan),
-	idAlamat int foreign key references Alamat (idAlamat)
-)
+CREATE TABLE Jabatan (
+    idJabatan SERIAL PRIMARY KEY,
+    namaJabatan VARCHAR(30),
+    satuanGaji NUMERIC
+);
 
-create table DaftarKehadiran(
-	idKehadiran int primary key identity not null,
-	tanggal date,
-	jamMasuk time,
-	jamKeluar time,
-	durasiKerja float,
-	nomorHP nvarchar(20) foreign key references Pegawai (nomorHP)
-)
+CREATE TABLE Pegawai (
+    nomorHP VARCHAR(20) PRIMARY KEY,
+    namaPegawai VARCHAR(50),
+    email VARCHAR(50),
+    idJabatan INT REFERENCES Jabatan (idJabatan),
+    idAlamat INT REFERENCES Alamat (idAlamat)
+);
 
-create table Pemilik (
-	namaPemilik varchar(50) primary key,
-	usernamePemilik varchar(30),
-	passwordPemilik varchar(20)
-)
+CREATE TABLE DaftarKehadiran (
+    idKehadiran SERIAL PRIMARY KEY,
+    tanggal DATE,
+    jamMasuk TIME,
+    jamKeluar TIME,
+    durasiKerja FLOAT,
+    nomorHP VARCHAR(20) REFERENCES Pegawai (nomorHP)
+);
 
-create index idx_idKecamatan
-on Kecamatan (idKecamatan)
+CREATE TABLE Pemilik (
+    namaPemilik VARCHAR(50) PRIMARY KEY,
+    usernamePemilik VARCHAR(30),
+    passwordPemilik VARCHAR(20)
+);
 
-create index idx_idKelurahan
-on Kelurahan(idKelurahan)
-
-create index idx_idAlamat
-on Alamat(idAlamat)
-
-create index idx_idJabatan
-on Jabatan (idJabatan)
-
-create index idx_nomorHP
-on Pegawai (nomorHP)
-
-create index idx_idKehadiran
-on DaftarKehadiran (idKehadiran)
+CREATE INDEX idx_idKecamatan ON Kecamatan (idKecamatan);
+CREATE INDEX idx_idKelurahan ON Kelurahan (idKelurahan);
+CREATE INDEX idx_idAlamat ON Alamat (idAlamat);
+CREATE INDEX idx_idJabatan ON Jabatan (idJabatan);
+CREATE INDEX idx_nomorHP ON Pegawai (nomorHP);
+CREATE INDEX idx_idKehadiran ON DaftarKehadiran (idKehadiran);
 
 insert into Kecamatan(namaKecamatan)
 values	('Andir'), ('Antapani'), ('Arcamanik'), ('Astanaanyar'), ('Babakan Ciparay'), ('Bandung Kidul'), ('Bandung Kulon'), ('Bandung Wetan'), ('Batununggal'),
