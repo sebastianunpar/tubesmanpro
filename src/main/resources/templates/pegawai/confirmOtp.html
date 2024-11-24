@@ -14,14 +14,14 @@
     <main>
         <div class="loginContainer">
             <h2>Log in</h2>
-            <form>
+            <form action="/pegawai/dashboard" method="post">
                 <label for="otp">Kode OTP:</label>
                 <input type="text" id="otp" name="otp">
                 <button id="pegawaiOtp" type="submit">Confirm</button>
             </form>
             <div>
                 <span id="statusLogin"></span>
-                <a href="../owner/ownerLogin.html">Owner?</a>
+                <a href="owner" class="changeRole">Owner?</a>
             </div>
         </div>
     </main>

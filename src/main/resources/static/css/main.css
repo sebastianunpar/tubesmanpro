@@ -86,12 +86,20 @@ form {
 }
 
 form + div {
-    margin: 5px;
+    margin: 0;
+    height: 30px;
+    padding: 10px 20px;
     width: 200px;
-    display: flex;
-    justify-content: space-between;
+    align-content: center;
 }
 
+.changeRole{
+    float: right;
+}
+
+#statusLogin {
+    color: red;
+}
 
 main::-webkit-scrollbar {
     width: 10px;

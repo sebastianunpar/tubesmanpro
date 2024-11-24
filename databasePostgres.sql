@@ -6,8 +6,6 @@ DROP TABLE IF EXISTS Pegawai CASCADE;
 DROP TABLE IF EXISTS DaftarKehadiran CASCADE;
 DROP TABLE IF EXISTS Pemilik CASCADE;
 
-CREATE SCHEMA public;
-
 CREATE TABLE Kecamatan (
     idKecamatan SERIAL PRIMARY KEY,
     namaKecamatan VARCHAR(50)
@@ -323,3 +321,4 @@ values	('Barista', 22000.0),
 		('Janitor', 15000.0),
 		('Security', 15000.0)
 
+insert into pemilik 
