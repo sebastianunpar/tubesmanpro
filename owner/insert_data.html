@@ -16,6 +16,68 @@
     <link rel="stylesheet" href="../css/owner.css">
     <script src="../js/script.js" defer></script>
 </head>
+<style>
+    h2{
+        color: #444444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin: 20px;
+    }
+    fieldset{
+        border-radius: 10px;
+        border: 2px solid #444444;
+        width: 500px;
+    }
+    main{
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        height: 100vh;
+    }
+    select, option {
+        background-color: #3c4163;
+        padding: 5px;
+        border-radius: 8px;
+        border: none;
+        color: white;
+    }
+    #masuk_data_pegawai{
+        border: none;
+        border-radius: 10px;
+        margin-top: 30px;
+        padding: 30px;
+        width: 500px;
+    }
+    td{
+        text-align: left
+    }
+    table{
+        border-spacing: 15px 10px;
+    }
+    #masuk_data_pegawai input{
+        width: 250px;
+        background-color: #3c4163;
+        border-radius: 8px;
+        padding-left: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+    }
+    button.buttonSubmit{
+        background-color: #1a1a40;
+        border-radius: 8px;
+        padding: 10px;
+        color: white;
+        margin-top: 10px;
+    }
+    button:hover{
+        background-color: #444444;
+        color: white;
+    }
+</style>
 <body>
     <header>
         <div class="header-container">
@@ -42,17 +104,16 @@
     </nav>
     <main>
         <div id="head">
-            <h1>Menambahkan Data Baru</h1>
-            <form action="data_success.html" method="POST">
+            <fieldset>
+                <legend><h2>Menambahkan Data Baru</h2></legend>
                 <label for="table">Pilih data yang ingin ditambahkan:</label>
                 <select id="table" name="table">
-                    <option value="Default">--Pilih Opsi--</option>
+                    <option value="Default">--Pilih Data--</option>
                     <option value="Pegawai">Pegawai</option>
                     <option value="Jabatan">Jabatan</option>
-                    <!-- Setiap kali option dipilih, baru nonaktif hidden -->
-                </select><br>
+            </fieldset>
+            <form action="data_success.html" method="POST">                </select><br>
                 <br>
-                <!-- <button type="submit">Lanjutkan</button> -->
             </form>
         </div>
     
@@ -61,23 +122,23 @@
                 <h1>Masukkan Data Pegawai</h1>
                 <table>
                     <tr>
-                        <td><label for="nama">Nama: <span style="color: red;">*</span></label></td>
+                        <td><label for="nama">Nama <span style="color: red;">*</span></label></td>
                         <td><input type="text" id="nama" name="nama" required><br></td>
                     </tr>
                     <tr>
-                        <td><label for="no_hp">Nomor HP: <span style="color: red;">*</span></label></td>
+                        <td><label for="no_hp">Nomor HP <span style="color: red;">*</span></label></td>
                         <td><input type="text" id="no_hp" name="no_hp" required><br></td>
                     </tr>
                     <tr>
-                        <td><label for="email">Email: <span style="color: red;">*</span></label></td>
+                        <td><label for="email">Email <span style="color: red;">*</span></label></td>
                         <td><input type="email" id="email" name="email" required><br></td>
                     </tr>
                     <tr>
-                        <td><label for="alamat">Alamat: <span style="color: red;">*</span></label></td>
+                        <td><label for="alamat">Alamat <span style="color: red;">*</span></label></td>
                         <td><input type="text" id="alamat" name="alamat" required><br></td>
                     </tr>
                     <tr>
-                        <td><label for="jabatan">Jabatan: <span style="color: red;">*</span></label></td>
+                        <td><label for="jabatan">Jabatan <span style="color: red;">*</span></label></td>
                         <td><select id="jabatan" name="jabatan" required>
                             <option value="">--Pilih Jabatan--</option>
                             <option value="">Barista</option>
@@ -87,7 +148,7 @@
                             <option value="">Security</option>
                         </select><br></td>
                     </tr>
-                    <tr><td colspan="2"><button type="submit">Simpan Pegawai</button></td></tr>
+                    <tr><td colspan="2"><button type="submit" class="buttonSubmit">Simpan Pegawai</button></td></tr>
                 </table>             
             </form>
 
@@ -102,7 +163,7 @@
                         <td><label for="satuan_gaji">Nominal Satuan Gaji: <span style="color: red;">*</span></label></td>
                         <td><input type="number" id="satuan_gaji" name="satuan_gaji" required><br></td>
                     </tr>
-                    <tr><td colspan="2"><button type="submit">Simpan Jabatan</button></td></tr>
+                    <tr><td colspan="2"><button type="submit" class="buttonSubmit">Simpan Jabatan</button></td></tr>
                 </table>  
             </form>
         </div>
@@ -124,17 +185,21 @@
         const tableSelect = document.getElementById('table');
         const formPegawai = document.getElementById('form_pegawai');
         const formJabatan = document.getElementById('form_jabatan');
+        const masukDataPegawai = document.getElementById('masuk_data_pegawai');
     
         tableSelect.addEventListener('change', function () {
             if (this.value === 'Pegawai') {
                 formPegawai.style.display = 'block';
                 formJabatan.style.display = 'none';
+                masukDataPegawai.style.border = '2px solid #444444';
             } else if (this.value === 'Jabatan') {
                 formPegawai.style.display = 'none';
                 formJabatan.style.display = 'block';
+                masukDataPegawai.style.border = '2px solid #444444';
             } else {
                 formPegawai.style.display = 'none';
                 formJabatan.style.display = 'none';
+                masukDataPegawai.style.border = '2px solid #444444';
             }
         });
     </script>
