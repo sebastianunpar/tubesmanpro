@@ -19,10 +19,10 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
-            <li><a href="mainMenuPegawai.html" style="background-color: #444444;">Dashboard</a></li>
-            <li><a href="profilePegawai.html">Profil</a></li> 
-            <li><a href="attendance_check.html">Cek Kehadiran</a></li>
-            <li><a href="salary_check.html">Cek Gaji</a></li>
+            <li><a th:href="@{/pegawai/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/pegawai/profile}">Profil</a></li>
+            <li><a th:href="@{/pegawai/kehadiran}" style="background-color: #444444;">Cek Kehadiran</a></li>
+            <li><a th:href="@{/pegawai/gaji}">Cek Gaji</a></li>
         </ul>
         <div class="logoutContainer">
             <button class="logout-btn" id="logOut">Logout</button>
