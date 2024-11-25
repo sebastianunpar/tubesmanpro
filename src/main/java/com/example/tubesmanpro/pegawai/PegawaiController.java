@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/pegawai")
+@RequestMapping("")
 public class PegawaiController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -39,26 +39,6 @@ public class PegawaiController {
     @GetMapping("/")
     public String showLogin (Model model) {
         return "index";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard (Model model) {
-        return "pegawai/mainMenuPegawai";
-    }
-
-    @GetMapping("/kehadiran")
-    public String kehadiran (Model model) {
-        return "pegawai/attendance_check";
-    }
-
-    @GetMapping("/profile")
-    public String profile (Model model) {
-        return "pegawai/profilePegawai";
-    }
-
-    @GetMapping("/gaji")
-    public String cekGaji (Model model) {
-        return "pegawai/salary_check";
     }
 
     @PostMapping("/")
