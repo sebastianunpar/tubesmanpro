@@ -19,13 +19,15 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
-            <li><a href="mainMenuPegawai.html">Dashboard</a></li>
-            <li><a href="profilePegawai.html">Profil</a></li>
-            <li><a href="attendance_check.html" style="background-color: #444444;">Cek Kehadiran</a></li>
-            <li><a href="salary_check.html">Cek Gaji</a></li>
+            <li><a href="/pegawai/dashboard">Dashboard</a></li>
+            <li><a href="/pegawai/profil">Profil</a></li>
+            <li><a href="/pegawai/kehadiran" style="background-color: #444444;">Cek Kehadiran</a></li>
+            <li><a href="/pegawai/gaji">Cek Gaji</a></li>
         </ul>
         <div class="logoutContainer">
-            <button class="logout-btn" id="logOut">Logout</button>
+            <form id="logoutForm" action="/pegawai/logout" method="post">
+                <button type="submit" class="logout-btn" id="logOut">Logout</button>
+            </form>
         </div>
     </nav>
     <main>
@@ -91,12 +93,6 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
-
-        const logOutButton = document.querySelector('#logOut');
-        logOutButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.location.href = "../index.html";
-        });
 
         const attendanceButton = document.querySelector('#attendanceButton');
         const attendanceExitButton = document.querySelector('#attendanceExitButton');

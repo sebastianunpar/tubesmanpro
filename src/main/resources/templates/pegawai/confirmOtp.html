@@ -14,13 +14,13 @@
     <main>
         <div class="loginContainer">
             <h2>Log in</h2>
-            <form action="/pegawai/dashboard" method="post">
+            <form action="/confirm-otp" method="post">
                 <label for="otp">Kode OTP:</label>
-                <input type="text" id="otp" name="otp">
+                <input type="text" id="otp" name="otp" th:value="${otp}">
                 <button id="pegawaiOtp" type="submit">Confirm</button>
             </form>
             <div>
-                <span id="statusLogin"></span>
+                <span id="statusLogin" th:if="${error}" th:text="${error}"></span>
                 <a href="owner" class="changeRole">Owner?</a>
             </div>
         </div>
