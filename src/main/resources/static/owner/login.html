@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/script.js" defer></script>
+    <title>Absensi</title>
+</head>
+<style>
+    body{
+        background-image: url(../assets/background4.jpg);
+        background-size: cover; 
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
+    .loginContainer {
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        font-size: 17px;
+        display: block;
+        margin: 10px 0 5px;
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-group input {
+        background-color: #3c4163;
+        color: white;
+        padding-left: 40px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .input-group input::placeholder {
+        color: rgb(217, 216, 224);
+    }
+
+    .input-group img {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        height: 20px;
+        pointer-events: none;
+        filter: invert(0.9);
+    }
+
+    button {
+        background-color: #1a1a40;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 16px;
+        padding-bottom: 29px;
+    }
+
+    button:hover {
+        background-color: #333;
+        color: white;
+    }
+
+    a {
+        text-decoration: none;
+        color: #1a1a40;
+        font-size: 17px;
+        
+    }
+    .input-group input{
+        padding-left: 40px;
+    }
+</style>
+<body>
+    <header>
+        <h1>Welcome to Kafe IF</h1>
+    </header>  
+    <main>
+        <div class="loginContainer">
+            <h2>Log in</h2>
+            <form action="/owner/login" method="post">
+                <div class="input-group">
+                    <img src="../assets/user.png" alt="user">
+                    <input type="text" id="username" name="username" placeholder="username" th:value="${username}">
+                </div>
+                <div class="input-group">
+                    <img src="../assets/lock.png" alt="password">
+                    <input type="password" id="password" name="password" placeholder="password" th:value="${password}">
+                </div>
+                <button id="ownerLogin" type="submit">Log in</button>
+            </form>
+            <div>
+                <span id="statusLogin" th:if="${error}" th:text="${error}"> </span>
+                <a href="/" class="changeRole">< Pegawai</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

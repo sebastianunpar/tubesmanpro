@@ -58,7 +58,6 @@ button {
 label {
     margin-bottom: 2px;
 }
-
 form {
     display: flex;
     flex-direction: column;
@@ -70,8 +69,6 @@ form + div {
     display: flex;
     justify-content: space-between;
 }
-
-
 
 main::-webkit-scrollbar {
     width: 10px;
