@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +9,18 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to Kafe IF</h1>
+        <h1>Welcome to Kafe IF</h1> 
     </header> 
     <main>
         <div class="loginContainer">
             <h2>Log in</h2>
             <form action="/" method="post">
                 <label for="noHp">No. Telp:</label>
-                <input type="text" id="noHp" name="noHp">
+                <input type="text" id="noHp" name="noHp" th:value="${noHp}">
                 <button id="pegawaiLogin" type="submit">Log in</button>
             </form>
             <div>
-                <span id="statusLogin"></span>
+                <span id="statusLogin" th:if="${error}" th:text="${error}"></span>
                 <a href="owner" class="changeRole">Owner?</a>
             </div>
         </div>

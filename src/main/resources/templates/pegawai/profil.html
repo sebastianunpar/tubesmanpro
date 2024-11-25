@@ -19,13 +19,15 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
-            <li><a th:href="@{/pegawai/dashboard}">Dashboard</a></li>
-            <li><a th:href="@{/pegawai/profile}">Profil</a></li>
-            <li><a th:href="@{/pegawai/kehadiran}" style="background-color: #444444;">Cek Kehadiran</a></li>
-            <li><a th:href="@{/pegawai/gaji}">Cek Gaji</a></li>
+            <li><a href="/pegawai/dashboard">Dashboard</a></li>
+            <li><a href="/pegawai/profil" style="background-color: #444444;">Profil</a></li> 
+            <li><a href="/pegawai/kehadiran">Cek Kehadiran</a></li>
+            <li><a href="/pegawai/gaji">Cek Gaji</a></li>
         </ul>
         <div class="logoutContainer">
-            <button class="logout-btn" id="logOut">Logout</button>
+            <form id="logoutForm" action="/pegawai/logout" method="post">
+                <button type="submit" class="logout-btn" id="logOut">Logout</button>
+            </form>
         </div>
     </nav>
     <main>
@@ -61,12 +63,6 @@
         function editProfile() {
             alert("Fitur edit profil akan segera hadir!");
         }
-
-        const logOutButton = document.querySelector('#logOut');
-        logOutButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            window.location.href = "../index.html";
-        });
     </script>
 </body>
 </html>

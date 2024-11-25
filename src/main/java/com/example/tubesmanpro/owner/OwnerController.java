@@ -54,13 +54,58 @@ public class OwnerController {
             model.addAttribute("error", "Invalid");
             model.addAttribute("username", username);
             model.addAttribute("password", password);
-            model.addAttribute(password, owners);
             return "owner/login";
         }
 
         Owner owner = owners.get(0);
-        session.setAttribute("loggedInOwner", owner);
+        session.setAttribute("loggedInOwner", owner.getUsername());
 
         return "redirect:/owner/dashboard";
+    }
+
+    @GetMapping("/tambah-data")
+    public String tambahData(HttpSession session) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        return "owner/insertData";
+    }
+
+    @GetMapping("/list-pegawai")
+    public String showListPegawai(HttpSession session) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        return "owner/listPegawai";
+    }
+
+    @GetMapping("/update-pegawai")
+    public String updatePegawai(HttpSession session) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        return "owner/updatePegawai";
+    }
+
+    @GetMapping("/laporan-kehadiran")
+    public String showTambahData(HttpSession session) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        return "owner/laporanKehadiran";
+    }
+
+    @GetMapping("/bayar-gaji")
+    public String bayarGaji(HttpSession session) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        return "owner/bayarGaji";
+    }
+
+    @PostMapping("/logout")
+    public String logOut (HttpSession session) {
+        session.invalidate();
+        return "redirect:/owner";
     }
 }
