@@ -33,19 +33,95 @@
     </nav>
     <main>
         <div id="update_data_pegawai">
-            <h1>Update Data Pegawai</h1>x
             <form action="proses_update_data.html" method="POST">
-                <label for="pegawai_id">Masukkan ID Pegawai <span id="star">*</span>:</label>
-                <input type="text" id="pegawai_id" name="pegawai_id" required><br>
-                <label for="no_hp">Nomor HP Baru:</label>
-                <input type="text" id="no_hp" name="no_hp"><br>
-                <label for="email">Email Baru:</label>
-                <input type="email" id="email" name="email"><br>
-                <label for="alamat">Alamat Baru:</label>
-                <input type="text" id="alamat" name="alamat"><br>
-                <label for="jabatan">Jabatan Baru:</label>
-                <input type="text" id="jabatan" name="jabatan"><br>
-                <button type="submit">Update</button>
+                <div id="head">
+                    <fieldset>
+                        <legend><h2>Menambahkan Data Baru</h2></legend>
+                        <label for="table">Pilih Pegawai:</label>
+                        <select id="table" name="table" required>
+                            <option value="">--Pilih Pegawai--</option>
+                            <option value="1">0812345667-Steven</option>
+                        </select>
+                    </fieldset>
+                </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <table id="data_lama">
+                                    <tr>
+                                        <td><p><strong>Data Lama:</strong></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="no_hp">Nomor HP <span style="color: red;">*</span></label></td>
+                                        <td><span>0812345667</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="email">Email <span style="color: red;">*</span></label></td>
+                                        <td><span>steven@gmail.com</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="kecamatan">Kecamatan <span style="color: red;">*</span></label></td>
+                                        <td><span>Cidadap</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="kelurahan">Kelurahan <span style="color: red;">*</span></label></td>
+                                        <td><span>Hegarmanah</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="alamat">Alamat <span style="color: red;">*</span></label></td>
+                                        <td><span>Jl. Ciumbuleuit No.94</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="jabatan">Jabatan <span style="color: red;">*</span></label></td>
+                                        <td><span>Barista</span></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <table id="input_data">
+                                    <tr>
+                                        <td><p><strong>Data Baru:</strong></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="no_hp">Nomor HP <span style="color: red;">*</span></label></td>
+                                        <td><input type="text" id="no_hp" name="no_hp" required><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="email">Email <span style="color: red;">*</span></label></td>
+                                        <td><input type="email" id="email" name="email" required><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="kecamatan">Kecamatan <span style="color: red;">*</span></label></td>
+                                        <td><select id="kecamatan" name="kecamatan" required>
+                                            <option value="">--Pilih Kecamatan--</option>
+                                        </select><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="kelurahan">Kelurahan <span style="color: red;">*</span></label></td>
+                                        <td><select id="kelurahan" name="kelurahan" required>
+                                            <option value="">--Pilih Kelurahan--</option>
+                                        </select><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="alamat">Alamat <span style="color: red;">*</span></label></td>
+                                        <td><input type="text" id="alamat" name="alamat" required><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="jabatan">Jabatan <span style="color: red;">*</span></label></td>
+                                        <td><select id="jabatan" name="jabatan" required>
+                                            <option value="">--Pilih Jabatan--</option>
+                                            <option value="">Barista</option>
+                                            <option value="">Kasir</option>
+                                            <option value="">Waiter</option>
+                                            <option value="">Janitor</option>
+                                            <option value="">Security</option>
+                                        </select><br></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>    
+                    </table>
+                <button type="submit" id="buttonSubmit" style="display: none;">Simpan Pegawai</button>
             </form>
         </div>
     </main>
@@ -62,6 +138,22 @@
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
             window.location.href = "login.html";
+        });
+        let option = document.getElementById('table');
+        let dataLama = document.getElementById('data_lama');
+        let dataBaru = document.getElementById('input_data');
+        let submit = document.getElementById('buttonSubmit');
+
+        option.addEventListener('change', () => {
+            if (option.value === '1') {
+                dataLama.classList.add('visible');
+                dataBaru.classList.add('visible');
+                submit.style.display = "block";
+            } else {
+                dataLama.classList.remove('visible');
+                dataBaru.classList.remove('visible');
+                submit.style.display = "none";
+            }
         });
     </script>
 </body>
