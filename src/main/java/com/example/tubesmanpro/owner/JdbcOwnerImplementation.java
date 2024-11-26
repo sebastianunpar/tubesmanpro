@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.tubesmanpro.kehadiran.kehadiran;
+import com.example.tubesmanpro.pegawai.Pegawai;
 
 @Repository
 public class JdbcOwnerImplementation implements OwnerRepository{
@@ -35,6 +36,11 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         return jdbcTemplate.query(sql, this::mapRowToKehadiran);
     }
 
+    public List<Pegawai> showUpdatePegawai(){
+        String sql = "select namapegawai,nomorhp,email,namajabatan,namajalan from pegawai join jabatan on pegawai.idjabatan = jabatan.idjabatan join alamat on alamat.idalamat = pegawai.idalamat";
+        return jdbcTemplate.query(sql, this::mapRowToPegawai);
+    }
+
     private Owner mapRowToOwner(ResultSet resultSet, int rowNum) throws SQLException {
         return new Owner(
             resultSet.getString("namapemilik"),
@@ -50,6 +56,16 @@ public class JdbcOwnerImplementation implements OwnerRepository{
             resultSet.getString("jammasuk"),
             resultSet.getString("jamkeluar"),
             resultSet.getDouble("durasikerja")
+        );
+    }    
+    
+    private Pegawai mapRowToPegawai(ResultSet resultSet, int rowNum) throws SQLException {
+        return new Pegawai(
+            resultSet.getString("namapegawai"),
+            resultSet.getString("nomorhp"),
+            resultSet.getString("email"),
+            resultSet.getString("namajabatan"),
+            resultSet.getString("namajalan")
         );
     }
 }

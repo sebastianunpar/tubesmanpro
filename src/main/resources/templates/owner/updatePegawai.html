@@ -58,7 +58,8 @@
                             <td>
                                 <select id="select_pegawai">
                                     <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                    <option value="1">0812345667-Steven</option>
+                                    <option th:each="pegawai : ${pegawaiList}" 
+                                    th:text="${pegawai.namapegawai}"></option>
                                 </select>
                             </td>
                         </tr>
