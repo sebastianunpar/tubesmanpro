@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.LocalDate;
 
 import com.example.tubesmanpro.kehadiran.kehadiran;
 
@@ -33,6 +34,7 @@ public class OwnerController {
         }
         List<kehadiran> seluruhKehadiran = this.repo.showKehadiran();
         model.addAttribute("kehadirans",seluruhKehadiran);
+        model.addAttribute("today", LocalDate.now().toString());
         return "owner/dashboard";
     }
 
