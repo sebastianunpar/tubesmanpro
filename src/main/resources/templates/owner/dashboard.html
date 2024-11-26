@@ -7,22 +7,6 @@
     <link rel="stylesheet" href="../css/owner.css">
     <script src="../js/script.js" defer></script>
 </head>
-<style>
-    th{
-        background-color: #3c4163;
-        color: white;
-    }
-    tr{
-        background-color: rgba(255, 255, 255, 0.5);
-    }
-    .table{
-        width: 1000px;
-    }
-    main{
-        display: flex;
-        justify-content: center;
-    }
-</style>
 <body>
     <header>
         <div class="header-container">
@@ -43,9 +27,7 @@
             <li><a href="/owner/bayar-gaji" id="salaryR" style="background-color: #444444;">Laporan Gaji</a></li>
         </ul>
         <div class="logoutContainer">
-            <form id="logoutForm" action="/owner/logout" method="post">
-                <button type="submit" class="logout-btn" id="logOut">Logout</button>
-            </form>
+            <button class="logout-btn" id="logOut">Logout</button>
         </div>
     </nav>
     <main>       
@@ -100,6 +82,12 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+
+        const logOutButton = document.querySelector('#logOut')
+        logOutButton.addEventListener ('click', (event) => {
+            event.preventDefault();
+            window.location.href = "login.html";
+        });
     </script>
 </body>
 </html>
