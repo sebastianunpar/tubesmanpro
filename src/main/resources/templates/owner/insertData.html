@@ -13,9 +13,71 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Tambah Pegawai</title>
-     <link rel="stylesheet" href="../css/owner.css">
+     <link rel="stylesheet" href="../../static/css/owner.css">
      <script src="../js/script.js" defer></script>
  </head>
+ <style>
+     h2{
+         color: #444444;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         position: relative;
+         margin: 20px;
+     }
+     fieldset{
+         border-radius: 10px;
+         border: 2px solid #444444;
+         width: 500px;
+     }
+     main{
+         display: flex;
+         flex-direction: column;
+ 
+         align-items: center;
+         height: 100vh;
+     }
+     select, option {
+         background-color: #3c4163;
+         padding: 5px;
+         border-radius: 8px;
+         border: none;
+         color: white;
+     }
+     #masuk_data_pegawai{
+         border: none;
+         border-radius: 10px;
+         margin-top: 30px;
+         padding: 30px;
+         width: 500px;
+     }
+     td{
+         text-align: left
+     }
+     table{
+         border-spacing: 15px 10px;
+     }
+     #masuk_data_pegawai input{
+         width: 250px;
+         background-color: #3c4163;
+         border-radius: 8px;
+         padding-left: 10px;
+         padding-top: 5px;
+         padding-bottom: 5px;
+         color: white;
+     }
+     button.buttonSubmit{
+         background-color: #1a1a40;
+         border-radius: 8px;
+         padding: 10px;
+         color: white;
+         margin-top: 10px;
+     }
+     button:hover{
+         background-color: #444444;
+         color: white;
+     }
+ </style>
  <body>
      <header>
          <div class="header-container">
@@ -28,13 +90,12 @@
              <button id="x" onclick="toggleMenu()">X</button>
          </div>
          <ul>
-             <li><a href="dashboard.html" id="dash">Dashboard</a></li>
+             <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
              <li><a href="insert_data.html" id="addP" style="background-color: #444444;">Tambah Data</a></li>
              <li><a href="view_data.html" id="listP">List Pegawai</a></li>
              <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
              <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
              <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
-             <li><a href="pay_salary.html" id="paySalary">Bayar Gaji</a></li>
          </ul>
          <div class="logoutContainer">
              <button class="logout-btn" id="logOut">Logout</button>
@@ -70,18 +131,6 @@
                      <tr>
                          <td><label for="email">Email <span style="color: red;">*</span></label></td>
                          <td><input type="email" id="email" name="email" required><br></td>
-                     </tr>
-                     <tr>
-                         <td><label for="kecamatan">Kecamatan <span style="color: red;">*</span></label></td>
-                         <td><select id="kecamatan" name="kecamatan" required>
-                             <option value="">--Pilih Kecamatan--</option>
-                         </select><br></td>
-                     </tr>
-                     <tr>
-                         <td><label for="kelurahan">Kelurahan <span style="color: red;">*</span></label></td>
-                         <td><select id="kelurahan" name="kelurahan" required>
-                             <option value="">--Pilih Kelurahan--</option>
-                         </select><br></td>
                      </tr>
                      <tr>
                          <td><label for="alamat">Alamat <span style="color: red;">*</span></label></td>
@@ -130,7 +179,7 @@
          const logOutButton = document.querySelector('#logOut')
          logOutButton.addEventListener ('click', (event) => {
              event.preventDefault();
-             window.location.href = "login.html";
+             window.location.href = "ownerLogin.html";
          });
          const tableSelect = document.getElementById('table');
          const formPegawai = document.getElementById('form_pegawai');

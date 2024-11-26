@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Pegawai</title>
-    <link rel="stylesheet" href="../css/owner.css">
+    <link rel="stylesheet" href="../../static/css/owner.css">
     <script src="../js/script.js" defer></script>
 </head>
 <style>
@@ -15,12 +15,13 @@
         padding: 10px 20px;
         margin-top: 10px;
         margin-bottom: 15px;
-        margin-left: 10px;
     }
     input {
         background-color: #3c4163;
     }
-
+    .update_data{
+        margin: -50px;
+    }
 </style>
 <body>
     <header>
@@ -54,111 +55,106 @@
                         <tr>
                             <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
                             <td>
-                                <select id="select_pegawai">
+                                <select>
                                     <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                    <option value="1">0812345667-Steven</option>
                                 </select>
                             </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="but_update">Pilih</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="pilih_pegawai">
+            <form action="??" method="POST">
+                <fieldset>
+                    <legend><h2>Data Pegawai Sebelum</h2></legend>
+                    <table>
+                        <tr>
+                            <td><label for="pegawai_id">Nama:</label></td>
+                            <td>Steven Febrian</td>
+                        </tr>
+                        <tr>
+                            <td>Nomor HP:</td>
+                            <td>0812345667</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>steven_feb@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td>Kecamatan:</td>
+                            <td>Cidadap</td>
+                        </tr>
+                        <tr>
+                            <td>Kelurahan</td>
+                            <td>Hergamanah</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>Jl. Ciumbuleuit No. 94</td>
+                        </tr>
+                        <tr>
+                            <td>Jabatan</td>
+                            <td>Barista</td>
                         </tr>
                     </table>
                 </fieldset>
             </form>
         </div>
-        <div>
-            <table>
-                <tr>
-                    <td>
-                        <div id="data_pegawai_sebelum">
-                            <form action="??" method="POST">
-                                <fieldset>
-                                    <legend><h2>Data Pegawai Sebelum</h2></legend>
-                                    <table>
-                                        <tr>
-                                            <td><label for="pegawai_id">Nama:</label></td>
-                                            <td>Steven Febrian</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nomor HP:</td>
-                                            <td>0812345667</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kecamatan:</td>
-                                            <td>Cidadap</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kelurahan</td>
-                                            <td>Hergamanah</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alamat</td>
-                                            <td>Jl. Ciumbuleuit No. 94</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jabatan</td>
-                                            <td>Barista</td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="update_data_pegawai">
-                            <form action="proses_update_data.html" method="POST">
-                                <fieldset>
-                                    <legend><h2>Update Data Pegawai</h2></legend>
-                                    <table>
-                                        <tr>
-                                            <td><label for="no_hp">Nomor HP Baru:</label></td>
-                                            <td><input type="text" id="no_hp" name="no_hp"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="email">Email Baru:</label>
-                                            </td>
-                                            <td><input type="email" id="email" name="email"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="kecamatan">Kecamatan</label></td>
-                                            <td><select id="kecamatan" name="kecamatan" required>
-                                                <option value="">--Pilih Kecamatan--</option>
-                                            </select><br></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="kelurahan">Kelurahan</label></td>
-                                            <td><select id="kelurahan" name="kelurahan" required>
-                                                <option value="">--Pilih Kelurahan--</option>
-                                            </select><br></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="alamat">Alamat Baru:</label>
-                                            </td>
-                                            <td><input type="text" id="alamat" name="alamat"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="jabatan">Jabatan Baru:</label>
-                                            </td>
-                                            <td><select id="jabatan" name="jabatan" required>
-                                                <option value="">--Pilih Jabatan--</option>
-                                                <option value="">Barista</option>
-                                                <option value="">Kasir</option>
-                                                <option value="">Waiter</option>
-                                                <option value="">Janitor</option>
-                                                <option value="">Security</option>
-                                            </select><br></td>
-                                        </tr>
-                                    </table>
-                                    <button type="submit" class="but_update">Update</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+
+
+        <div id="update_data_pegawai">
+            <form action="proses_update_data.html" method="POST">
+                <fieldset class="update_data">
+                    <legend><h2>Update Data Pegawai</h2></legend>
+                    <table>
+                        <tr>
+                            <td><label for="no_hp">Nomor HP Baru:</label></td>
+                            <td><input type="text" id="no_hp" name="no_hp"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Email Baru:</label>
+                            </td>
+                            <td><input type="email" id="email" name="email"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kecamatan:</td>
+                            <td><select id="kecamatan" name="kecamatan" required>
+                                <option value="">--Pilih Kecamatan--</option>
+                            </select><br></td>
+                        </tr>
+                        <tr>
+                            <td>Kelurahan:</td>
+                            <td><select id="kecamatan" name="kecamatan" required>
+                                <option value="">--Pilih Kelurahan--</option>
+                            </select><br></td>
+                        </tr>
+                        <tr>
+                            <td><label for="alamat">Alamat Baru:</label>
+                            </td>
+                            <td><input type="text" id="alamat" name="alamat"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="jabatan">Jabatan Baru:</label>
+                            </td>
+                            <td><select id="jabatan" name="jabatan" required>
+                                <option value="">--Pilih Jabatan--</option>
+                                <option value="">Barista</option>
+                                <option value="">Kasir</option>
+                                <option value="">Waiter</option>
+                                <option value="">Janitor</option>
+                                <option value="">Security</option>
+                            </select><br></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="but_update">Update</button>
+                </fieldset>
+            </form>
         </div>
     </main>
     <footer>
@@ -174,19 +170,6 @@
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
             window.location.href = "ownerLogin.html";
-        });
-
-        let option = document.getElementById('select_pegawai');
-        let dataLama = document.getElementById('data_pegawai_sebelum');
-        let dataBaru = document.getElementById('update_data_pegawai');
-        option.addEventListener('change', () => {
-            if (option.value === '1') {
-                dataLama.classList.add('visible');
-                dataBaru.classList.add('visible');  
-            } else {
-                dataLama.classList.remove('visible');
-                dataBaru.classList.remove('visible');
-            }
         });
     </script>
 </body>

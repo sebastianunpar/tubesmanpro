@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bayar Gaji</title>
-    <link rel="stylesheet" href="../css/owner.css">
+    <title>Laporan Gaji</title>
+    <link rel="stylesheet" href="../../static/css/owner.css">
     <script src="../js/script.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header-container">
             <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
-            <h1>Bayar Gaji</h1>
+            <h1>Laporan Gaji</h1>
         </div>
     </header>
     <nav class="sidebar" id="sidebar">
@@ -24,23 +24,23 @@
             <li><a href="view_data.html" id="listP">List Pegawai</a></li>
             <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
             <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
-            <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
-            <li><a href="pay_salary.html" id="paySalary"  style="background-color: #444444;">Bayar Gaji</a></li>
+            <li><a href="salary_report.html" id="salaryR" style="background-color: #444444;">Laporan Gaji</a></li>
         </ul>
         <div class="logoutContainer">
             <button class="logout-btn" id="logOut">Logout</button>
         </div>
     </nav>
     <main>
-        <div id="gaji_pegawai">
-            <h1>Bayar Gaji Pegawai</h1>
-            <form action="proses_bayar_gaji.html" method="POST">
-                <label for="pegawai_id">Masukkan ID Pegawai:</label>
-                <input type="text" id="pegawai_id" name="pegawai_id" required><br>
-                <label for="jumlah_gaji">Jumlah Gaji:</label>
-                <input type="text" id="jumlah_gaji" name="jumlah_gaji" required><br>
-                <button type="submit">Bayar</button>
-            </form>
+        <div id="laporan_gaji">
+            <fieldset>
+                <legend><h2>Laporan Gaji Pegawai</h2></legend>
+                <label for="pegawai_id">Pilih Pegawai:</label>
+                <select class="select_salary_report" style="margin-bottom: 15px;">
+                    <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                </select> <br>
+                <a href="generate_laporan_gaji.html"><button class="buttonP">Request Laporan Gaji</button></a>
+                <button type="submit" class="buttonP">Request Laporan Semua Pegawai</button> 
+            </fieldset>
         </div>
     </main>
     <footer>
