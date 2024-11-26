@@ -37,12 +37,14 @@
             <li><a href="/owner/dashboard" id="dash">Dashboard</a></li>
             <li><a href="/owner/tambah-data" id="addP">Tambah Data</a></li>
             <li><a href="/owner/list-pegawai" id="listP">List Pegawai</a></li>
-            <li><a href="/owner/update-pegawai" id="updateP">Update Pegawai</a></li>
+            <li><a href="/owner/update-pegawai" id="updateP" style="background-color: #444444;">Update Pegawai</a></li>
             <li><a href="/owner/laporan-kehadiran" id="attendanceR">Laporan Kehadiran</a></li>
-            <li><a href="/owner/bayar-gaji" id="salaryR" style="background-color: #444444;">Laporan Gaji</a></li>
+            <li><a href="/owner/bayar-gaji" id="salaryR">Laporan Gaji</a></li>
         </ul>
         <div class="logoutContainer">
-            <button class="logout-btn" id="logOut">Logout</button>
+            <form id="logoutForm" action="/owner/logout" method="post">
+                <button type="submit" class="logout-btn" id="logOut">Logout</button>
+            </form>
         </div>
     </nav>
     <main>
@@ -80,6 +82,10 @@
                                         <tr>
                                             <td>Nomor HP:</td>
                                             <td>0812345667</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td>steven@gmail.com</td>
                                         </tr>
                                         <tr>
                                             <td>Kecamatan:</td>
@@ -169,12 +175,6 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
-
-        const logOutButton = document.querySelector('#logOut')
-        logOutButton.addEventListener ('click', (event) => {
-            event.preventDefault();
-            window.location.href = "ownerLogin.html";
-        });
 
         let option = document.getElementById('select_pegawai');
         let dataLama = document.getElementById('data_pegawai_sebelum');
