@@ -281,3 +281,10 @@ footer {
     justify-content: center;
     text-align: left;
 }
+
+.status-bayar {
+    font-weight: bold;
+    color: white;
+    background-color: red;
+}
+
