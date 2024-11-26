@@ -33,7 +33,7 @@
     <main>       
         <section>
             <h2>Riwayat Kehadiran Pegawai</h2>
-            <h2>11 November 2024</h2>
+            <h2 class="date"></h2>
             <div class="table">
                 <table>
                     <tr>
@@ -44,14 +44,14 @@
                         <th>Durasi Bekerja</th> 
                     </tr>
                     <th:block th:each="kehadiran : ${kehadirans}">
-                        <tr>
+                        <tr th:if="${kehadiran.tanggal.equals(today)}">
                             <td th:text="${kehadiran.namapegawai}"></td>
                             <td th:text="${kehadiran.tanggal}"></td>
                             <td th:text="${kehadiran.jammasuk}"></td>
                             <td th:text="${kehadiran.jamkeluar}"></td>
                             <td th:text="${kehadiran.durasikerja}"></td>
                         </tr>
-                    </th>
+                    </th:block>                    
                 </table>
             </div>
         </section>
@@ -61,6 +61,13 @@
     </footer>
 
     <script>
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        document.querySelector(".date").textContent = formattedDate;
+
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
