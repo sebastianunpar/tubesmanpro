@@ -8,7 +8,13 @@
     <script src="../js/script.js" defer></script>
 </head>
 <style>
-    
+    #cek_data_pegawai {
+        border: none;
+        border-radius: 0px;
+        margin-top: 20px;
+        padding: 0px;
+        width: 550px;
+    }
 </style>
 <body>
     <header>
@@ -35,29 +41,32 @@
         </div>
     </nav>
     <main>
-        <div id="cek_data_pegawai">
-            <h1>Cek Data Pegawai</h1>
-            <form action="tampilkan_data_pegawai.html" method="GET">
+        <div id="pilih_pegawai">
+            <fieldset>
+                <legend><h2>Cek Data Pegawai</h2></legend>
                 <table>
                     <tr>
-                        <td><label for="pegawai_id">Pilih Pegawai:</label></td>
+                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
                         <td>
-                            <select id="pegawai_id" name="pegawai_id" required>
-                                <option value="">--Pilih Pegawai--</option>
+                            <select id="select_pegawai">
+                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                                <option value="1">0812345667-Steven</option>
                             </select>
                         </td>
                     </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div id="cek_data_pegawai">
+            <form action="tampilkan_data_pegawai.html" method="GET">
+                <table>
                     <tr>
-                        <td></td>
                         <td>
                             <button type="submit">Cek Data</button>
                         </td>
-                    </tr>
-                        <td></td>
                         <td>
                             <button type="submit">Cek Seluruh Data Pegawai</button>
                         </td>
-                    <tr>
                     </tr>
                 </table>
             </form>

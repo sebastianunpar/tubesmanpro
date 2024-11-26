@@ -33,13 +33,86 @@
     </nav>
     <main>
         <div id="laporan_gaji">
-            <h1>Laporan Gaji Pegawai</h1>
-            <p>Laporan gaji pegawai akan ditampilkan di sini setelah diproses.</p>
-            <label for="pegawai_id">Masukkan ID Pegawai:</label>
-            <input type="text" id="pegawai_id" name="pegawai_id" required><br>
-            <button type="submit">Request Laporan Semua Pegawai</button>
-            <a href="generate_laporan_gaji.html"><button>Request Laporan Gaji</button></a>
+            <fieldset>
+                <legend><h2>Laporan Gaji Pegawai</h2></legend>
+                <table>
+                    <tr>
+                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                        <td>
+                            <select id="select_pegawai">
+                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                                <option value="1">0812345667-Steven</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
         </div>
+        <div id="cek_gaji_pegawai">
+            <!--  action="tampilkan_kehadiran_pegawai.html" method="GET" -->
+            <form id="form_gaji">
+                <table>
+                    <tr>
+                        <td>
+                            <button id="cek_gaji">Cek Gaji</button>
+                        </td>
+                        <td>
+                            <button id="cek_gaji_semua">Cek Gaji Seluruh Pegawai</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <section style="display: none;" id="TabelGaji">
+            <h3>Laporan Gaji 11 November 2024</h3>
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Periode</th>
+                        <th>Durasi Bekerja</th>
+                        <th>Nominal Gaji</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Steven</td>
+                        <td rowspan="2">11-11-2024</td>
+                        <td rowspan="2">8 jam 10 menit</td>
+                        <td rowspan="2">Rp 700.000</td>
+                    </tr>
+                    <tbody id="attendanceTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section style="display: none;" id="TabelGajiSteven">
+            <h3>Riwayat Gaji 11 November 2024</h3>
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Periode</th>
+                        <th>Durasi Bekerja</th>
+                        <th>Nominal Gaji</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Steven</td>
+                        <td rowspan="2">11-11-2024</td>
+                        <td rowspan="2">8 jam 10 menit</td>
+                        <td rowspan="2">Rp 700.000</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Olivia</td>
+                        <td rowspan="2">11-11-2024</td>
+                        <td rowspan="2">7 jam 40 menit</td>
+                        <td rowspan="2">Rp 650.000</td>
+                    </tr>
+                    <tbody id="attendanceTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
     <footer>
     </footer>
@@ -55,6 +128,20 @@
             event.preventDefault();
             window.location.href = "login.html";
         });
+        let gaji = document.getElementById('cek_gaji_semua');
+        let gajiPegawai = document.getElementById('cek_gaji');
+        let tabel = document.getElementById('TabelGaji');
+        let tabel2 = document.getElementById('TabelGajiSteven');
+        gajiPegawai.addEventListener('click', function(){
+            event.preventDefault();
+            tabel2.style.display = 'none';
+            tabel.style.display = 'block';
+        })
+        gaji.addEventListener('click', function(){
+            event.preventDefault();
+            tabel.style.display = 'none';
+            tabel2.style.display = 'block';
+        })
     </script>
 </body>
 </html>

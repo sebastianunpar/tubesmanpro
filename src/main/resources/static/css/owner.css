@@ -175,6 +175,7 @@ footer {
 .table{
     display: flex;
     align-items: center;
+    width: 1000px;
 }
 
 .table table{
@@ -188,6 +189,14 @@ footer {
     white-space: nowrap;
     border: 1px solid black;
 }
+.table th{
+    background-color: #3c4163;
+    color: white;
+}
+.table tr{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
 #masuk_data_pegawai{
     display: flex;
     justify-content: center;
@@ -229,9 +238,9 @@ select, option {
 }
 #update_data_pegawai{
     border: none;
-    border-radius: 10px;
+    /* border-radius: 10px;
     margin-top: 30px;
-    padding: 30px;
+    padding: 30px; */
     align-items: center;
     justify-content: center;
 }
@@ -241,7 +250,7 @@ td{
 table{
     border-spacing: 15px 10px;
 }
-input, #cek_data_pegawai button, #buttonSubmit{
+input, #cek_data_pegawai button, #buttonSubmit, #cek_kehadiran_pegawai button, #cek_gaji_pegawai button{
     width: 250px;
     background-color: #3c4163;
     border-radius: 8px;
@@ -261,13 +270,14 @@ button:hover{
     background-color: #444444;
     color: white;
 }
-#data_lama, #input_data {
-    visibility: hidden; /* Keeps the space reserved while hiding the content */
+#data_pegawai_sebelum, #update_data_pegawai {
+    visibility: hidden; 
     height: 0;
-    overflow: hidden; /* Ensure no extra space is added */
-    transition: visibility 0.3s ease, height 0.3s ease; /* Smooth transition */
+    overflow: hidden;
+    transition: visibility 0.3s ease, height 0.3s ease; 
+    display: block;
 }
-#data_lama.visible, #input_data.visible {
-    visibility: visible; /* Make visible when selected */
-    height: auto; /* Restore height */
+#data_pegawai_sebelum.visible, #update_data_pegawai.visible {
+    visibility: visible; 
+    height: auto;
 }
