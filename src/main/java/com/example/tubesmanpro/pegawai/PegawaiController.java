@@ -19,22 +19,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("")
 public class PegawaiController {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    public List<Pegawai> findPegawai (String noHp) {
-        String sql = "SELECT * FROM pegawai WHERE nomorhp = ?";
-        return jdbcTemplate.query(sql, this::mapRowToPegawai, noHp);
-    }
-
-    private Pegawai mapRowToPegawai(ResultSet resultSet, int rowNum) throws SQLException {
-        return new Pegawai(
-            resultSet.getString("nomorhp"),
-            resultSet.getString("namapegawai"),
-            resultSet.getString("email"),
-            resultSet.getInt("idjabatan"),
-            resultSet.getInt("idalamat")
-        );
-    }
+    // private JdbcTemplate jdbcTemplate;
+    private JdbcPegawaiImplementation repo;
 
     @GetMapping("/")
     public String showLogin (Model model) {
@@ -43,7 +29,7 @@ public class PegawaiController {
 
     @PostMapping("/")
     public String login (@RequestParam("noHp") String noHp, Model model, HttpSession session) {
-        List<Pegawai> workers = findPegawai(noHp);
+        List<Pegawai> workers = this.repo.findPegawai(noHp);
         if (workers.isEmpty()){
             model.addAttribute("noHp", noHp);
             model.addAttribute("error", "Not found");

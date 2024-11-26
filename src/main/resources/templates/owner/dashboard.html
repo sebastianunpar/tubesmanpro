@@ -39,36 +39,19 @@
                     <tr>
                         <th>Nama</th>
                         <th>Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Status</th>
+                        <th>Masuk</th>
+                        <th>Pulang</th>
                         <th>Durasi Bekerja</th> 
                     </tr>
-                    <tr>
-                        <td rowspan="2">Steven</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:10:53</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                    </tr>
-                    <tr>
-                        <td>15:20:46</td>
-                        <td>Pulang</td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2">Olivia</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:07:49</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">7 jam 40 menit</td>
-                    </tr>
-                    <tr>
-                        <td>14:47:12</td>
-                        <td>Pulang</td>
-                    </tr>
-                    <tbody id="attendanceTableBody">
-
-                    </tbody>
+                    <th:block th:each="kehadiran : ${kehadirans}">
+                        <tr>
+                            <td th:text="${kehadiran.namapegawai}"></td>
+                            <td th:text="${kehadiran.tanggal}"></td>
+                            <td th:text="${kehadiran.jammasuk}"></td>
+                            <td th:text="${kehadiran.jamkeluar}"></td>
+                            <td th:text="${kehadiran.durasikerja}"></td>
+                        </tr>
+                    </th>
                 </table>
             </div>
         </section>
