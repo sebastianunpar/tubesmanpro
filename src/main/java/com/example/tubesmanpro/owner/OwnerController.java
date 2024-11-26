@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 
 import com.example.tubesmanpro.kehadiran.kehadiran;
+import com.example.tubesmanpro.pegawai.Pegawai;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -71,10 +72,12 @@ public class OwnerController {
     }
 
     @GetMapping("/update-pegawai")
-    public String updatePegawai(HttpSession session) {
+    public String updatePegawai(Model model, HttpSession session) {
+        List<Pegawai> allPegawai = this.repo.showUpdatePegawai();
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        model.addAttribute("pegawaiList", allPegawai);
         return "owner/updatePegawai";
     }
 

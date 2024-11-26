@@ -26,8 +26,8 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
             resultSet.getString("nomorhp"),
             resultSet.getString("namapegawai"),
             resultSet.getString("email"),
-            resultSet.getInt("idjabatan"),
-            resultSet.getInt("idalamat")
+            resultSet.getString("namajabatan"),
+            resultSet.getString("namajalan")
         );
     }
 }
