@@ -9,5 +9,5 @@ public class kehadiran {
     private String tanggal;
     private String jammasuk;
     private String jamkeluar;
-    private double durasikerja;
+    private String durasikerja;
 }

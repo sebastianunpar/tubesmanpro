@@ -319,6 +319,19 @@ values	('Barista', 22000.0),
 		('Kasir', 18000.0),
 		('Waiter', 20000.0),
 		('Janitor', 15000.0),
-		('Security', 15000.0)
+		('Security', 15000.0);
 
-insert into pemilik 
+insert into Pemilik 
+values ('agus', 'agus123', 'admin123');
+
+INSERT INTO Alamat (namaJalan, idKelurahan)
+VALUES ('jl cium', 1);
+
+INSERT INTO Pegawai 
+VALUES ('123', 'steven', 'steven@gmail.com', 1,1);
+
+INSERT INTO DaftarKehadiran 
+VALUES (1, '2024-12-1', '08:00:00', '10:00:00', 2.0, '123');
+
+SELECT * FROM pegawai WHERE nomorhp = '123';
+SELECT * FROM pegawai WHERE idjabatan = 1;

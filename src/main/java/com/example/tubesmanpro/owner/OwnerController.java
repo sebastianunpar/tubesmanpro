@@ -63,12 +63,59 @@ public class OwnerController {
         return "owner/insertData";
     }
 
-    @GetMapping("/list-pegawai")
-    public String showListPegawai(HttpSession session) {
+    // Menambahkan data pegawai ke dalam database
+    @PostMapping("/tambah-pegawai")
+    public String tambahPegawai(@RequestParam("nama") String nama, 
+                                @RequestParam("no_hp") String noHp, 
+                                @RequestParam("email") String email, 
+                                @RequestParam("alamat") String alamat, 
+                                @RequestParam("jabatan") String jabatan, 
+                                HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+
+        // Membuat objek Pegawai baru dengan data yang diterima
+        Pegawai pegawai = new Pegawai(nama, noHp, email, jabatan, alamat);
+        
+        // Simpan pegawai ke dalam database
+        boolean isSuccess = repo.savePegawai(pegawai);
+        
+        if (isSuccess) {
+            model.addAttribute("message", "Pegawai berhasil ditambahkan!");
+        } else {
+            model.addAttribute("error", "Gagal menambahkan pegawai. Coba lagi.");
+        }
+
+        return "owner/insertData";
+    }
+
+    @GetMapping("/list-pegawai")
+    public String showListPegawai(HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> pegawaiList = this.repo.showAllPegawai();
+        System.out.println(pegawaiList);
+        model.addAttribute("pegawaiList", pegawaiList);
         return "owner/listPegawai";
+    }
+
+    @PostMapping("/cek-data-pegawai")
+    public String cekDataPegawai(@RequestParam("nomorhp") String nomorhp, Model model) {
+        if (nomorhp == null || nomorhp.isEmpty()) {
+            model.addAttribute("error", "Silakan pilih pegawai terlebih dahulu.");
+            return "owner/listPegawai";
+        }
+        Pegawai pegawai = this.repo.getPegawaiByNomorHp(nomorhp);
+        
+        if (pegawai != null) {
+            model.addAttribute("pegawai", pegawai);
+        } else {
+            model.addAttribute("error", "Pegawai tidak ditemukan.");
+        }
+
+        return "owner/listPegawai"; 
     }
 
     @GetMapping("/update-pegawai")

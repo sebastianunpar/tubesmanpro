@@ -13,71 +13,92 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Tambah Pegawai</title>
-     <link rel="stylesheet" href="../../static/css/owner.css">
+     <link rel="stylesheet" href="../css/owner.css">
+     <link rel="stylesheet" href="../css/owner/insertData.css">
      <script src="../js/script.js" defer></script>
+
+     <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            const kecamatanSelect = document.getElementById('kecamatan');
+            const kelurahanSelect = document.getElementById('kelurahan');
+        
+            kecamatanSelect.addEventListener('change', function () {
+                const kecamatan = this.value;
+                kelurahanSelect.innerHTML = '<option value="">--Pilih Kelurahan--</option>';
+        
+                let kelurahanOptions = [];
+                if (kecamatan === 'Andir') {
+                    kelurahanOptions = ['Campaka', 'Dungus Cariang', 'Garuda', 'Kebon Jeruk', 'Maleber'];
+                } else if (kecamatan === 'Antapani') {
+                    kelurahanOptions = ['Antapani Kidul', 'Antapani Tengah', 'Antapani Wetan', 'Antapani Kulon'];
+                } else if (kecamatan === 'Arcamanik') {
+                    kelurahanOptions = ['Arcamanik', 'Cipadung', 'Cipamokolan', 'Mekarwangi'];
+                } else if (kecamatan === 'Astanaanyar') {
+                    kelurahanOptions = ['Astanaanyar', 'Cikawao', 'Hegarmanah', 'Kebon Kawung'];
+                } else if (kecamatan === 'Babakan Ciparay') {
+                    kelurahanOptions = ['Babakan Ciparay', 'Mekarsaluyu', 'Sukamaju', 'Sukarame'];
+                } else if (kecamatan === 'Bandung Kidul') {
+                    kelurahanOptions = ['Cicadas', 'Mekarwangi', 'Sukajadi', 'Sukasari'];
+                } else if (kecamatan === 'Bandung Kulon') {
+                    kelurahanOptions = ['Andir', 'Bojongloa Kidul', 'Cipamokolan', 'Sukajaya'];
+                } else if (kecamatan === 'Bandung Wetan') {
+                    kelurahanOptions = ['Cipaganti', 'Cisitu', 'Dago', 'Hegarmanah'];
+                } else if (kecamatan === 'Batununggal') {
+                    kelurahanOptions = ['Batununggal', 'Cijagra', 'Kebonbatur', 'Sukamiskin'];
+                } else if (kecamatan === 'Bojongloa Kaler') {
+                    kelurahanOptions = ['Bojongloa Kaler', 'Cipadung', 'Sukaasih', 'Sukapura'];
+                } else if (kecamatan === 'Bojongloa Kidul') {
+                    kelurahanOptions = ['Bojongloa Kidul', 'Kujang', 'Pahlawan'];
+                } else if (kecamatan === 'Buahbatu') {
+                    kelurahanOptions = ['Buahbatu', 'Cijagra', 'Sekeloa', 'Sukamaju'];
+                } else if (kecamatan === 'Cibeunying Kaler') {
+                    kelurahanOptions = ['Cibeunying Kaler', 'Cibangkong', 'Ciumbuleuit'];
+                } else if (kecamatan === 'Cibeunying Kidul') {
+                    kelurahanOptions = ['Cibeunying Kidul', 'Cibangkong', 'Padasuka'];
+                } else if (kecamatan === 'Cibiru') {
+                    kelurahanOptions = ['Cibiru', 'Cikadut', 'Mekarwangi'];
+                } else if (kecamatan === 'Cicendo') {
+                    kelurahanOptions = ['Cicendo', 'Hegarmanah', 'Sukapura'];
+                } else if (kecamatan === 'Cidadap') {
+                    kelurahanOptions = ['Cidadap', 'Cipaganti', 'Dago'];
+                } else if (kecamatan === 'Cinambo') {
+                    kelurahanOptions = ['Cinambo', 'Cipamokolan', 'Cikadut'];
+                } else if (kecamatan === 'Coblong') {
+                    kelurahanOptions = ['Coblong', 'Cigugur', 'Hegarmanah'];
+                } else if (kecamatan === 'Gedebage') {
+                    kelurahanOptions = ['Gedebage', 'Mekarwangi', 'Sukamaju'];
+                } else if (kecamatan === 'Kiaracondong') {
+                    kelurahanOptions = ['Kiaracondong', 'Cibangkong', 'Sekeloa'];
+                } else if (kecamatan === 'Lengkong') {
+                    kelurahanOptions = ['Lengkong', 'Hegarmanah', 'Padasuka'];
+                } else if (kecamatan === 'Mandalajati') {
+                    kelurahanOptions = ['Mandalajati', 'Cijagra', 'Sukarame'];
+                } else if (kecamatan === 'Panyileukan') {
+                    kelurahanOptions = ['Panyileukan', 'Cikadut', 'Mekarwangi'];
+                } else if (kecamatan === 'Rancasari') {
+                    kelurahanOptions = ['Rancasari', 'Padasuka', 'Mekarwangi'];
+                } else if (kecamatan === 'Regol') {
+                    kelurahanOptions = ['Regol', 'Cikawao', 'Sekeloa'];
+                } else if (kecamatan === 'Sukajadi') {
+                    kelurahanOptions = ['Sukajadi', 'Cisitu', 'Cibadak'];
+                } else if (kecamatan === 'Sukasari') {
+                    kelurahanOptions = ['Sukasari', 'Sukarame', 'Cijagra'];
+                } else if (kecamatan === 'Sumur Bandung') {
+                    kelurahanOptions = ['Sumur Bandung', 'Cicadas', 'Dago'];
+                } else if (kecamatan === 'Ujung Berung') {
+                    kelurahanOptions = ['Ujung Berung', 'Sukamaju', 'Mekarwangi'];
+                }                
+        
+                kelurahanOptions.forEach(function(kelurahan) {
+                    const option = document.createElement('option');
+                    option.value = kelurahan;
+                    option.textContent = kelurahan;
+                    kelurahanSelect.appendChild(option);
+                });
+            });
+        });        
+     </script>
  </head>
- <style>
-     h2{
-         color: #444444;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         position: relative;
-         margin: 20px;
-     }
-     fieldset{
-         border-radius: 10px;
-         border: 2px solid #444444;
-         width: 500px;
-     }
-     main{
-         display: flex;
-         flex-direction: column;
- 
-         align-items: center;
-         height: 100vh;
-     }
-     select, option {
-         background-color: #3c4163;
-         padding: 5px;
-         border-radius: 8px;
-         border: none;
-         color: white;
-     }
-     #masuk_data_pegawai{
-         border: none;
-         border-radius: 10px;
-         margin-top: 30px;
-         padding: 30px;
-         width: 500px;
-     }
-     td{
-         text-align: left
-     }
-     table{
-         border-spacing: 15px 10px;
-     }
-     #masuk_data_pegawai input{
-         width: 250px;
-         background-color: #3c4163;
-         border-radius: 8px;
-         padding-left: 10px;
-         padding-top: 5px;
-         padding-bottom: 5px;
-         color: white;
-     }
-     button.buttonSubmit{
-         background-color: #1a1a40;
-         border-radius: 8px;
-         padding: 10px;
-         color: white;
-         margin-top: 10px;
-     }
-     button:hover{
-         background-color: #444444;
-         color: white;
-     }
- </style>
  <body>
      <header>
          <div class="header-container">
@@ -90,21 +111,12 @@
              <button id="x" onclick="toggleMenu()">X</button>
          </div>
          <ul>
-<<<<<<< HEAD
-             <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
-             <li><a href="insert_data.html" id="addP" style="background-color: #444444;">Tambah Data</a></li>
-             <li><a href="view_data.html" id="listP">List Pegawai</a></li>
-             <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
-             <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
-             <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
-=======
             <li><a href="/owner/dashboard" id="dash">Dashboard</a></li>
             <li><a href="/owner/tambah-data" id="addP" style="background-color: #444444;">Tambah Data</a></li>
             <li><a href="/owner/list-pegawai" id="listP">List Pegawai</a></li>
             <li><a href="/owner/update-pegawai" id="updateP">Update Pegawai</a></li>
             <li><a href="/owner/laporan-kehadiran" id="attendanceR">Laporan Kehadiran</a></li>
             <li><a href="/owner/bayar-gaji" id="salaryR">Laporan Gaji</a></li>
->>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
          </ul>
          <div class="logoutContainer">
              <button class="logout-btn" id="logOut">Logout</button>
@@ -126,7 +138,7 @@
          </div>
      
          <div id="masuk_data_pegawai">
-             <form action="proses_masukan_data.html" method="POST" id="form_pegawai" style="display: none;">
+             <form action="/owner/tambah-pegawai" method="POST" id="form_pegawai" style="display: none;">
                  <h1>Masukkan Data Pegawai</h1>
                  <table>
                      <tr>
@@ -146,14 +158,59 @@
                          <td><input type="text" id="alamat" name="alamat" required><br></td>
                      </tr>
                      <tr>
+                        <td><label for="kecamatan">Kecamatan <span style="color: red;">*</span></label></td>
+                        <td>
+                            <select id="kecamatan" name="kecamatan" required>
+                                <option value="">--Pilih Kecamatan--</option>
+                                <option value="Andir">Andir</option>
+                                <option value="Antapani">Antapani</option>
+                                <option value="Arcamanik">Arcamanik</option>
+                                <option value="Astanaanyar">Astanaanyar</option>
+                                <option value="Babakan Ciparay">Babakan Ciparay</option>
+                                <option value="Bandung Kidul">Bandung Kidul</option>
+                                <option value="Bandung Kulon">Bandung Kulon</option>
+                                <option value="Bandung Wetan">Bandung Wetan</option>
+                                <option value="Batununggal">Batununggal</option>
+                                <option value="Bojongloa Kaler">Bojongloa Kaler</option>
+                                <option value="Bojongloa Kidul">Bojongloa Kidul</option>
+                                <option value="Buahbatu">Buahbatu</option>
+                                <option value="Cibeunying Kaler">Cibeunying Kaler</option>
+                                <option value="Cibeunying Kidul">Cibeunying Kidul</option>
+                                <option value="Cibiru">Cibiru</option>
+                                <option value="Cicendo">Cicendo</option>
+                                <option value="Cidadap">Cidadap</option>
+                                <option value="Cinambo">Cinambo</option>
+                                <option value="Coblong">Coblong</option>
+                                <option value="Gedebage">Gedebage</option>
+                                <option value="Kiaracondong">Kiaracondong</option>
+                                <option value="Lengkong">Lengkong</option>
+                                <option value="Mandalajati">Mandalajati</option>
+                                <option value="Panyileukan">Panyileukan</option>
+                                <option value="Rancasari">Rancasari</option>
+                                <option value="Regol">Regol</option>
+                                <option value="Sukajadi">Sukajadi</option>
+                                <option value="Sukasari">Sukasari</option>
+                                <option value="Sumur Bandung">Sumur Bandung</option>
+                                <option value="Ujung Berung">Ujung Berung</option>
+                            <br></td>
+                    </tr>
+                     <tr>
+                        <td><label for="kelurahan">Kelurahan <span style="color: red;">*</span></label></td>
+                        <td>
+                            <select id="kelurahan" name="kelurahan" required>
+                                <option value="">--Pilih Kelurahan--</option>
+                                
+                            <br></td>
+                    </tr>
+                     <tr>
                          <td><label for="jabatan">Jabatan <span style="color: red;">*</span></label></td>
                          <td><select id="jabatan" name="jabatan" required>
                              <option value="">--Pilih Jabatan--</option>
-                             <option value="">Barista</option>
-                             <option value="">Kasir</option>
-                             <option value="">Waiter</option>
-                             <option value="">Janitor</option>
-                             <option value="">Security</option>
+                             <option value="barista">Barista</option>
+                             <option value="kasir">Kasir</option>
+                             <option value="waiter">Waiter</option>
+                             <option value="janitor">Janitor</option>
+                             <option value="security">Security</option>
                          </select><br></td>
                      </tr>
                      <tr><td colspan="2"><button type="submit" class="buttonSubmit">Simpan Pegawai</button></td></tr>
