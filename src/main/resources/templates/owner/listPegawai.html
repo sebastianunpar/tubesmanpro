@@ -8,6 +8,7 @@
     <script src="../js/script.js" defer></script>
 </head>
 <style>
+<<<<<<< HEAD
     .but_view1{
         margin-top: 15px;
         margin-bottom: 10px;
@@ -18,6 +19,14 @@
     }
     .but_view1:hover{
         background-color: #444444;
+=======
+    #cek_data_pegawai {
+        border: none;
+        border-radius: 0px;
+        margin-top: 20px;
+        padding: 0px;
+        width: 550px;
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
     }
 </style>
 <body>
@@ -32,18 +41,28 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
+<<<<<<< HEAD
             <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
             <li><a href="insert_data.html" id="addP">Tambah Data</a></li>
             <li><a href="view_data.html" id="listP" style="background-color: #444444;">List Pegawai</a></li>
             <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
             <li><a href="attendance_report.html" id="attendanceR">Laporan Kehadiran</a></li>
             <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
+=======
+            <li><a href="/owner/dashboard" id="dash">Dashboard</a></li>
+            <li><a href="/owner/tambah-data" id="addP">Tambah Data</a></li>
+            <li><a href="/owner/list-pegawai" id="listP" style="background-color: #444444;">List Pegawai</a></li>
+            <li><a href="/owner/update-pegawai" id="updateP">Update Pegawai</a></li>
+            <li><a href="/owner/laporan-kehadiran" id="attendanceR">Laporan Kehadiran</a></li>
+            <li><a href="/owner/bayar-gaji" id="salaryR">Laporan Gaji</a></li>
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
         </ul>
         <div class="logoutContainer">
             <button class="logout-btn" id="logOut">Logout</button>
         </div>
     </nav>
     <main>
+<<<<<<< HEAD
         <div id="cek_data_pegawai">
             
             <form action="tampilkan_data_pegawai.html" method="GET">
@@ -57,7 +76,99 @@
                     <button type="submit" class="but_view1">Cek Data</button>
                     <button type="submit" class="but_view2">Cek Seluruh Data Pegawai</button>
                 </fieldset>
+=======
+        <div id="pilih_pegawai">
+            <fieldset>
+                <legend><h2>Cek Data Pegawai</h2></legend>
+                <table>
+                    <tr>
+                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                        <td>
+                            <select id="select_pegawai">
+                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                                <option value="1">0812345667-Steven</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div id="cek_data_pegawai">
+            <form action="tampilkan_data_pegawai.html" method="GET">
+                <table>
+                    <tr>
+                        <td>
+                            <button type="submit" id="cek_data">Cek Data</button>
+                        </td>
+                        <td>
+                            <button type="submit" id="cek_data_semua">Cek Seluruh Data Pegawai</button>
+                        </td>
+                    </tr>
+                </table>
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
             </form>
+        </div>
+
+        <div class="table" id="tabel1" style="display:none">
+            <table>
+                <tr>
+                    <th>Nama</th>
+                    <th>Nomor HP</th>
+                    <th>Email</th>
+                    <th>Kecamatan</th>
+                    <th>Kelurahan</th>
+                    <th>Alamat</th>
+                    <th>Jabatan</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Steven Febrian</td>
+                    <td>081234567</td>
+                    <td>steven@gmail.com</td>
+                    <td>Cidadap</td>
+                    <td>Hergamanah</td>
+                    <td>Jl. Ciumbuleuit No. 94</td>
+                    <td>Barista</td>
+                    <td style="background-color: green; color: white">Aktif</td>
+                    
+                </tr>
+            </table>
+        </div>
+
+        <div class="table" id="tabel2" style="display:none">
+            <table>
+                <tr>
+                    <th>Nama</th>
+                    <th>Nomor HP</th>
+                    <th>Email</th>
+                    <th>Kecamatan</th>
+                    <th>Kelurahan</th>
+                    <th>Alamat</th>
+                    <th>Jabatan</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Steven Febrian</td>
+                    <td>081234567</td>
+                    <td>steven@gmail.com</td>
+                    <td>Cidadap</td>
+                    <td>Hergamanah</td>
+                    <td>Jl. Ciumbuleuit No. 94</td>
+                    <td>Barista</td>
+                    <td style="background-color: green; color: white">Aktif</td>
+                </tr>
+                <tr>
+                    <td>Kris</td>
+                    <td>0898765</td>
+                    <td>kris@gmail.com</td>
+                    <td>Cidadap</td>
+                    <td>Hergamanah</td>
+                    <td>Jl. Ciumbuleuit No. 94</td>
+                    <td>Janitor</td>
+                    <td style="background-color: red; color: white">Tidak Aktif</td>
+                </tr>
+            </table>
+            </table>
         </div>
     </main>
     <footer>
@@ -74,6 +185,21 @@
             event.preventDefault();
             window.location.href = "ownerLogin.html";
         });
+
+        let data = document.getElementById('cek_data');
+        let dataSemua = document.getElementById('cek_data_semua');
+        let tabel = document.getElementById('tabel1');
+        let tabel2 = document.getElementById('tabel2');
+        data.addEventListener('click', function(){
+            event.preventDefault();
+            tabel2.style.display = 'none';
+            tabel.style.display = 'block';
+        })
+        dataSemua.addEventListener('click', function(){
+            event.preventDefault();
+            tabel.style.display = 'none';
+            tabel2.style.display = 'block';
+        })
     </script>
 </body>
 </html>

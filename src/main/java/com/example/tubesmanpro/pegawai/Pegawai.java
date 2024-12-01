@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 @Data
 @AllArgsConstructor
 public class Pegawai {
-    private String nomorhp;
     private String namapegawai;
+    private String nomorhp;
     private String email;
-    private int idjabatan;
-    private int idalamat;
+    private String jabatan;
+    private String alamat;
 }

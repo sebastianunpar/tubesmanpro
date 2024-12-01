@@ -19,12 +19,21 @@
             <button id="x" onclick="toggleMenu()">X</button>
         </div>
         <ul>
+<<<<<<< HEAD
             <li><a href="mainMenuOwner.html" id="dash">Dashboard</a></li>
             <li><a href="insert_data.html" id="addP">Tambah Data</a></li>
             <li><a href="view_data.html" id="listP">List Pegawai</a></li>
             <li><a href="update_data.html" id="updateP">Update Pegawai</a></li>
             <li><a href="attendance_report.html" id="attendanceR" style="background-color: #444444;">Laporan Kehadiran</a></li>
             <li><a href="salary_report.html" id="salaryR">Laporan Gaji</a></li>
+=======
+            <li><a href="/owner/dashboard" id="dash">Dashboard</a></li>
+            <li><a href="/owner/tambah-data" id="addP">Tambah Data</a></li>
+            <li><a href="/owner/list-pegawai" id="listP">List Pegawai</a></li>
+            <li><a href="/owner/update-pegawai" id="updateP">Update Pegawai</a></li>
+            <li><a href="/owner/laporan-kehadiran" id="attendanceR" style="background-color: #444444;">Laporan Kehadiran</a></li>
+            <li><a href="/owner/bayar-gaji" id="salaryR" >Laporan Gaji</a></li>
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
         </ul>
         <div class="logoutContainer">
             <button class="logout-btn" id="logOut">Logout</button>
@@ -34,6 +43,7 @@
         <div id="laporan_kehadiran">
             <fieldset>
                 <legend><h2>Laporan Kehadiran Pegawai</h2></legend>
+<<<<<<< HEAD
                 <label for="pegawai_id">Pilih Pegawai:</label>
                 <select name="pegawai_id" id="pegawai_id">
                     <option value="Pilih Pegawai">--Pilih Pegawai--</option>
@@ -44,6 +54,35 @@
                 <button type="submit" id="kehadiran" class="button_laporan_kehadiran">Request Laporan Semua Pegawai</button>
             </fieldset>
             <!-- <a href="generate_laporan_kehadiran.html"><button>Request Laporan</button></a> -->
+=======
+                <table>
+                    <tr>
+                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                        <td>
+                            <select id="select_pegawai">
+                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                                <option value="1">0812345667-Steven</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div id="cek_kehadiran_pegawai">
+            <!--  action="tampilkan_kehadiran_pegawai.html" method="GET" -->
+            <form id="form kehadiran">
+                <table>
+                    <tr>
+                        <td>
+                            <button id="cek_kehadiran">Cek Kehadiran</button>
+                        </td>
+                        <td>
+                            <button id="cek_kehadiran_semua">Cek Kehadiran Seluruh Pegawai</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
         </div>
         <section style="display: none;" id="Tabelkehadiran">
             <h3>Riwayat Kehadiran 11 November 2024</h3>
@@ -80,7 +119,6 @@
                         <td>Pulang</td>
                     </tr>
                     <tbody id="attendanceTableBody">
-
                     </tbody>
                 </table>
             </div>
@@ -108,7 +146,6 @@
                         <td>Pulang</td>
                     </tr>
                     <tbody id="attendanceTableBody">
-
                     </tbody>
                 </table>
             </div>
@@ -126,11 +163,19 @@
         const logOutButton = document.querySelector('#logOut')
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
+<<<<<<< HEAD
             window.location.href = "ownerLogin.html";
         });
 
         let kehadiran = document.getElementById('kehadiran');
         let kehadiranPegawai = document.getElementById('kehadiranPegawai');
+=======
+            window.location.href = "login.html";
+        });
+
+        let kehadiran = document.getElementById('cek_kehadiran_semua');
+        let kehadiranPegawai = document.getElementById('cek_kehadiran');
+>>>>>>> c18685d2476bb9c6cc18d2b7e0644e4a3d29e241
         let tabel = document.getElementById('Tabelkehadiran');
         let tabel2 = document.getElementById('TabelkehadiranSteven');
         kehadiran.addEventListener('click', function(){

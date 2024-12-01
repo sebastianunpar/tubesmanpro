@@ -7,17 +7,20 @@
 
 /* Body styling */
 body {
+    background-image: url(../assets/background4.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat; 
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
-    padding: 0;
+    padding: 0; 
 }
 
 /* Header styling */
 header {
-    background-color: #0056b3; 
+    background-color: #1a1a40;
     color: white;
     padding: 10px;
     height: 70px;
@@ -135,15 +138,17 @@ main h2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
     gap: 20px;
 }
 
 .card {
+    box-sizing: border-box;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 200px;
+    width: 800px;
     text-align: center;
 }
 
@@ -242,3 +247,44 @@ footer {
     white-space: nowrap;
     border: 1px solid black;
 }
+
+
+.edit-profile {
+    display: flex;
+    justify-content: center; /* Pusatkan tombol secara horizontal */
+    margin: 20px; /* Tambahkan jarak */
+}
+
+.edit-btn {
+    background-color: #0056b3; /* Warna biru */
+    color: #fff; /* Warna teks putih */
+    border: none; /* Hilangkan border */
+    border-radius: 8px; /* Membuat sudut membulat */
+    padding: 12px 24px; /* Spasi di dalam tombol */
+    font-size: 16px; /* Ukuran font */
+    cursor: pointer; /* Ubah kursor saat di-hover */
+    transition: background-color 0.3s, transform 0.2s; /* Efek transisi */
+}
+
+/* Hover efek */
+.edit-btn:hover {
+    background-color: #1a1a40; /* Warna lebih gelap saat di-hover */
+    transform: scale(1.05); /* Efek sedikit membesar */
+}
+
+.salary-info{
+    text-align: left;
+}
+
+.profile-details {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+.status-bayar {
+    font-weight: bold;
+    color: white;
+    background-color: red;
+}
+
