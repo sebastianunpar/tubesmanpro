@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Pegawai</title>
     <link rel="stylesheet" href="../css/owner.css">
+    <link rel="stylesheet" href="../css/owner/listPegawai.css">
     <script src="../js/script.js" defer></script>
 </head>
-<style>
-    #cek_data_pegawai {
-        border: none;
-        border-radius: 0px;
-        margin-top: 20px;
-        padding: 0px;
-        width: 550px;
-    }
-</style>
 <body>
     <header>
         <div class="header-container">
@@ -43,17 +35,19 @@
         <div id="pilih_pegawai">
             <fieldset>
                 <legend><h2>Cek Data Pegawai</h2></legend>
-                <table>
-                    <tr>
-                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
-                        <td>
-                            <select id="select_pegawai">
-                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                <option value="1">0812345667-Steven</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <form action="/owner/cek-data-pegawai" method="POST">
+                    <table>
+                        <tr>
+                            <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                            <td>
+                                <select id="select_pegawai">
+                                    <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                                    <option th:each="pegawai : ${pegawaiList}" th:value="${pegawai.nomorhp}" th:text="${pegawai.namapegawai}">--</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </fieldset>
         </div>
         <div id="cek_data_pegawai">
@@ -72,29 +66,31 @@
         </div>
 
         <div class="table" id="tabel1" style="display:none">
-            <table>
-                <tr>
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
-                    <th>Email</th>
-                    <th>Kecamatan</th>
-                    <th>Kelurahan</th>
-                    <th>Alamat</th>
-                    <th>Jabatan</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Steven Febrian</td>
-                    <td>081234567</td>
-                    <td>steven@gmail.com</td>
-                    <td>Cidadap</td>
-                    <td>Hergamanah</td>
-                    <td>Jl. Ciumbuleuit No. 94</td>
-                    <td>Barista</td>
-                    <td style="background-color: green; color: white">Aktif</td>
-                    
-                </tr>
-            </table>
+            <div id="pegawai_details" th:if="${pegawai != null}">
+                <h3>Data Pegawai</h3>
+                <table>
+                    <tr>
+                        <th>Nama</th>
+                        <td th:text="${pegawai.namapegawai}"></td>
+                    </tr>
+                    <tr>
+                        <th>Nomor HP</th>
+                        <td th:text="${pegawai.nomorhp}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${pegawai.email}"></td>
+                    </tr>
+                    <tr>
+                        <th>Jabatan</th>
+                        <td th:text="${pegawai.jabatan}"></td>
+                    </tr>
+                    <tr>
+                        <th>Alamat</th>
+                        <td th:text="${pegawai.alamat}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <div class="table" id="tabel2" style="display:none">
@@ -145,7 +141,7 @@
         const logOutButton = document.querySelector('#logOut')
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
-            window.location.href = "login.html";
+            window.location.href = "ownerLogin.html";
         });
 
         let data = document.getElementById('cek_data');

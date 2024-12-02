@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bayar Gaji</title>
+    <title>Laporan Gaji</title>
     <link rel="stylesheet" href="../css/owner.css">
     <script src="../js/script.js" defer></script>
 </head>
@@ -11,7 +11,7 @@
     <header>
         <div class="header-container">
             <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
-            <h1>Bayar Gaji</h1>
+            <h1>Laporan Gaji</h1>
         </div>
     </header>
     <nav class="sidebar" id="sidebar">
@@ -31,15 +31,16 @@
         </div>
     </nav>
     <main>
-        <div id="gaji_pegawai">
-            <h1>Bayar Gaji Pegawai</h1>
-            <form action="proses_bayar_gaji.html" method="POST">
-                <label for="pegawai_id">Masukkan ID Pegawai:</label>
-                <input type="text" id="pegawai_id" name="pegawai_id" required><br>
-                <label for="jumlah_gaji">Jumlah Gaji:</label>
-                <input type="text" id="jumlah_gaji" name="jumlah_gaji" required><br>
-                <button type="submit">Bayar</button>
-            </form>
+        <div id="laporan_gaji">
+            <fieldset>
+                <legend><h2>Laporan Gaji Pegawai</h2></legend>
+                <label for="pegawai_id">Pilih Pegawai:</label>
+                <select class="select_salary_report" style="margin-bottom: 15px;">
+                    <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+                </select> <br>
+                <a href="generate_laporan_gaji.html"><button class="buttonP">Request Laporan Gaji</button></a>
+                <button type="submit" class="buttonP">Request Laporan Semua Pegawai</button> 
+            </fieldset>
         </div>
     </main>
     <footer>

@@ -5,23 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Pegawai</title>
     <link rel="stylesheet" href="../css/owner.css">
+    <link rel="stylesheet" href="../css/owner/updatePegawai.css">
     <script src="../js/script.js" defer></script>
 </head>
-<style>
-    .but_update{
-        background-color: #1a1a40;
-        color: white;
-        border-radius: 10px;
-        padding: 10px 20px;
-        margin-top: 10px;
-        margin-bottom: 15px;
-        margin-left: 10px;
-    }
-    input {
-        background-color: #3c4163;
-    }
-
-</style>
 <body>
     <header>
         <div class="header-container">
@@ -56,12 +42,51 @@
                         <tr>
                             <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
                             <td>
-                                <select id="select_pegawai">
+                                <select>
                                     <option value="Pilih Pegawai">--Pilih Pegawai--</option>
                                     <option th:each="pegawai : ${pegawaiList}" 
                                     th:text="${pegawai.namapegawai}"></option>
                                 </select>
                             </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="but_update">Pilih</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="pilih_pegawai">
+            <form action="??" method="POST">
+                <fieldset>
+                    <legend><h2>Data Pegawai Sebelum</h2></legend>
+                    <table>
+                        <tr>
+                            <td><label for="pegawai_id">Nama:</label></td>
+                            <td>Steven Febrian</td>
+                        </tr>
+                        <tr>
+                            <td>Nomor HP:</td>
+                            <td>0812345667</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>steven_feb@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td>Kecamatan:</td>
+                            <td>Cidadap</td>
+                        </tr>
+                        <tr>
+                            <td>Kelurahan</td>
+                            <td>Hergamanah</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>Jl. Ciumbuleuit No. 94</td>
+                        </tr>
+                        <tr>
+                            <td>Jabatan</td>
+                            <td>Barista</td>
                         </tr>
                     </table>
                 </fieldset>

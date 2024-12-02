@@ -16,18 +16,21 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
 
     @Override
     public List<Pegawai> findPegawai (String noHp) {
+        System.out.println(noHp);
         String sql = "SELECT * FROM pegawai WHERE nomorhp = ?";
         List<Pegawai> seluruhPegawai = jdbcTemplate.query(sql, this::mapRowToPegawai, noHp);
+        System.out.println(seluruhPegawai);
         return seluruhPegawai;
     }
+    
 
     private Pegawai mapRowToPegawai(ResultSet resultSet, int rowNum) throws SQLException {
         return new Pegawai(
             resultSet.getString("nomorhp"),
             resultSet.getString("namapegawai"),
             resultSet.getString("email"),
-            resultSet.getString("namajabatan"),
-            resultSet.getString("namajalan")
+            resultSet.getString("idjabatan"),
+            resultSet.getString("idalamat")
         );
     }
 }
