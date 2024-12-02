@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.tubesmanpro.kehadiran.kehadiran;
+import com.example.tubesmanpro.kehadiran.Kehadiran;
 import com.example.tubesmanpro.pegawai.Pegawai;
 
 @Repository
@@ -33,8 +33,8 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         return jdbcTemplate.query(sql, this::mapRowToOwner, username, password);
     }
 
-    public List<kehadiran> showKehadiran () {
-        String sql = "select namapegawai, tanggal, jammasuk, jamkeluar from daftarkehadiran inner join pegawai on daftarkehadiran.nomorhp = pegawai.nomorhp";
+    public List<Kehadiran> showKehadiran () {
+        String sql = "select namapegawai, tanggal, jammasuk, jamkeluar, gaji from daftarkehadiran inner join pegawai on daftarkehadiran.nomorhp = pegawai.nomorhp";
         return jdbcTemplate.query(sql, this::mapRowToKehadiran);
     }
 
@@ -51,11 +51,13 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         );
     }
 
-    private kehadiran mapRowToKehadiran(ResultSet resultSet, int rowNum) throws SQLException {
+    private Kehadiran mapRowToKehadiran(ResultSet resultSet, int rowNum) throws SQLException {
         String namapegawai = resultSet.getString("namapegawai");
         String tanggal = resultSet.getString("tanggal");
         String jammasuk = resultSet.getString("jammasuk");
         String jamkeluar = resultSet.getString("jamkeluar");
+        double gaji = resultSet.getDouble("gaji");
+
         
         // Konversi jammasuk dan jamkeluar menjadi LocalTime
         LocalTime waktuMasuk = LocalTime.parse(jammasuk);
@@ -71,7 +73,7 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         // Membuat durasi dalam format "X jam Y menit"
         String durasiKerjaFormat = jam + " jam " + menit + " menit";
         
-        return new kehadiran(namapegawai, tanggal, jammasuk, jamkeluar, durasiKerjaFormat);
+        return new Kehadiran(namapegawai, tanggal, jammasuk, jamkeluar, durasiKerjaFormat, gaji);
     }
     
     private Pegawai mapRowToPegawai(ResultSet resultSet, int rowNum) throws SQLException {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 
-import com.example.tubesmanpro.kehadiran.kehadiran;
+import com.example.tubesmanpro.kehadiran.Kehadiran;
 import com.example.tubesmanpro.pegawai.Pegawai;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,7 +33,7 @@ public class OwnerController {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
-        List<kehadiran> seluruhKehadiran = this.repo.showKehadiran();
+        List<Kehadiran> seluruhKehadiran = this.repo.showKehadiran();
         model.addAttribute("kehadirans",seluruhKehadiran);
         model.addAttribute("today", LocalDate.now().toString());
         return "owner/dashboard";

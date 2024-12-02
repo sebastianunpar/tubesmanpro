@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class kehadiran {
+public class Kehadiran {
     private String namapegawai;
     private String tanggal;
     private String jammasuk;
     private String jamkeluar;
     private String durasikerja;
+    private double gaji;
 }

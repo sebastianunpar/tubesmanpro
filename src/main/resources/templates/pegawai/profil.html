@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,38 +34,31 @@
         <section>
             <h2>Informasi Profil</h2>
             <div class="profile">
-                <div class="profile-picture">
-                    <img src="../assets/profile_cat.jpg" alt="Foto Profil" class="profile-img">
-                </div>
                 <div class="profile-details">
                     <table>
                         <tr>
                             <td><label for="pegawai_id"><strong>Nama : </strong></label></td>
-                            <td>Steven Febrian</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Id Pegawai : </strong></td>
-                            <td>6182201099</td>
+                            <td th:text="${nama}"></td>
                         </tr>
                         <tr>
                             <td><strong>Nomor HP : </strong></td>
-                            <td>0812345667</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kecamatan : </strong></td>
-                            <td>Cidadap</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kelurahan : </strong></td>
-                            <td>Hergamanah</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Alamat : </strong></td>
-                            <td>Jl. Ciumbuleuit No. 94</td>
+                            <td th:text="${nohp}"></td>
                         </tr>
                         <tr>
                             <td><strong>Jabatan : </strong></td>
-                            <td>Barista</td>
+                            <td th:text="${jabatan}"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alamat : </strong></td>
+                            <td th:text="${alamat}"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelurahan : </strong></td>
+                            <td th:text="${kelurahan}"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kecamatan : </strong></td>
+                            <td th:text="${kecamatan}"></td>
                         </tr>
                     </table>
                 </div>

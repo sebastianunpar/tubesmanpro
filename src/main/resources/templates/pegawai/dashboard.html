@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,15 +33,15 @@
     <main>
         <section>
             <h2>Ringkasan</h2>
-            <h3>Periode <br><strong>10 November 2024 - 15 November 2024</strong></h3>
+            <h3>Periode <br><strong  th:text="${senin + ' - ' + minggu}"></strong></h3>
             <div class="summary">
                 <div class="card">
                     <h3>Jam Kerja</h3>
-                    <p>41 Jam</p>
-                </div>
+                    <p th:text="${jamKerja + ' jam'}"></p>
+                </div> 
                 <div class="card">
                     <h3>Total Gaji</h3>
-                    <p>Rp 700.000</p>
+                    <p th:text="${'Rp ' + #numbers.formatDecimal(totalGaji, 1, 2)}"></p>
                 </div>
             </div>
         </section>
