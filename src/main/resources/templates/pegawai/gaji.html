@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,17 +36,8 @@
             <div class="salary-info">
                 <table>
                     <tr>
-                        <td><strong>Nama: </strong></td>
-                        <td> El Rungkad</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ID Pegawai : </strong></td>
-                        <td>6182201999</td>
-                    </tr>
-                    <tr>
                         <td><strong>Periode Gaji : </strong></td>
-                        <td><p> 1 November 2024 - </p></td>
-                        <td><p>7 November 2024</p></td>
+                        <td><p th:text="${senin + ' - ' + minggu}"></p></td>
                     </tr>
                 </table>
             </div>
@@ -61,34 +52,18 @@
                         <th>Durasi Bekerja</th>
                         <th>Gaji Harian</th>
                     </tr>
-                    <tr>
-                        <td rowspan="2">6-11-2024</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                        <td rowspan="2">Rp 150.000</td>
-                    </tr>
-                    <tr>
-
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2">7-11-2024</td>
-
-                        <td rowspan="2">7 jam 40 menit</td>
-                        <td rowspan="2">Rp 148.000</td>
-                    </tr>
-                    <tr>
-
-                    </tr>
-                    <tbody id="attendanceTableBody">
-
-                    </tbody>
+                    <th:block th:each="item : ${kehadiran}" >
+                        <tr>
+                            <td th:text="${item.tanggal}"></td>
+                            <td th:text="${item.durasikerja}"></td>
+                            <td th:text="${'Rp ' + #numbers.formatDecimal(item.gaji, 1, 2)}"></td>
+                        </tr>
+                    </th:block>
                     <tr>
                         <td colspan="2">
                             <p style="font-weight: bolder;">Total Gaji:</p>
                         </td>
-                        <td>
-                            700.000
-                        </td>
+                        <td th:text="${'Rp ' + #numbers.formatDecimal(totalGaji, 1, 2)}"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><Strong>Status Gaji : </Strong></td>

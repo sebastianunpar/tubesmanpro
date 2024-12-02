@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,19 +34,21 @@
         <section>
             <h2>Absen Kehadiran</h2>
             <div class="attendance">
-                <p><strong>Nama:</strong> El Rungkad</p>
-                <p><strong>ID Pegawai:</strong> 6182201999</p>
                 <p><strong>Status Kehadiran Hari Ini:</strong> <span id="attendance-status">Belum Hadir</span></p>
                 <p><strong>Waktu Sekarang:</strong> <span id="real-time"></span></p>
-                <button class="attendance-btn" id="attendanceButton">Klik Hadir</button>
-                <button class="attendance-btn" id="attendanceExitButton">Klik Pulang</button>
+                <form method="post" action="/pegawai/kehadiran/hadir" style="display: inline;">
+                    <button type="submit" class="attendance-btn" id="attendanceButton">Klik Hadir</button>
+                </form>
+                <form method="post" action="/pegawai/kehadiran/pulang" style="display: inline;">
+                    <button class="attendance-btn" id="attendanceExitButton">Klik Pulang</button>
+                </form>
 
             </div>
         </section>
             
         <section>
             <h2>Riwayat Kehadiran</h2>
-            <h3>Periode <br><strong>10 November 2024 - 15 November 2024</strong></h3>
+            <h3>Periode <br><strong th:text="${senin + ' - ' + minggu}"></strong></h3>
             <div class="table">
                 <table>
                     <tr>
@@ -56,32 +58,19 @@
                         <th>Durasi Bekerja</th>
                         <th>Gaji Harian</th>
                     </tr>
-                    <tr>
-                        <td rowspan="2">10-11-2024</td>
-                        <td>07:10:53</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                        <td rowspan="2">Rp 150.000</td>
-                    </tr>
-                    <tr>
-                        <td>15:20:46</td>
-                        <td>Pulang</td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:07:49</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">7 jam 40 menit</td>
-                        <td rowspan="2">Rp 148.000</td>
-                    </tr>
-                    <tr>
-                        <td>14:47:12</td>
-                        <td>Pulang</td>
-                    </tr>
-                    <tbody id="attendanceTableBody">
-                        <!-- Data dinamis akan ditambahkan di sini -->
-                    </tbody>
+                    <th:block th:each="item : ${kehadiran}" id="attendanceTableBody" >
+                        <tr>
+                            <td rowspan="2" th:text="${item.tanggal}"></td>
+                            <td th:text="${item.jammasuk}"></td>
+                            <td>Masuk</td>
+                            <td th:rowspan="2" th:text="${item.durasikerja}"></td>
+                            <td th:rowspan="2" th:text="${item.gaji}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${item.jamkeluar}"></td>
+                            <td>Pulang</td>
+                        </tr>
+                    </th:block>
                 </table>
             </div>
         </section>
