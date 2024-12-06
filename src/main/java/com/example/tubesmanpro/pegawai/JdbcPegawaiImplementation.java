@@ -4,10 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +28,6 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
         List<Pegawai> seluruhPegawai = jdbcTemplate.query(sql, this::mapRowToPegawai, noHp);
         return seluruhPegawai;
     }
-    
-
     private Pegawai mapRowToPegawai(ResultSet resultSet, int rowNum) throws SQLException {
         return new Pegawai(
             resultSet.getString("nomorhp"),
@@ -94,18 +95,14 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
         String jamkeluar = resultSet.getString("jamkeluar");
         double gaji = resultSet.getDouble("gaji");
         
-        // Konversi jammasuk dan jamkeluar menjadi LocalTime
         LocalTime waktuMasuk = LocalTime.parse(jammasuk);
         LocalTime waktuKeluar = LocalTime.parse(jamkeluar);
         
-        // Hitung selisih waktu dalam menit
         long durasiMenit = ChronoUnit.MINUTES.between(waktuMasuk, waktuKeluar);
         
-        // Menghitung jam dan menit
         long jam = durasiMenit / 60;
         long menit = durasiMenit % 60;
         
-        // Membuat durasi dalam format "X jam Y menit"
         String durasiKerjaFormat = jam + " jam " + menit + " menit";
         
         return new Kehadiran(namapegawai, tanggal, jammasuk, jamkeluar, durasiKerjaFormat, gaji);
@@ -122,20 +119,38 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
         String jamkeluar = resultSet.getString("jamkeluar");
         double gaji = resultSet.getDouble("gaji");
         
-        // Konversi jammasuk dan jamkeluar menjadi LocalTime
         LocalTime waktuMasuk = LocalTime.parse(jammasuk);
         LocalTime waktuKeluar = LocalTime.parse(jamkeluar);
         
-        // Hitung selisih waktu dalam menit
         long durasiMenit = ChronoUnit.MINUTES.between(waktuMasuk, waktuKeluar);
         
-        // Menghitung jam dan menit
         long jam = durasiMenit / 60;
         long menit = durasiMenit % 60;
         
-        // Membuat durasi dalam format "X jam Y menit"
         String durasiKerjaFormat = jam + " jam " + menit + " menit";
         
         return new Kehadiran(namapegawai, tanggal, jammasuk, jamkeluar, durasiKerjaFormat, gaji);
+    }
+
+    public boolean absen(LocalDate currentDate, LocalTime currentTime, String noHp){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+        LocalTime time = LocalTime.parse(formattedTime, formatter);
+
+        String sql = "INSERT INTO DaftarKehadiran (tanggal, jamMasuk, jamkeluar, nomorHP, gaji) VALUES (?, ?, ?, ?, ?)";
+        try {
+            jdbcTemplate.update(sql, currentDate, time, time, noHp, 0);
+            return true;
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public int checkAttendance(LocalDate currentDate, String noHp) {
+        String sql = "SELECT COUNT(*) FROM daftarkehadiran WHERE tanggal = ? AND nomorhp = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, currentDate, noHp);
+        return count != null ? count : 0;
     }
 }

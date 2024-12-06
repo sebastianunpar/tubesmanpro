@@ -58,19 +58,14 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         String jamkeluar = resultSet.getString("jamkeluar");
         double gaji = resultSet.getDouble("gaji");
 
-        
-        // Konversi jammasuk dan jamkeluar menjadi LocalTime
         LocalTime waktuMasuk = LocalTime.parse(jammasuk);
         LocalTime waktuKeluar = LocalTime.parse(jamkeluar);
-        
-        // Hitung selisih waktu dalam menit
+
         long durasiMenit = ChronoUnit.MINUTES.between(waktuMasuk, waktuKeluar);
-        
-        // Menghitung jam dan menit
+
         long jam = durasiMenit / 60;
         long menit = durasiMenit % 60;
         
-        // Membuat durasi dalam format "X jam Y menit"
         String durasiKerjaFormat = jam + " jam " + menit + " menit";
         
         return new Kehadiran(namapegawai, tanggal, jammasuk, jamkeluar, durasiKerjaFormat, gaji);
@@ -95,23 +90,18 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         }
     }
     
-
-    // Menyimpan data pegawai ke dalam database
     public boolean savePegawai(Pegawai pegawai) {
         String sql = "INSERT INTO Pegawai (nomorHP, namaPegawai, email, idJabatan, idAlamat, status) VALUES (?, ?, ?, ?, ?, ?)";
         
-        // Mendapatkan idJabatan dan idAlamat berdasarkan jabatan dan alamat yang diberikan
         Integer idJabatan = getJabatanIdByName(pegawai.getJabatan());
         Integer idAlamat = getAlamatIdByName(pegawai.getAlamat());
 
         if (idJabatan != null && idAlamat != null) {
-            // Simpan data pegawai
             int result = jdbcTemplate.update(sql, pegawai.getNomorhp(), pegawai.getNamapegawai(), pegawai.getEmail(), idJabatan, idAlamat, 1);
             return result > 0;
         }
         return false;
     }
-    // Mengambil ID Jabatan berdasarkan nama jabatan
     private Integer getJabatanIdByName(String jabatanName) {
         String sql = "SELECT idJabatan FROM Jabatan WHERE namaJabatan = ?";
         try {
@@ -121,7 +111,6 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         }
     }
 
-    // Mengambil ID Alamat berdasarkan nama jalan
     private Integer getAlamatIdByName(String alamatName) {
         String sql = "SELECT idAlamat FROM Alamat WHERE namaJalan = ?";
         try {

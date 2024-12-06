@@ -36,13 +36,12 @@
             <div class="attendance">
                 <p><strong>Status Kehadiran Hari Ini:</strong> <span id="attendance-status">Belum Hadir</span></p>
                 <p><strong>Waktu Sekarang:</strong> <span id="real-time"></span></p>
-                <form method="post" action="/pegawai/kehadiran/hadir" style="display: inline;">
+                <form method="post" action="/pegawai/kehadiran" style="display: inline;">
                     <button type="submit" class="attendance-btn" id="attendanceButton">Klik Hadir</button>
-                </form>
-                <form method="post" action="/pegawai/kehadiran/pulang" style="display: inline;">
+
                     <button class="attendance-btn" id="attendanceExitButton">Klik Pulang</button>
                 </form>
-
+                <div th:text="${absenError}" style="color: red;"></div>
             </div>
         </section>
             
