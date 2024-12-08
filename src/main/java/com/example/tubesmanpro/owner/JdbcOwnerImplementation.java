@@ -81,7 +81,7 @@ public class JdbcOwnerImplementation implements OwnerRepository{
     public List<KehadiranPegawai> findAllKehadiran() {
         String query = """
             SELECT pegawai.namapegawai, daftarkehadiran.tanggal, 
-                   daftarkehadiran.jammasuk, daftarkehadiran.jamkeluar
+                   daftarkehadiran.jammasuk, daftarkehadiran.jamkeluar, daftarkehadiran.gaji
             FROM daftarkehadiran
             JOIN pegawai ON pegawai.nomorhp = daftarkehadiran.nomorhp
             """;        
