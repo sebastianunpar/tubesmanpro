@@ -156,9 +156,4 @@ public class PegawaiController {
 
         return "redirect:/pegawai/kehadiran";
     }
-
-    // @PostMapping("/pegawai/kehadiran/pulang")
-    // public String pulang (){
-        
-    // }
 }

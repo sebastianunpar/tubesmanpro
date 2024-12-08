@@ -162,6 +162,60 @@ public class OwnerController {
         return "owner/updatePegawai";
     }
 
+    @PostMapping("/update-pegawai")
+    public String updatePegawaiPost(@RequestParam("namapegawai") String namapegawai, Model model, HttpSession session) {
+        System.out.println(namapegawai);
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        Pegawai pegawai = this.repo.getPegawaiByNama(namapegawai);
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+        model.addAttribute("pegawaiList", allPegawai);
+        model.addAttribute("pegawai", pegawai);
+        return "owner/updatePegawai";
+    }
+
+    @PostMapping("/update-pegawai2")
+    public String updatePegawaiPost2(@RequestParam("nama") String nama, 
+                                    @RequestParam("no_hp") String noHp, 
+                                    @RequestParam("email") String email, 
+                                    @RequestParam("alamat") String alamat, 
+                                    @RequestParam("kecamatan") String kecamatan,
+                                    @RequestParam("kelurahan") String kelurahan,
+                                    @RequestParam("jabatan") String jabatan,
+                                    HttpSession session, 
+                                    Model model) {
+        System.out.println(nama);
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        Pegawai pegawai = this.repo.getPegawaiByNama(nama);
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+        boolean isupdate = this.repo.updatePegawai(nama, noHp, email, alamat, kelurahan, jabatan);
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+        model.addAttribute("pegawaiList", allPegawai);
+        model.addAttribute("pegawai", pegawai);
+        if (isupdate) {
+            model.addAttribute("successMessage", "Data berhasil diupdate ke Database!");
+        } else{
+            model.addAttribute("errorMessage", "Gagal update data ke Database!");
+        }
+        return "owner/updatePegawai";
+    }
+
     @GetMapping("/laporan-kehadiran")
     public String showTambahData(HttpSession session) {
         if (session.getAttribute("loggedInOwner") == null) {

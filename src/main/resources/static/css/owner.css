@@ -299,3 +299,24 @@ button:hover{
 #tabel2{
     padding-top: 30px;
 }
+
+.but_update{
+    background-color: #1a1a40;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+input {
+    background-color: #3c4163;
+}
+.update_data{
+    margin: -50px;
+}
+
+.container_data{
+    display: flex;
+    flex-direction: row;
+    gap: 20px 10px;
+}

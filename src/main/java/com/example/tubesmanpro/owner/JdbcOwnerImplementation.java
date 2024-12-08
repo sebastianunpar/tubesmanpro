@@ -2,6 +2,7 @@ package com.example.tubesmanpro.owner;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -90,6 +91,15 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         }
     }
 
+    public Pegawai getPegawaiByNama(String nama) {
+        String sql = "SELECT * FROM pegawai WHERE namapegawai = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, this::mapRowToPegawai, nama);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<String> showAllKecamatan() {
         String sql = "SELECT namakecamatan FROM kecamatan";
         try {
@@ -143,6 +153,56 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         }
     }
 
+    public Boolean updatePegawai(String nama, String noHp, String email, String namajalan, String kelurahan, String jabatan) {
+        Integer idJabatan = getJabatanIdByName(jabatan);
+        Integer idKelurahan = getKelurahanIdByName(kelurahan);
+
+        // Mencari ID alamat
+        Integer idAlamat = getAlamatIdByName(namajalan);
+        
+        // Jika alamat belum ada, buat alamat baru
+        if (idAlamat == null) {
+            String insertSql = "INSERT INTO alamat (namajalan, idkelurahan) VALUES (?, ?)";
+            jdbcTemplate.update(insertSql, namajalan, idKelurahan);
+            idAlamat = getAlamatIdByName(namajalan); // Ambil ID alamat yang baru dimasukkan
+        }
+
+        // Dapatkan nomor HP lama dari pegawai berdasarkan nama
+        Pegawai pegawaiLama = getPegawaiByNama(nama);
+        if (pegawaiLama == null) {
+            return false; // Pegawai dengan nama tersebut tidak ditemukan
+        }
+
+        // Jika nomor HP baru berbeda dengan yang lama, hapus dulu referensi nomor HP lama di daftarkehadiran
+        if (!noHp.equals(pegawaiLama.getNomorhp())) {
+            String deleteDaftarKehadiranSql = "DELETE FROM daftarkehadiran WHERE nomorhp = ?";
+            try {
+                // Hapus referensi nomor HP lama di daftarkehadiran
+                jdbcTemplate.update(deleteDaftarKehadiranSql, pegawaiLama.getNomorhp());
+
+                // Setelah nomor HP di daftarkehadiran dihapus, baru perbarui nomor HP di pegawai
+                String updatePegawaiSql = "UPDATE pegawai SET nomorhp = ?, email = ?, idjabatan = ?, idalamat = ? WHERE namapegawai = ?";
+                jdbcTemplate.update(updatePegawaiSql, noHp, email, idJabatan, idAlamat, nama);
+
+                return true; // Mengembalikan true jika update berhasil
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false; // Mengembalikan false jika terjadi error
+            }
+        }
+
+        // Jika nomor HP tidak berubah, langsung update email, jabatan, dan alamat
+        String sql = "UPDATE pegawai SET email = ?, idjabatan = ?, idalamat = ? WHERE namapegawai = ?";
+        try {
+            int result = jdbcTemplate.update(sql, email, idJabatan, idAlamat, nama);
+            return result > 0; // Mengembalikan true jika update berhasil
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Mengembalikan false jika terjadi error
+        }
+    }
+
+
     private Integer getKelurahanIdByName(String Namakelurahan) {
         String sql = "SELECT idkelurahan FROM kelurahan WHERE namakelurahan = ?";
         try {
@@ -163,20 +223,17 @@ public class JdbcOwnerImplementation implements OwnerRepository{
 
 
     public boolean saveJabatan(String namajabatan, double gaji) {
-        // Cek apakah nama jabatan sudah ada di database
         String checkSql = "SELECT COUNT(*) FROM jabatan WHERE namajabatan = ?";
         int count = jdbcTemplate.queryForObject(checkSql, new Object[]{namajabatan}, Integer.class);
     
-        // Jika sudah ada, return false
         if (count > 0) {
-            return false; // Nama jabatan sudah ada
+            return false;
         }
     
-        // Jika belum ada, lakukan penyisipan data
         String insertSql = "INSERT INTO jabatan (namajabatan, satuangaji) VALUES (?, ?)";
         int result = jdbcTemplate.update(insertSql, namajabatan, gaji);
     
-        return result > 0; // Return true jika berhasil menambahkan
+        return result > 0;
     }
 
     private Integer getJabatanIdByName(String jabatanName) {
