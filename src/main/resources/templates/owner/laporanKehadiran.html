@@ -52,8 +52,8 @@
                 </form>
             </fieldset>
         </div>
+        <h3></h3>
         <section id="Tabelkehadiran" th:if="${pegawai != null}">
-            <h3>Riwayat Kehadiran 11 November 2024</h3>
             <div class="table">
                 <table>
                     <tr>
@@ -84,6 +84,22 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+
+        const heading = document.querySelector('h3');
+
+        // Fungsi untuk mendapatkan nama bulan saat ini
+        function getMonthName() {
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            const today = new Date();
+            return months[today.getMonth()];
+        }
+
+        // Ubah teks h3 menjadi bulan saat ini
+        heading.textContent = 'Riwayat Kehadiran ' + getMonthName() + ' ' + new Date().getFullYear();
+
 
         const logOutButton = document.querySelector('#logOut')
         logOutButton.addEventListener ('click', (event) => {
