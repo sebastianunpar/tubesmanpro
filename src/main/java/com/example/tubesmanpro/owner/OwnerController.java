@@ -60,6 +60,14 @@ public class OwnerController {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+
         return "owner/insertData";
     }
 
@@ -76,34 +84,44 @@ public class OwnerController {
         } else{
             model.addAttribute("errorMessage", "Gagal menambahkan data ke Database!");
         }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
         return "owner/insertData";
     }
 
-
-    // Menambahkan data pegawai ke dalam database
     @PostMapping("/tambah-pegawai")
     public String tambahPegawai(@RequestParam("nama") String nama, 
                                 @RequestParam("no_hp") String noHp, 
                                 @RequestParam("email") String email, 
                                 @RequestParam("alamat") String alamat, 
-                                @RequestParam("jabatan") String jabatan, 
-                                HttpSession session, Model model) {
+                                @RequestParam("kecamatan") String kecamatan,
+                                @RequestParam("kelurahan") String kelurahan,
+                                @RequestParam("jabatan") String jabatan,
+                                HttpSession session, 
+                                Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
 
-        // Membuat objek Pegawai baru dengan data yang diterima
-        Pegawai pegawai = new Pegawai(nama, noHp, email, jabatan, alamat);
-        
-        // Simpan pegawai ke dalam database
-        boolean isSuccess = repo.savePegawai(pegawai);
+        boolean isSuccess = this.repo.savePegawai(nama, noHp, email, alamat, kelurahan, jabatan);
         
         if (isSuccess) {
-            model.addAttribute("message", "Pegawai berhasil ditambahkan!");
+            model.addAttribute("successMessage", "Data berhasil ditambahkan ke Database!");
         } else {
-            model.addAttribute("error", "Gagal menambahkan pegawai. Coba lagi.");
+            model.addAttribute("errorMessage", "Gagal menambahkan data ke Database!");
         }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
 
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
         return "owner/insertData";
     }
 

@@ -89,19 +89,78 @@ public class JdbcOwnerImplementation implements OwnerRepository{
             return null;
         }
     }
-    
-    public boolean savePegawai(Pegawai pegawai) {
-        String sql = "INSERT INTO Pegawai (nomorHP, namaPegawai, email, idJabatan, idAlamat, status) VALUES (?, ?, ?, ?, ?, ?)";
-        
-        Integer idJabatan = getJabatanIdByName(pegawai.getJabatan());
-        Integer idAlamat = getAlamatIdByName(pegawai.getAlamat());
 
-        if (idJabatan != null && idAlamat != null) {
-            int result = jdbcTemplate.update(sql, pegawai.getNomorhp(), pegawai.getNamapegawai(), pegawai.getEmail(), idJabatan, idAlamat, 1);
-            return result > 0;
+    public List<String> showAllKecamatan() {
+        String sql = "SELECT namakecamatan FROM kecamatan";
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("namakecamatan"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return false;
     }
+
+    public List<String> showAllKelurahan() {
+        String sql = "SELECT namakelurahan FROM kelurahan";
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("namakelurahan"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> showAllJabatan() {
+        String sql = "SELECT namajabatan FROM jabatan";
+        try {
+            return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("namajabatan"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public Boolean savePegawai(String nama, String noHp, String email, String namajalan, String kelurahan, String jabatan) {
+        String sql = "INSERT INTO Pegawai (nomorHP, namaPegawai, email, idJabatan, idAlamat, status) VALUES (?, ?, ?, ?, ?, ?)";
+        Integer idJabatan = getJabatanIdByName(jabatan);
+        Integer idKelurahan = getKelurahanIdByName(kelurahan);
+
+        String insertSql = "INSERT INTO alamat (namajalan, idkelurahan) VALUES (?, ?)";
+        jdbcTemplate.update(insertSql, namajalan, idKelurahan);
+        Integer idAlamat = getAlamatIdByName(namajalan);
+
+        if (idJabatan == null || idAlamat == null || idKelurahan == null) {
+            return false;
+        }
+    
+        try {
+
+            int result = jdbcTemplate.update(sql, noHp, nama, email, idJabatan, idAlamat, 1);
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private Integer getKelurahanIdByName(String Namakelurahan) {
+        String sql = "SELECT idkelurahan FROM kelurahan WHERE namakelurahan = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, Integer.class, Namakelurahan);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private Integer getAlamatIdByName(String namajalan) {
+        String sql = "SELECT idalamat FROM alamat WHERE namajalan = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, Integer.class, namajalan);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public boolean saveJabatan(String namajabatan, double gaji) {
         // Cek apakah nama jabatan sudah ada di database
@@ -124,15 +183,6 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         String sql = "SELECT idJabatan FROM Jabatan WHERE namaJabatan = ?";
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, jabatanName);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private Integer getAlamatIdByName(String alamatName) {
-        String sql = "SELECT idAlamat FROM Alamat WHERE namaJalan = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, alamatName);
         } catch (Exception e) {
             return null;
         }
