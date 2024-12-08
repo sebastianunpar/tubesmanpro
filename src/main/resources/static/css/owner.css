@@ -281,3 +281,21 @@ button:hover{
     visibility: visible; 
     height: auto;
 }
+
+#cek_data_pegawai {
+    border: none;
+    border-radius: 0px;
+    margin-top: 20px;
+    padding: 0px;
+    width: 550px;
+}
+
+#tabel1{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+#tabel2{
+    padding-top: 30px;
+}

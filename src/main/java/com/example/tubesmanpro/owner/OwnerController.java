@@ -131,27 +131,26 @@ public class OwnerController {
             return "redirect:/owner";
         }
         List<Pegawai> pegawaiList = this.repo.showAllPegawai();
-        System.out.println(pegawaiList);
         model.addAttribute("pegawaiList", pegawaiList);
+        model.addAttribute("listPegawai", pegawaiList);
         return "owner/listPegawai";
     }
 
-    @PostMapping("/cek-data-pegawai")
+    @PostMapping("/list-pegawai")
     public String cekDataPegawai(@RequestParam("nomorhp") String nomorhp, Model model) {
-        if (nomorhp == null || nomorhp.isEmpty()) {
-            model.addAttribute("error", "Silakan pilih pegawai terlebih dahulu.");
-            return "owner/listPegawai";
-        }
-        Pegawai pegawai = this.repo.getPegawaiByNomorHp(nomorhp);
-        
-        if (pegawai != null) {
-            model.addAttribute("pegawai", pegawai);
+        List<Pegawai> pegawaiList = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", pegawaiList);
+        model.addAttribute("listPegawai", pegawaiList);
+        if (nomorhp.equals("")) {
+            List<Pegawai> listPegawai = this.repo.showAllPegawai();
+            model.addAttribute("listPegawai", listPegawai);
         } else {
-            model.addAttribute("error", "Pegawai tidak ditemukan.");
+            Pegawai pegawai = this.repo.getPegawaiByNomorHp(nomorhp);
+            model.addAttribute("pegawai", pegawai);
         }
-
         return "owner/listPegawai"; 
     }
+    
 
     @GetMapping("/update-pegawai")
     public String updatePegawai(Model model, HttpSession session) {
