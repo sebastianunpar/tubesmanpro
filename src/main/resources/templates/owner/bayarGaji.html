@@ -36,59 +36,27 @@
         <div id="laporan_gaji">
             <fieldset>
                 <legend><h2>Laporan Gaji Pegawai</h2></legend>
-                <table>
-                    <tr>
-                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
-                        <td>
-                            <select id="select_pegawai">
-                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                <option value="1">0812345667-Steven</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <form action="bayar-gaji" method="POST">
+                    <table>
+                        <tr>
+                            <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                            <td>
+                                <select id="select_pegawai" name="nomorhp">
+                                    <option value="full">--Pilih Pegawai--</option>
+                                    <option th:each="pegawai : ${pegawaiList}" 
+                                            th:value="${pegawai.nomorhp}" 
+                                            th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="but_update">Pilih</button>
+                </form>
             </fieldset>
         </div>
-        <div id="cek_gaji_pegawai">
-            <!--  action="tampilkan_kehadiran_pegawai.html" method="GET" -->
-            <form id="form_gaji">
-                <table>
-                    <tr>
-                        <td>
-                            <button id="cek_gaji">Cek Gaji</button>
-                        </td>
-                        <td>
-                            <button id="cek_gaji_semua">Cek Gaji Seluruh Pegawai</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <section style="display: none;" id="TabelGaji">
-            <h3>Laporan Gaji 11 November 2024</h3>
-            <div class="table">
-                <table>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Periode</th>
-                        <th>Durasi Bekerja</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Steven</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td colspan="3" style="background-color:green; color:white">LUNAS Rp 700.000,00</td>
-                    </tr>
-                    <tbody id="attendanceTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <section style="display: none;" id="TabelGajiSteven">
-            <h3>Riwayat Gaji 11 November 2024</h3>
+        <h3></h3>
+        <section id="TabelGaji" th:if="${pegawai != null}">
             <div class="table">
                 <table>
                     <tr>
@@ -97,21 +65,36 @@
                         <th>Durasi Bekerja</th>
                         <th>Nominal Gaji</th>
                     </tr>
-                    <tr>
-                        <td rowspan="2">Steven</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                        <td rowspan="2" style="background-color:green; color:white">Rp 700.000</td>
-                    </tr>
-                    <tr>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Olivia</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td rowspan="2">7 jam 40 menit</td>
-                        <td rowspan="2" style="background-color:red; color:white">Rp 650.000</td>
-                    </tr>
+
                     <tbody id="attendanceTableBody">
+                        <tr th:each="kehadiran : ${pegawai}">
+                            <td th:text="${kehadiran.nama}">Nama Pegawai</td>
+                            <td th:text="${kehadiran.tanggal}">Tanggal</td>
+                            <td th:text="${kehadiran.getDurasiKerja()}">Jam Keluar</td>
+                            <td th:text="${kehadiran.gaji}">Jam Keluar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="TabelGaji" th:if="${pegawai == null}">
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Periode</th>
+                        <th>Durasi Bekerja</th>
+                        <th>Nominal Gaji</th>
+                    </tr>
+
+                    <tbody id="attendanceTableBody">
+                        <tr>
+                            <td th:text="${nama}">Nama Pegawai</td>
+                            <td th:text="${periode}">Tanggal</td>
+                            <td th:text="${durasi}">Jam Keluar</td>
+                            <td th:text="${totalGaji}">Jam Keluar</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -126,25 +109,27 @@
             sidebar.classList.toggle('active');
         }
 
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-CA');
+
         const logOutButton = document.querySelector('#logOut')
         logOutButton.addEventListener ('click', (event) => {
             event.preventDefault();
             window.location.href = "login.html";
         });
-        let gaji = document.getElementById('cek_gaji_semua');
-        let gajiPegawai = document.getElementById('cek_gaji');
-        let tabel = document.getElementById('TabelGaji');
-        let tabel2 = document.getElementById('TabelGajiSteven');
-        gajiPegawai.addEventListener('click', function(){
-            event.preventDefault();
-            tabel2.style.display = 'none';
-            tabel.style.display = 'block';
-        })
-        gaji.addEventListener('click', function(){
-            event.preventDefault();
-            tabel.style.display = 'none';
-            tabel2.style.display = 'block';
-        })
+
+        const heading = document.querySelector('h3');
+
+        function getMonthName() {
+            const months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            const today = new Date();
+            return months[today.getMonth()];
+        }
+
+        heading.textContent = 'Riwayat Kehadiran ' + getMonthName() + ' ' + new Date().getFullYear();
     </script>
 </body>
 </html>

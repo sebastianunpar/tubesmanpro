@@ -1,6 +1,8 @@
 package com.example.tubesmanpro.owner;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -164,7 +166,6 @@ public class OwnerController {
 
     @PostMapping("/update-pegawai")
     public String updatePegawaiPost(@RequestParam("namapegawai") String namapegawai, Model model, HttpSession session) {
-        System.out.println(namapegawai);
         List<Pegawai> allPegawai = this.repo.showAllPegawai();
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
@@ -192,7 +193,6 @@ public class OwnerController {
                                     @RequestParam("jabatan") String jabatan,
                                     HttpSession session, 
                                     Model model) {
-        System.out.println(nama);
         List<Pegawai> allPegawai = this.repo.showAllPegawai();
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
@@ -242,10 +242,64 @@ public class OwnerController {
     }
 
     @GetMapping("/bayar-gaji")
-    public String bayarGaji(HttpSession session) {
+    public String bayarGaji(HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", allPegawai);
+
+        return "owner/bayarGaji";
+    }
+
+    @PostMapping("/bayar-gaji")
+    public String bayarGajiPost(@RequestParam("nomorhp") String noHp, HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        List<KehadiranPegawai> pegawai = this.repo.findAllKehadiran();
+        if (!noHp.equals("full")) {
+            pegawai = this.repo.findKehadiranByNomorHp(noHp);
+            String nama = pegawai.getFirst().getNama();
+            String periode = pegawai.getFirst().getTanggal();
+            
+            int totalJam = 0;
+            int totalMenit = 0;
+            double totalGaji = 0;
+
+            for (KehadiranPegawai kehadiranPegawai : pegawai) {
+                totalGaji += kehadiranPegawai.getGaji();
+                
+                String durasiKerja = kehadiranPegawai.getDurasiKerja();
+                
+                Pattern pattern = Pattern.compile("(\\d+)\\s*jam\\s*(\\d+)\\s*menit");
+                Matcher matcher = pattern.matcher(durasiKerja);
+                
+                if (matcher.find()) {
+                    int jam = Integer.parseInt(matcher.group(1));
+                    int menit = Integer.parseInt(matcher.group(2));
+                    
+                    totalJam += jam;
+                    totalMenit += menit;
+                }
+            }
+
+            totalJam += totalMenit / 60;
+            totalMenit = totalMenit % 60;
+
+            String durasi = totalJam + " jam " + totalMenit + " menit";
+
+            model.addAttribute("nama", nama);
+            model.addAttribute("periode", periode);
+            model.addAttribute("durasi", durasi);
+            model.addAttribute("totalGaji", totalGaji);
+            model.addAttribute("pegawai", null);
+        } else {
+            model.addAttribute("pegawai", pegawai);
+        }
+        model.addAttribute("pegawaiList", allPegawai);
+
         return "owner/bayarGaji";
     }
 
