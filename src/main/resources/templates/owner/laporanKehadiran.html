@@ -43,7 +43,8 @@
                                     <option value="full">--Pilih Pegawai--</option>
                                     <option th:each="pegawai : ${pegawaiList}" 
                                             th:value="${pegawai.nomorhp}" 
-                                            th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}"></option>
+                                            th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}">
+                                    </option>
                                 </select>
                             </td>
                         </tr>
@@ -84,10 +85,11 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-CA');
 
         const heading = document.querySelector('h3');
 
-        // Fungsi untuk mendapatkan nama bulan saat ini
         function getMonthName() {
             const months = [
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -97,7 +99,6 @@
             return months[today.getMonth()];
         }
 
-        // Ubah teks h3 menjadi bulan saat ini
         heading.textContent = 'Riwayat Kehadiran ' + getMonthName() + ' ' + new Date().getFullYear();
 
 

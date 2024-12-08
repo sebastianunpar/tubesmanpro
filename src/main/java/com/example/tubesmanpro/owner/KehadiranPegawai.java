@@ -15,6 +15,7 @@ public class KehadiranPegawai {
     private String tanggal;     // Tanggal kehadiran
     private String jamMasuk;    // Waktu masuk kerja
     private String jamKeluar;   // Waktu keluar kerja
+    private Double gaji;
 
     public String getDurasiKerja() {
         try {
