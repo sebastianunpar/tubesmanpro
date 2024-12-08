@@ -94,12 +94,12 @@
                      <tr>
                          <td><label for="jabatan">Jabatan <span style="color: red;">*</span></label></td>
                          <td>
-                         <select id="jabatan" name="jabatan" required>
-                            <option value="">--Pilih Jabatan--</option>
-                            <option th:each="jabatan : ${listJabatan}" 
-                                    th:value="${jabatan}" 
-                                    th:text="${jabatan}"></option>
-                        </select>
+                            <select id="jabatan" name="jabatan" required>
+                                <option value="">--Pilih Jabatan--</option>
+                                <option th:each="jabatan : ${listJabatan}" 
+                                        th:value="${jabatan}" 
+                                        th:text="${jabatan}"></option>
+                            </select>
                         </td>
                      </tr>
                      <tr><td colspan="2"><button type="submit" class="buttonSubmit">Simpan Pegawai</button></td></tr>

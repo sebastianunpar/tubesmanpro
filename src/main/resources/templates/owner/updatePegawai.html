@@ -34,18 +34,20 @@
         </div>
     </nav>
     <main>
+        <p th:if="${successMessage != null}" style="color: green;" th:text="${successMessage}"></p>
+        <p th:if="${errorMessage != null}" style="color: red;" th:text="${errorMessage}"></p>
         <div id="pilih_pegawai">
-            <form action="??" method="POST">
+            <form action="update-pegawai" method="POST">
                 <fieldset>
                     <legend><h2>Pilih Pegawai yang Akan Diupdate</h2></legend>
                     <table>
                         <tr>
                             <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
                             <td>
-                                <select>
+                                <select name="namapegawai">
                                     <option value="Pilih Pegawai">--Pilih Pegawai--</option>
                                     <option th:each="pegawai : ${pegawaiList}" 
-                                    th:text="${pegawai.namapegawai}"></option>
+                                    th:text="${pegawai.namapegawai}" th:value="${pegawai.namapegawai}"></option>
                                 </select>
                             </td>
                         </tr>
@@ -55,142 +57,98 @@
             </form>
         </div>
 
-        <div id="pilih_pegawai">
-            <form action="??" method="POST">
+        <div class="container_data" th:if="${pegawai != null}">
+            <div id="pilih_pegawai">
                 <fieldset>
                     <legend><h2>Data Pegawai Sebelum</h2></legend>
                     <table>
                         <tr>
-                            <td><label for="pegawai_id">Nama:</label></td>
-                            <td>Steven Febrian</td>
+                            <td><label for="namapegawai">Nama:</label></td>
+                            <td th:text="${pegawai.namapegawai}"></td>
                         </tr>
                         <tr>
-                            <td>Nomor HP:</td>
-                            <td>0812345667</td>
+                            <td><label for="nomorhp">Nomor HP:</label></td>
+                            <td th:text="${pegawai.nomorhp}"></td>
                         </tr>
                         <tr>
-                            <td>Email:</td>
-                            <td>steven_feb@gmail.com</td>
+                            <td><label for="email">Email:</label></td>
+                            <td th:text="${pegawai.email}"></td>
                         </tr>
                         <tr>
-                            <td>Kecamatan:</td>
-                            <td>Cidadap</td>
+                            <td><label for="alamat">Alamat:</label></td>
+                            <td th:text="${pegawai.alamat}"></td>
                         </tr>
                         <tr>
-                            <td>Kelurahan</td>
-                            <td>Hergamanah</td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td>Jl. Ciumbuleuit No. 94</td>
-                        </tr>
-                        <tr>
-                            <td>Jabatan</td>
-                            <td>Barista</td>
+                            <td><label for="jabatan">Jabatan:</label></td>
+                            <td th:text="${pegawai.jabatan}"></td>
                         </tr>
                     </table>
                 </fieldset>
-            </form>
-        </div>
-        <div>
-            <table>
-                <tr>
-                    <td>
-                        <div id="data_pegawai_sebelum">
-                            <form action="??" method="POST">
-                                <fieldset>
-                                    <legend><h2>Data Pegawai Sebelum</h2></legend>
-                                    <table>
-                                        <tr>
-                                            <td><label for="pegawai_id">Nama:</label></td>
-                                            <td>Steven Febrian</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nomor HP:</td>
-                                            <td>0812345667</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>steven@gmail.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kecamatan:</td>
-                                            <td>Cidadap</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kelurahan</td>
-                                            <td>Hergamanah</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alamat</td>
-                                            <td>Jl. Ciumbuleuit No. 94</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jabatan</td>
-                                            <td>Barista</td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="update_data_pegawai">
-                            <form action="proses_update_data.html" method="POST">
-                                <fieldset>
-                                    <legend><h2>Update Data Pegawai</h2></legend>
-                                    <table>
-                                        <tr>
-                                            <td><label for="no_hp">Nomor HP Baru:</label></td>
-                                            <td><input type="text" id="no_hp" name="no_hp"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="email">Email Baru:</label>
-                                            </td>
-                                            <td><input type="email" id="email" name="email"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="kecamatan">Kecamatan</label></td>
-                                            <td><select id="kecamatan" name="kecamatan" required>
-                                                <option value="">--Pilih Kecamatan--</option>
-                                            </select><br></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="kelurahan">Kelurahan</label></td>
-                                            <td><select id="kelurahan" name="kelurahan" required>
-                                                <option value="">--Pilih Kelurahan--</option>
-                                            </select><br></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="alamat">Alamat Baru:</label>
-                                            </td>
-                                            <td><input type="text" id="alamat" name="alamat"><br>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="jabatan">Jabatan Baru:</label>
-                                            </td>
-                                            <td><select id="jabatan" name="jabatan" required>
-                                                <option value="">--Pilih Jabatan--</option>
-                                                <option value="">Barista</option>
-                                                <option value="">Kasir</option>
-                                                <option value="">Waiter</option>
-                                                <option value="">Janitor</option>
-                                                <option value="">Security</option>
-                                            </select><br></td>
-                                        </tr>
-                                    </table>
-                                    <button type="submit" class="but_update">Update</button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            </div> 
+            <div>
+                <form action="update-pegawai2" method="POST">
+                    <fieldset>
+                        <legend><h2>Update Data Pegawai</h2></legend>
+                        <table>
+                            <tr>
+                                <input type="hidden" name="nama" th:value="${pegawai.namapegawai}">
+                            </tr>
+                            <tr>
+                                <td><label for="no_hp">Nomor HP Baru:</label></td>
+                                <td><input type="text" id="no_hp" name="no_hp"><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="email">Email Baru:</label>
+                                </td>
+                                <td><input type="email" id="email" name="email"><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="kecamatan">Kecamatan</label></td>
+                                <td>
+                                    <select id="kecamatan" name="kecamatan" required>
+                                        <option value="">--Pilih Kecamatan--</option>
+                                        <option th:each="kecamatan : ${listKecamatan}" 
+                                                th:value="${kecamatan}" 
+                                                th:text="${kecamatan}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="kelurahan">Kelurahan</label></td>
+                                <td>
+                                    <select id="kelurahan" name="kelurahan" required>
+                                        <option value="">--Pilih Kelurahan--</option>
+                                        <option th:each="kelurahan : ${listKelurahan}" 
+                                                th:value="${kelurahan}" 
+                                                th:text="${kelurahan}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="alamat">Alamat Baru:</label>
+                                </td>
+                                <td><input type="text" id="alamat" name="alamat"><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="jabatan">Jabatan Baru:</label>
+                                </td>
+                                <td>
+                                    <select id="jabatan" name="jabatan" required>
+                                        <option value="">--Pilih Jabatan--</option>
+                                        <option th:each="jabatan : ${listJabatan}" 
+                                                th:value="${jabatan}" 
+                                                th:text="${jabatan}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="but_update">Update</button>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </main>
     <footer>
@@ -201,19 +159,6 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
-
-        let option = document.getElementById('select_pegawai');
-        let dataLama = document.getElementById('data_pegawai_sebelum');
-        let dataBaru = document.getElementById('update_data_pegawai');
-        option.addEventListener('change', () => {
-            if (option.value === '1') {
-                dataLama.classList.add('visible');
-                dataBaru.classList.add('visible');  
-            } else {
-                dataLama.classList.remove('visible');
-                dataBaru.classList.remove('visible');
-            }
-        });
     </script>
 </body>
 </html>
