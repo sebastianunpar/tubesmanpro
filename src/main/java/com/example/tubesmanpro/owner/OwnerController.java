@@ -56,12 +56,29 @@ public class OwnerController {
     }
 
     @GetMapping("/tambah-data")
-    public String tambahData(HttpSession session) {
+    public String tambahData(HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
         return "owner/insertData";
     }
+
+    @PostMapping("/tambah-jabatan")
+    public String tambahDataPost(@RequestParam("namaJabatan") String namaJabatan,
+                                @RequestParam("gaji") double gaji,
+                                HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        boolean res = this.repo.saveJabatan(namaJabatan, gaji);
+        if (res) {
+            model.addAttribute("successMessage", "Data berhasil ditambahkan ke Database!");
+        } else{
+            model.addAttribute("errorMessage", "Gagal menambahkan data ke Database!");
+        }
+        return "owner/insertData";
+    }
+
 
     // Menambahkan data pegawai ke dalam database
     @PostMapping("/tambah-pegawai")
