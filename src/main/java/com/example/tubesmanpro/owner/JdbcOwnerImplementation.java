@@ -102,6 +102,24 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         }
         return false;
     }
+
+    public boolean saveJabatan(String namajabatan, double gaji) {
+        // Cek apakah nama jabatan sudah ada di database
+        String checkSql = "SELECT COUNT(*) FROM jabatan WHERE namajabatan = ?";
+        int count = jdbcTemplate.queryForObject(checkSql, new Object[]{namajabatan}, Integer.class);
+    
+        // Jika sudah ada, return false
+        if (count > 0) {
+            return false; // Nama jabatan sudah ada
+        }
+    
+        // Jika belum ada, lakukan penyisipan data
+        String insertSql = "INSERT INTO jabatan (namajabatan, satuangaji) VALUES (?, ?)";
+        int result = jdbcTemplate.update(insertSql, namajabatan, gaji);
+    
+        return result > 0; // Return true jika berhasil menambahkan
+    }
+
     private Integer getJabatanIdByName(String jabatanName) {
         String sql = "SELECT idJabatan FROM Jabatan WHERE namaJabatan = ?";
         try {

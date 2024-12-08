@@ -123,6 +123,9 @@
          </div>
      </nav>
      <main>
+        <!-- error msg -->
+        <p th:if="${successMessage != null}" style="color: green;" th:text="${successMessage}"></p>
+        <p th:if="${errorMessage != null}" style="color: red;" th:text="${errorMessage}"></p>
          <div id="head">
              <fieldset>
                  <legend><h2>Menambahkan Data Baru</h2></legend>
@@ -217,20 +220,22 @@
                  </table>             
              </form>
  
-             <form action="proses_masukan_jabatan.html" method="POST" id="form_jabatan" style="display: none;">
-                 <h1>Masukkan Data Jabatan</h1>
-                 <table>
-                     <tr>
-                         <td><label for="jabatan_name">Nama Jabatan: <span style="color: red;">*</span></label></td>
-                         <td><input type="text" id="jabatan_name" name="jabatan_name" rows="3" required style="resize: none;"></textarea><br></td>
-                     </tr>
-                     <tr>
-                         <td><label for="satuan_gaji">Nominal Satuan Gaji: <span style="color: red;">*</span></label></td>
-                         <td><input type="number" id="satuan_gaji" name="satuan_gaji" required><br></td>
-                     </tr>
-                     <tr><td colspan="2"><button type="submit" class="buttonSubmit">Simpan Jabatan</button></td></tr>
-                 </table>  
-             </form>
+             <form action="tambah-jabatan" method="POST" id="form_jabatan" style="display: none;">
+                <h1>Masukkan Data Jabatan</h1>
+                <table>
+                    <tr>
+                        <td><label for="jabatan_name">Nama Jabatan: <span style="color: red;">*</span></label></td>
+                        <td><input type="text" id="jabatan_name" name="namaJabatan" ><br></td>
+                    </tr>
+                    <tr>
+                        <td><label for="satuan_gaji">Nominal Satuan Gaji: <span style="color: red;">*</span></label></td>
+                        <td><input type="number" id="satuan_gaji" name="gaji"><br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit" class="buttonSubmit">Simpan Jabatan</button></td>
+                    </tr>
+                </table>  
+            </form>            
          </div>
      </main>
      <footer>
