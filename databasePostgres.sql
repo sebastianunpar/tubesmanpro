@@ -316,32 +316,75 @@ VALUES
 ('Ujungberung', (SELECT idKecamatan FROM Kecamatan WHERE namaKecamatan = 'Ujung Berung'));
 
 insert into Jabatan(namaJabatan, satuanGaji)
-values	('Barista', 22000.0),
-		('Kasir', 18000.0),
-		('Waiter', 20000.0),
-		('Janitor', 15000.0),
-		('Security', 15000.0);
+values
+	('Barista Senior', 25000.0),
+	('Head Chef', 30000.0),
+	('Pastry Chef', 27000.0),
+	('Baker', 23000.0),
+	('Cafe Manager', 35000.0),
+	('Sous Chef', 28000.0),
+	('Waitress', 20000.0),
+	('Barback', 17000.0),
+	('Floor Supervisor', 24000.0),
+	('Cashier Supervisor', 23000.0);
 
-insert into Pemilik  values 
-	('agus', 'agus123', 'admin123');
+insert into Pemilik values 
+	('Rudi', 'rudi123', 'admin123'),
+	('Sari', 'sari123', 'admin123'),
+	('Dewi', 'dewi123', 'admin123'),
+	('Budi', 'budi123', 'admin123'),
+	('Indah', 'indah123', 'admin123'),
+	('Joko', 'joko123', 'admin123'),
+	('Tari', 'tari123', 'admin123'),
+	('Eka', 'eka123', 'admin123'),
+	('Rina', 'rina123', 'admin123'),
+	('Wawan', 'wawan123', 'admin123');
 
-INSERT INTO Alamat(namaJalan, idKelurahan) VALUES 
-	('Jl. Ciumbuleuit No.42A', 72),
-	('jl Cianjur No.34', 40),
-	('Jl. Raya Cijerah No.19', 32),
-	('Jl. Raya Kopo No.46', 18),
-	('Jl. Holis No.257', 27),
-	('Jl. Lamping No.18', 114),
-	('Jl. Banda No.30', 35);
 
-INSERT INTO Pegawai(nomorHP, namaPegawai, email, idJabatan, idAlamat, status) VALUES 
-	('08111', 'Steven', 'steven@gmail.com', 1,1,1), --Barista
-	('08222', 'Kris', 'kris@gmail.com', 1,2,1), --Barista
-	('08333', 'Seba', 'seba@gmail.com', 2,3,1), --Kasir
-	('08444', 'Oliv', 'oliv@gmail.com', 3,4,1), --Waiter
-	('08555', 'Sam', 'sam@gmail.com', 3,5,1), --Waiter
-	('08666', 'Budi', 'budi@gmail.com', 4,6,0),
-	('08777', 'Bagus', 'bagus@gmail.com', 5,7,0);
+INSERT INTO Alamat(namaJalan, idKelurahan) VALUES
+	('Jl. Suka Mulya No.99', 3),
+	('Jl. Bintaro No.17', 26),
+	('Jl. Raya Tengah No.23', 49),
+	('Jl. Alam No.21', 34),
+	('Jl. Kencana No.59', 61),
+	('Jl. Kenangan No.12', 40),
+	('Jl. Barito No.33', 14),
+	('Jl. Angsana No.28', 67),
+	('Jl. Sumber Agung No.8', 51),
+	('Jl. Kemuning No.90', 23),
+	('Jl. Melati No.10', 82),
+	('Jl. Bukit Raya No.45', 35),
+	('Jl. Arjuna No.56', 76),
+	('Jl. Cipadung No.18', 72),
+	('Jl. Palasari No.40', 17),
+	('Jl. Cibiru No.61', 94),
+	('Jl. Rahayu No.70', 120),
+	('Jl. Pramuka No.15', 102),
+	('Jl. Raya Barat No.5', 63),
+	('Jl. Pahlawan No.14', 109);
+
+
+INSERT INTO Pegawai(nomorHP, namaPegawai, email, idJabatan, idAlamat, status) VALUES
+	('08999', 'Andi', 'andi@gmail.com', 2, 8, 1),
+	('08123', 'Siti', 'siti@gmail.com', 3, 9, 1),
+	('08234', 'Rina', 'rina@gmail.com', 4, 10, 0),
+	('08345', 'Toni', 'toni@gmail.com', 5, 11, 1),
+	('08456', 'Lina', 'lina@gmail.com', 6, 12, 0),
+	('08567', 'Joni', 'joni@gmail.com', 7, 13, 1),
+	('08678', 'Maya', 'maya@gmail.com', 8, 14, 0),
+	('08789', 'Fikri', 'fikri@gmail.com', 9, 15, 1),
+	('08890', 'Nina', 'nina@gmail.com', 10, 16, 1),
+	('08901', 'Dewi', 'dewi@gmail.com', 2, 17, 0),
+	('08102', 'Wawan', 'wawan@gmail.com', 3, 18, 1),
+	('08213', 'Udin', 'udin@gmail.com', 4, 19, 0),
+	('08324', 'Ika', 'ika@gmail.com', 5, 20, 1),
+	('08435', 'Tari', 'tari@gmail.com', 6, 1, 1),
+	('08546', 'Gilang', 'gilang@gmail.com', 7, 2, 0),
+	('08657', 'Yuli', 'yuli@gmail.com', 8, 3, 1),
+	('08768', 'Rizky', 'rizky@gmail.com', 9, 4, 1),
+	('08879', 'Vivi', 'vivi@gmail.com', 10, 5, 0),
+	('08980', 'Rudi', 'rudi@gmail.com', 1, 6, 1),
+	('08111', 'Zahra', 'zahra@gmail.com', 2, 7, 0);
 	
 
 INSERT INTO DaftarKehadiran (tanggal, jamMasuk, jamKeluar, nomorHP, gaji) VALUES

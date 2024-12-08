@@ -1,5 +1,7 @@
 package com.example.tubesmanpro.owner;
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -51,6 +53,49 @@ public class JdbcOwnerImplementation implements OwnerRepository{
             resultSet.getString("passwordpemilik")
         );
     }
+
+    private KehadiranPegawai mapRowToKehadiranPegawai(ResultSet resultSet, int rowNum) throws SQLException {
+        return new KehadiranPegawai(
+            resultSet.getString("namapegawai"),
+            resultSet.getString("tanggal"),
+            resultSet.getString("jammasuk"),
+            resultSet.getString("jamkeluar")
+        );
+    }
+
+    public List<KehadiranPegawai> findKehadiranByNomorHp(String nomorHp) {
+        String query = """
+            SELECT pegawai.namapegawai, daftarkehadiran.tanggal, 
+                   daftarkehadiran.jammasuk, daftarkehadiran.jamkeluar
+            FROM daftarkehadiran
+            JOIN pegawai ON pegawai.nomorhp = daftarkehadiran.nomorhp
+            WHERE pegawai.nomorhp = ?
+            """;        
+        try {
+            return jdbcTemplate.query(query, this::mapRowToKehadiranPegawai, nomorHp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return null;
+    }
+
+    public List<KehadiranPegawai> findAllKehadiran() {
+        String query = """
+            SELECT pegawai.namapegawai, daftarkehadiran.tanggal, 
+                   daftarkehadiran.jammasuk, daftarkehadiran.jamkeluar
+            FROM daftarkehadiran
+            JOIN pegawai ON pegawai.nomorhp = daftarkehadiran.nomorhp
+            """;        
+        try {
+            return jdbcTemplate.query(query, this::mapRowToKehadiranPegawai);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return null;
+    }    
+        
 
     private Kehadiran mapRowToKehadiran(ResultSet resultSet, int rowNum) throws SQLException {
         String namapegawai = resultSet.getString("namapegawai");

@@ -34,100 +34,47 @@
         <div id="laporan_kehadiran">
             <fieldset>
                 <legend><h2>Laporan Kehadiran Pegawai</h2></legend>
-                <table>
-                    <tr>
-                        <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
-                        <td>
-                            <select id="select_pegawai">
-                                <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                <option value="1">0812345667-Steven</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                <form action="laporan-kehadiran" method="POST">
+                    <table>
+                        <tr>
+                            <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
+                            <td>
+                                <select id="select_pegawai" name="nomorhp">
+                                    <option value="full">--Pilih Pegawai--</option>
+                                    <option th:each="pegawai : ${pegawaiList}" 
+                                            th:value="${pegawai.nomorhp}" 
+                                            th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="but_update">Pilih</button>
+                </form>
             </fieldset>
         </div>
-        <div id="cek_kehadiran_pegawai">
-            <!--  action="tampilkan_kehadiran_pegawai.html" method="GET" -->
-            <form id="form kehadiran">
-                <table>
-                    <tr>
-                        <td>
-                            <button id="cek_kehadiran">Cek Kehadiran</button>
-                        </td>
-                        <td>
-                            <button id="cek_kehadiran_semua">Cek Kehadiran Seluruh Pegawai</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <section style="display: none;" id="Tabelkehadiran">
+        <section id="Tabelkehadiran" th:if="${pegawai != null}">
             <h3>Riwayat Kehadiran 11 November 2024</h3>
             <div class="table">
                 <table>
                     <tr>
                         <th>Nama</th>
                         <th>Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Status</th>
+                        <th>Masuk</th>
+                        <th>Pulang</th>
                         <th>Durasi Bekerja</th>
                     </tr>
-                    <tr>
-                        <td rowspan="2">Steven</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:10:53</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                    </tr>
-                    <tr>
-                        <td>15:20:46</td>
-                        <td>Pulang</td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2">Olivia</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:07:49</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">7 jam 40 menit</td>
-                    </tr>
-                    <tr>
-                        <td>14:47:12</td>
-                        <td>Pulang</td>
-                    </tr>
-                    <tbody id="attendanceTableBody">
+                    <tbody>
+                        <tr th:each="kehadiran : ${pegawai}">
+                            <td th:text="${kehadiran.nama}">Nama Pegawai</td>
+                            <td th:text="${kehadiran.tanggal}">Tanggal</td>
+                            <td th:text="${kehadiran.jamMasuk}">Jam Masuk</td>
+                            <td th:text="${kehadiran.jamKeluar}">Jam Keluar</td>
+                            <td th:text="${kehadiran.getDurasiKerja()}">Jam Keluar</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-        </section>
-        <section style="display: none;" id="TabelkehadiranSteven">
-            <h3>Riwayat Kehadiran 11 November 2024</h3>
-            <div class="table">
-                <table>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Waktu</th>
-                        <th>Status</th>
-                        <th>Durasi Bekerja</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Steven</td>
-                        <td rowspan="2">11-11-2024</td>
-                        <td>07:10:53</td>
-                        <td>Masuk</td>
-                        <td rowspan="2">8 jam 10 menit</td>
-                    </tr>
-                    <tr>
-                        <td>15:20:46</td>
-                        <td>Pulang</td>
-                    </tr>
-                    <tbody id="attendanceTableBody">
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        </section>        
     </main>
     <footer>
     </footer>
@@ -143,21 +90,6 @@
             event.preventDefault();
             window.location.href = "login.html";
         });
-
-        let kehadiran = document.getElementById('cek_kehadiran_semua');
-        let kehadiranPegawai = document.getElementById('cek_kehadiran');
-        let tabel = document.getElementById('Tabelkehadiran');
-        let tabel2 = document.getElementById('TabelkehadiranSteven');
-        kehadiran.addEventListener('click', function(){
-            event.preventDefault();
-            tabel2.style.display = 'none';
-            tabel.style.display = 'block';
-        })
-        kehadiranPegawai.addEventListener('click', function(){
-            event.preventDefault();
-            tabel.style.display = 'none';
-            tabel2.style.display = 'block';
-        })
     </script>
 </body>
 </html>

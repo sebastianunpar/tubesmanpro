@@ -217,10 +217,27 @@ public class OwnerController {
     }
 
     @GetMapping("/laporan-kehadiran")
-    public String showTambahData(HttpSession session) {
+    public String showTambahData(HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", allPegawai);
+        return "owner/laporanKehadiran";
+    }
+
+    @PostMapping("/laporan-kehadiran")
+    public String postTambahData(@RequestParam("nomorhp") String noHp, HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        List<KehadiranPegawai> pegawai = this.repo.findAllKehadiran();
+        if (!noHp.equals("full")) {
+            pegawai = this.repo.findKehadiranByNomorHp(noHp);
+        }
+        model.addAttribute("pegawai", pegawai);
+        model.addAttribute("pegawaiList", allPegawai);
         return "owner/laporanKehadiran";
     }
 
