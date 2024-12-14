@@ -92,12 +92,37 @@ public class PegawaiService {
 
         System.out.println(attendanceCount);
 
-        if (attendanceCount > 1) {
-            return false;
-        }
-        if (attendanceCount == 1) {
+        if (attendanceCount >= 1) {
             return false;
         }
         return repo.absen(currentDate, currentTime, noHp);
+    }
+
+    public boolean pulang(LocalDate currentDate, LocalTime currentTime, String noHp) {
+        int attendanceCount = repo.checkAttendance(currentDate, noHp);
+        if (attendanceCount == 0 || attendanceCount > 1) {
+            return false;
+        }
+        double gajiT = repo.getGajiHariIni(noHp, currentDate).doubleValue();
+        if (gajiT > 0) {
+            return false;
+        }
+
+        List<Double> satuanGajiT = repo.getSatuanGajiFromNoHp(noHp);
+        double satuanGaji = satuanGajiT.get(0).doubleValue();
+
+        LocalTime waktuHadir = repo.getWaktuKehadiranHariIni(noHp, currentDate);
+
+        double gaji = calculateGajiHarian(waktuHadir, currentTime, satuanGaji);
+
+        return repo.pulang(currentDate, currentTime, noHp, gaji);
+    }
+
+    public double calculateGajiHarian(LocalTime waktuHadir, LocalTime waktuPulang, double satuanGaji) {
+        long hoursWorked = java.time.Duration.between(waktuHadir, waktuPulang).toHours();
+    
+        double gajiHarian = hoursWorked * satuanGaji;
+    
+        return Math.max(gajiHarian, 0.0);
     }
 }

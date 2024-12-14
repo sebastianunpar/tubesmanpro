@@ -152,4 +152,30 @@ public class JdbcPegawaiImplementation implements PegawaiRepository{
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, currentDate, noHp);
         return count != null ? count : 0;
     }
+
+    public boolean pulang(LocalDate currentDate, LocalTime currentTime, String noHp, double gaji){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+        LocalTime time = LocalTime.parse(formattedTime, formatter);
+
+        String sql = "UPDATE DaftarKehadiran SET jamkeluar = ?, gaji = ? WHERE tanggal = ? AND nomorHP = ?";
+        try {
+            jdbcTemplate.update(sql, time, gaji, currentDate, noHp);
+            return true;
+        } catch (DataAccessException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public LocalTime getWaktuKehadiranHariIni (String noHp, LocalDate currentDate) {
+        String sql = "SELECT jammasuk FROM daftarkehadiran left join pegawai on daftarkehadiran.nomorhp = pegawai.nomorhp WHERE daftarkehadiran.nomorhp = ? AND tanggal = ?";
+        return jdbcTemplate.queryForObject(sql, LocalTime.class, noHp, currentDate);
+    }
+
+    public Double getGajiHariIni (String noHp, LocalDate currentDate) {
+        String sql = "SELECT gaji FROM daftarkehadiran left join pegawai on daftarkehadiran.nomorhp = pegawai.nomorhp WHERE daftarkehadiran.nomorhp = ? AND tanggal = ?";
+        return jdbcTemplate.queryForObject(sql, Double.class, noHp, currentDate);
+    }
 }
