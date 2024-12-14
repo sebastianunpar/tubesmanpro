@@ -1,6 +1,8 @@
 package com.example.tubesmanpro.owner;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -56,37 +58,72 @@ public class OwnerController {
     }
 
     @GetMapping("/tambah-data")
-    public String tambahData(HttpSession session) {
+    public String tambahData(HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+
         return "owner/insertData";
     }
 
-    // Menambahkan data pegawai ke dalam database
+    @PostMapping("/tambah-jabatan")
+    public String tambahDataPost(@RequestParam("namaJabatan") String namaJabatan,
+                                @RequestParam("gaji") double gaji,
+                                HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        boolean res = this.repo.saveJabatan(namaJabatan, gaji);
+        if (res) {
+            model.addAttribute("successMessage", "Data berhasil ditambahkan ke Database!");
+        } else{
+            model.addAttribute("errorMessage", "Gagal menambahkan data ke Database!");
+        }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+        return "owner/insertData";
+    }
+
     @PostMapping("/tambah-pegawai")
     public String tambahPegawai(@RequestParam("nama") String nama, 
                                 @RequestParam("no_hp") String noHp, 
                                 @RequestParam("email") String email, 
                                 @RequestParam("alamat") String alamat, 
-                                @RequestParam("jabatan") String jabatan, 
-                                HttpSession session, Model model) {
+                                @RequestParam("kecamatan") String kecamatan,
+                                @RequestParam("kelurahan") String kelurahan,
+                                @RequestParam("jabatan") String jabatan,
+                                HttpSession session, 
+                                Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
 
-        // Membuat objek Pegawai baru dengan data yang diterima
-        Pegawai pegawai = new Pegawai(nama, noHp, email, jabatan, alamat);
-        
-        // Simpan pegawai ke dalam database
-        boolean isSuccess = repo.savePegawai(pegawai);
+        boolean isSuccess = this.repo.savePegawai(nama, noHp, email, alamat, kelurahan, jabatan);
         
         if (isSuccess) {
-            model.addAttribute("message", "Pegawai berhasil ditambahkan!");
+            model.addAttribute("successMessage", "Data berhasil ditambahkan ke Database!");
         } else {
-            model.addAttribute("error", "Gagal menambahkan pegawai. Coba lagi.");
+            model.addAttribute("errorMessage", "Gagal menambahkan data ke Database!");
         }
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
 
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
         return "owner/insertData";
     }
 
@@ -96,27 +133,26 @@ public class OwnerController {
             return "redirect:/owner";
         }
         List<Pegawai> pegawaiList = this.repo.showAllPegawai();
-        System.out.println(pegawaiList);
         model.addAttribute("pegawaiList", pegawaiList);
+        model.addAttribute("listPegawai", pegawaiList);
         return "owner/listPegawai";
     }
 
-    @PostMapping("/cek-data-pegawai")
+    @PostMapping("/list-pegawai")
     public String cekDataPegawai(@RequestParam("nomorhp") String nomorhp, Model model) {
-        if (nomorhp == null || nomorhp.isEmpty()) {
-            model.addAttribute("error", "Silakan pilih pegawai terlebih dahulu.");
-            return "owner/listPegawai";
-        }
-        Pegawai pegawai = this.repo.getPegawaiByNomorHp(nomorhp);
-        
-        if (pegawai != null) {
-            model.addAttribute("pegawai", pegawai);
+        List<Pegawai> pegawaiList = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", pegawaiList);
+        model.addAttribute("listPegawai", pegawaiList);
+        if (nomorhp.equals("")) {
+            List<Pegawai> listPegawai = this.repo.showAllPegawai();
+            model.addAttribute("listPegawai", listPegawai);
         } else {
-            model.addAttribute("error", "Pegawai tidak ditemukan.");
+            Pegawai pegawai = this.repo.getPegawaiByNomorHp(nomorhp);
+            model.addAttribute("pegawai", pegawai);
         }
-
         return "owner/listPegawai"; 
     }
+    
 
     @GetMapping("/update-pegawai")
     public String updatePegawai(Model model, HttpSession session) {
@@ -128,19 +164,142 @@ public class OwnerController {
         return "owner/updatePegawai";
     }
 
-    @GetMapping("/laporan-kehadiran")
-    public String showTambahData(HttpSession session) {
+    @PostMapping("/update-pegawai")
+    public String updatePegawaiPost(@RequestParam("namapegawai") String namapegawai, Model model, HttpSession session) {
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        Pegawai pegawai = this.repo.getPegawaiByNama(namapegawai);
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+        model.addAttribute("pegawaiList", allPegawai);
+        model.addAttribute("pegawai", pegawai);
+        return "owner/updatePegawai";
+    }
+
+    @PostMapping("/update-pegawai2")
+    public String updatePegawaiPost2(@RequestParam("nama") String nama, 
+                                    @RequestParam("no_hp") String noHp, 
+                                    @RequestParam("email") String email, 
+                                    @RequestParam("alamat") String alamat, 
+                                    @RequestParam("kecamatan") String kecamatan,
+                                    @RequestParam("kelurahan") String kelurahan,
+                                    @RequestParam("jabatan") String jabatan,
+                                    HttpSession session, 
+                                    Model model) {
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        Pegawai pegawai = this.repo.getPegawaiByNama(nama);
+        List<String> listKelurahan = this.repo.showAllKelurahan();
+        List<String> listKecamatan = this.repo.showAllKecamatan();
+        List<String> listJabatan = this.repo.showAllJabatan();
+        boolean isupdate = this.repo.updatePegawai(nama, noHp, email, alamat, kelurahan, jabatan);
+
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        model.addAttribute("listJabatan", listJabatan);
+        model.addAttribute("pegawaiList", allPegawai);
+        model.addAttribute("pegawai", pegawai);
+        if (isupdate) {
+            model.addAttribute("successMessage", "Data berhasil diupdate ke Database!");
+        } else{
+            model.addAttribute("errorMessage", "Gagal update data ke Database!");
+        }
+        return "owner/updatePegawai";
+    }
+
+    @GetMapping("/laporan-kehadiran")
+    public String showTambahData(HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", allPegawai);
+        return "owner/laporanKehadiran";
+    }
+
+    @PostMapping("/laporan-kehadiran")
+    public String postTambahData(@RequestParam("nomorhp") String noHp, HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        List<KehadiranPegawai> pegawai = this.repo.findAllKehadiran();
+        if (!noHp.equals("full")) {
+            pegawai = this.repo.findKehadiranByNomorHp(noHp);
+        }
+        model.addAttribute("pegawai", pegawai);
+        model.addAttribute("pegawaiList", allPegawai);
         return "owner/laporanKehadiran";
     }
 
     @GetMapping("/bayar-gaji")
-    public String bayarGaji(HttpSession session) {
+    public String bayarGaji(HttpSession session, Model model) {
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        model.addAttribute("pegawaiList", allPegawai);
+
+        return "owner/bayarGaji";
+    }
+
+    @PostMapping("/bayar-gaji")
+    public String bayarGajiPost(@RequestParam("nomorhp") String noHp, HttpSession session, Model model) {
+        if (session.getAttribute("loggedInOwner") == null) {
+            return "redirect:/owner";
+        }
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
+        List<KehadiranPegawai> pegawai = this.repo.findAllKehadiran();
+        if (!noHp.equals("full")) {
+            pegawai = this.repo.findKehadiranByNomorHp(noHp);
+            String nama = pegawai.getFirst().getNama();
+            String periode = pegawai.getFirst().getTanggal();
+            
+            int totalJam = 0;
+            int totalMenit = 0;
+            double totalGaji = 0;
+
+            for (KehadiranPegawai kehadiranPegawai : pegawai) {
+                totalGaji += kehadiranPegawai.getGaji();
+                
+                String durasiKerja = kehadiranPegawai.getDurasiKerja();
+                
+                Pattern pattern = Pattern.compile("(\\d+)\\s*jam\\s*(\\d+)\\s*menit");
+                Matcher matcher = pattern.matcher(durasiKerja);
+                
+                if (matcher.find()) {
+                    int jam = Integer.parseInt(matcher.group(1));
+                    int menit = Integer.parseInt(matcher.group(2));
+                    
+                    totalJam += jam;
+                    totalMenit += menit;
+                }
+            }
+
+            totalJam += totalMenit / 60;
+            totalMenit = totalMenit % 60;
+
+            String durasi = totalJam + " jam " + totalMenit + " menit";
+
+            model.addAttribute("nama", nama);
+            model.addAttribute("periode", periode);
+            model.addAttribute("durasi", durasi);
+            model.addAttribute("totalGaji", totalGaji);
+            model.addAttribute("pegawai", null);
+        } else {
+            model.addAttribute("pegawai", pegawai);
+        }
+        model.addAttribute("pegawaiList", allPegawai);
+
         return "owner/bayarGaji";
     }
 

@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Pegawai</title>
-    <link rel="stylesheet" href="../css/owner.css">
-    <link rel="stylesheet" href="../css/owner/listPegawai.css">
-    <script src="../js/script.js" defer></script>
+    <link rel="stylesheet" href="/css/owner.css" th:href="@{/css/owner.css}">
+    <script src="/js/script.js" th:src="@{/js/script.js}" defer></script>    
 </head>
 <body>
     <header>
@@ -35,37 +34,26 @@
         <div id="pilih_pegawai">
             <fieldset>
                 <legend><h2>Cek Data Pegawai</h2></legend>
-                <form action="/owner/cek-data-pegawai" method="POST">
+                <form th:action="list-pegawai" method="POST" id="form-cek-data-pegawai">
                     <table>
                         <tr>
                             <td><label for="pegawai_id">Pilih Pegawai <span id="star">*</span>:</label></td>
                             <td>
-                                <select id="select_pegawai">
-                                    <option value="Pilih Pegawai">--Pilih Pegawai--</option>
-                                    <option th:each="pegawai : ${pegawaiList}" th:value="${pegawai.nomorhp}" th:text="${pegawai.namapegawai}">--</option>
+                                <select id="select_pegawai" name="nomorhp">
+                                    <option value="">--Pilih Pegawai--</option>
+                                    <option th:each="pegawai : ${pegawaiList}" 
+                                            th:value="${pegawai.nomorhp}" 
+                                            th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}"></option>
                                 </select>
                             </td>
                         </tr>
                     </table>
+                    <button type="submit" class="but_update">search</button>
                 </form>
             </fieldset>
         </div>
-        <div id="cek_data_pegawai">
-            <form action="tampilkan_data_pegawai.html" method="GET">
-                <table>
-                    <tr>
-                        <td>
-                            <button type="submit" id="cek_data">Cek Data</button>
-                        </td>
-                        <td>
-                            <button type="submit" id="cek_data_semua">Cek Seluruh Data Pegawai</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
 
-        <div class="table" id="tabel1" style="display:none">
+        <div class="table" id="tabel1" th:if="${pegawai != null}">
             <div id="pegawai_details" th:if="${pegawai != null}">
                 <h3>Data Pegawai</h3>
                 <table>
@@ -93,41 +81,25 @@
             </div>
         </div>
 
-        <div class="table" id="tabel2" style="display:none">
+        <div class="table" id="tabel2" th:if="${pegawai == null}">
             <table>
                 <tr>
                     <th>Nama</th>
                     <th>Nomor HP</th>
                     <th>Email</th>
-                    <th>Kecamatan</th>
-                    <th>Kelurahan</th>
                     <th>Alamat</th>
                     <th>Jabatan</th>
-                    <th>Status</th>
                 </tr>
-                <tr>
-                    <td>Steven Febrian</td>
-                    <td>081234567</td>
-                    <td>steven@gmail.com</td>
-                    <td>Cidadap</td>
-                    <td>Hergamanah</td>
-                    <td>Jl. Ciumbuleuit No. 94</td>
-                    <td>Barista</td>
-                    <td style="background-color: green; color: white">Aktif</td>
+                <tr th:each="pegawai : ${listPegawai}">
+                    <td th:text="${pegawai.namapegawai}"></td>
+                    <td th:text="${pegawai.nomorhp}"></td>
+                    <td th:text="${pegawai.email}"></td>
+                    <td th:text="${pegawai.alamat}"></td>
+                    <td th:text="${pegawai.jabatan}"></td>
                 </tr>
-                <tr>
-                    <td>Kris</td>
-                    <td>0898765</td>
-                    <td>kris@gmail.com</td>
-                    <td>Cidadap</td>
-                    <td>Hergamanah</td>
-                    <td>Jl. Ciumbuleuit No. 94</td>
-                    <td>Janitor</td>
-                    <td style="background-color: red; color: white">Tidak Aktif</td>
-                </tr>
-            </table>
             </table>
         </div>
+        
     </main>
     <footer>
     </footer>
@@ -158,6 +130,9 @@
             tabel.style.display = 'none';
             tabel2.style.display = 'block';
         })
+        document.getElementById('submit_data').addEventListener('click', function() {
+            document.getElementById('form-cek-data-pegawai').submit();
+        });
     </script>
 </body>
 </html>

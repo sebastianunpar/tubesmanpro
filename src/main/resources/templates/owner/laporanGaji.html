@@ -36,7 +36,11 @@
                 <legend><h2>Laporan Gaji Pegawai</h2></legend>
                 <label for="pegawai_id">Pilih Pegawai:</label>
                 <select class="select_salary_report" style="margin-bottom: 15px;">
-                    <option value="Pilih Pegawai">--Pilih Pegawai--</option>
+
+                    <option value="full">--Pilih Pegawai--</option>
+                            <option th:each="pegawai : ${pegawaiList}" 
+                                    th:value="${pegawai.nomorhp}" 
+                                    th:text="${pegawai.namapegawai} + ' - ' + ${pegawai.nomorhp}"></option>
                 </select> <br>
                 <a href="generate_laporan_gaji.html"><button class="buttonP">Request Laporan Gaji</button></a>
                 <button type="submit" class="buttonP">Request Laporan Semua Pegawai</button> 

@@ -7,7 +7,6 @@
 
 /* Body styling */
 body { 
-    background-image: url(../assets/background4.jpg);
     background-size: cover; 
     background-repeat: no-repeat; 
     font-family: Arial, sans-serif;
@@ -281,4 +280,104 @@ button:hover{
 #data_pegawai_sebelum.visible, #update_data_pegawai.visible {
     visibility: visible; 
     height: auto;
+}
+
+#cek_data_pegawai {
+    border: none;
+    border-radius: 0px;
+    margin-top: 20px;
+    padding: 0px;
+    width: 550px;
+}
+
+#tabel1{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+#tabel2{
+    padding-top: 30px;
+}
+
+.but_update{
+    background-color: #1a1a40;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+input {
+    background-color: #3c4163;
+}
+.update_data{
+    margin: -50px;
+}
+
+.container_data{
+    display: flex;
+    flex-direction: row;
+    gap: 20px 10px;
+}
+
+h2{
+    color: #444444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 20px;
+}
+fieldset{
+    border-radius: 10px;
+    border: 2px solid #444444;
+    width: 500px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    height: 100vh;
+}
+select, option {
+    background-color: #3c4163;
+    padding: 5px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+}
+#masuk_data_pegawai{
+    border: none;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding: 30px;
+    width: 500px;
+}
+td{
+    text-align: left
+}
+table{
+    border-spacing: 15px 10px;
+}
+#masuk_data_pegawai input{
+    width: 250px;
+    background-color: #3c4163;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+}
+button.buttonSubmit{
+    background-color: #1a1a40;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    margin-top: 10px;
+}
+button:hover{
+    background-color: #444444;
+    color: white;
 }
