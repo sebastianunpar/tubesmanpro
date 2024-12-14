@@ -36,14 +36,19 @@ public class PegawaiController {
             model.addAttribute("error", "Not found");
             return "index";
         }
+        Otp otp = new Otp();
         session.setAttribute("noHp", noHp);
+        session.setAttribute("kodeOtp", otp.getOtp());
+        model.addAttribute("kodeOtp", otp.getOtp());
         return "pegawai/confirmOtp";
     }
 
     @PostMapping("/confirm-otp")
     public String confirmOtp (@RequestParam("otp") String otp, Model model, HttpSession session){
-        if (!otp.equals("otp")) {
+        String kodeOtp = (String) session.getAttribute("kodeOtp");
+        if (!otp.equals(kodeOtp)) {
             model.addAttribute("otp", otp);
+            model.addAttribute("kodeOtp", kodeOtp);
             model.addAttribute("error", "Invalid OTP");
             return "pegawai/confirmOtp";
         }

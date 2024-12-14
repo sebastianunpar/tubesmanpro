@@ -11,7 +11,7 @@
 <body>
     <header>
         <h1>Welcome to Kafe IF</h1>
-    </header> 
+    </header>  
     <main>
         <div class="loginContainer">
             <h2>Log in</h2>
@@ -21,7 +21,10 @@
                 <button id="pegawaiOtp" type="submit">Confirm</button>
             </form>
             <div>
-                <span id="statusLogin" th:if="${error}" th:text="${error}"></span>
+                <div style="display: inline-block; width: 50%;">
+                    <span id="kodeOtp" th:if="${kodeOtp}" th:text="${kodeOtp}"></span>
+                    <span id="statusLogin" th:if="${error}" th:text="${error}"></span>
+                </div>
                 <a href="owner" class="changeRole">Owner?</a>
             </div>
         </div>

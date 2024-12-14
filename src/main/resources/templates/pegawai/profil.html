@@ -41,44 +41,35 @@
                             <td th:text="${nama}"></td>
                         </tr>
                         <tr>
-                            <td><strong>Nomor HP : </strong></td>
-                            <td th:text="${nohp}"></td>
+                            <td><strong>Nomor HP</strong></td>
+                            <td th:text="' : ' + ${nohp}"></td>
                         </tr>
                         <tr>
-                            <td><strong>Jabatan : </strong></td>
-                            <td th:text="${jabatan}"></td>
+                            <td><strong>Jabatan</strong></td>
+                            <td th:text="' : ' + ${jabatan}"></td>
                         </tr>
                         <tr>
-                            <td><strong>Alamat : </strong></td>
-                            <td th:text="${alamat}"></td>
+                            <td><strong>Alamat</strong></td>
+                            <td th:text="' : ' + ${alamat}"></td>
                         </tr>
                         <tr>
-                            <td><strong>Kelurahan : </strong></td>
-                            <td th:text="${kelurahan}"></td>
+                            <td><strong>Kelurahan</strong></td>
+                            <td th:text="' : ' + ${kelurahan}"></td>
                         </tr>
                         <tr>
-                            <td><strong>Kecamatan : </strong></td>
-                            <td th:text="${kecamatan}"></td>
+                            <td><strong>Kecamatan</strong></td>
+                            <td th:text="' : ' + ${kecamatan}"></td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <div class="edit-profile">
-                <button class="edit-btn" onclick="editProfile()">Edit Profil</button>
-            </div>
         </section>
     </main>
-    <footer>
-    </footer>
 
     <script>
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
-        }
-
-        function editProfile() {
-            alert("Fitur edit profil akan segera hadir!");
         }
     </script>
 </body>
