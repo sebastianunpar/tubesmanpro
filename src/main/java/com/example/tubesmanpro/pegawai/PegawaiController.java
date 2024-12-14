@@ -140,7 +140,7 @@ public class PegawaiController {
     }
 
     @PostMapping("/pegawai/kehadiran")
-    public String absen(HttpSession session, RedirectAttributes redirectAttributes){
+    public String absen(@RequestParam("action") String action, HttpSession session, RedirectAttributes redirectAttributes){
         if (session.getAttribute("loggedInPegawai") == null) {
             return "redirect:/";
         }
@@ -149,9 +149,16 @@ public class PegawaiController {
         LocalTime currentTime = LocalTime.now();
         String noHp = (String) session.getAttribute("loggedInPegawai");
 
-        boolean success = pegawaiService.absen(currentDate, currentTime, noHp);
-        if (!success) {
-            redirectAttributes.addFlashAttribute("absenError", "sudah absen");
+        if (action.equals("hadir")) {
+            boolean success = pegawaiService.absen(currentDate, currentTime, noHp);
+            if (!success) {
+                redirectAttributes.addFlashAttribute("absenError", "sudah absen");
+            }
+        } else if (action.equals("pulang")) {
+            boolean success = pegawaiService.pulang(currentDate, currentTime, noHp);
+            if (!success) {
+                redirectAttributes.addFlashAttribute("absenError", "sudah pulang");
+            }
         }
 
         return "redirect:/pegawai/kehadiran";
