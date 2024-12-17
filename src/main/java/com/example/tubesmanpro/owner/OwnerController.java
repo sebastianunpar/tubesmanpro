@@ -156,7 +156,7 @@ public class OwnerController {
 
     @GetMapping("/update-pegawai")
     public String updatePegawai(Model model, HttpSession session) {
-        List<Pegawai> allPegawai = this.repo.showUpdatePegawai();
+        List<Pegawai> allPegawai = this.repo.showAllPegawai();
         if (session.getAttribute("loggedInOwner") == null) {
             return "redirect:/owner";
         }
