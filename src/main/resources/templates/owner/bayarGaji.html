@@ -28,7 +28,7 @@
         </ul>
         <div class="logoutContainer">
             <form id="logoutForm" action="/owner/logout" method="post">
-                <button type="submit" class="logout-btn" id="logOut">Logout</button>
+                <button type="submit" class="logout-btn" id="logOut" th:action="@{/}">Logout</button>
             </form>
         </div>
     </nav>
@@ -91,7 +91,7 @@
                     <tbody id="attendanceTableBody">
                         <tr>
                             <td th:text="${nama}">Nama Pegawai</td>
-                            <td th:text="${periode}">Tanggal</td>
+                            <td th:text="${periode} + ' ~ 2024-12-11'">Tanggal</td>
                             <td th:text="${durasi}">Jam Keluar</td>
                             <td th:text="${totalGaji}">Jam Keluar</td>
                         </tr>
@@ -99,6 +99,24 @@
                 </table>
             </div>
         </section>
+        <strong th:if="${status}=='belum dibayar'" 
+            th:text="'Status Gaji: ' + ${status}" 
+            style="color: red" 
+            id="statusText">
+        </strong>
+        <strong th:if="${status}=='sudah dibayar'" 
+                th:text="'Status Gaji: ' + ${status}" 
+                style="color: green" 
+                id="statusText">
+        </strong>
+
+        <!-- Button to Update Status -->
+        <button th:if="${status}=='belum dibayar'" 
+                type="button" 
+                class="but_update" 
+                id="but_bayar">
+            Bayar
+        </button>
     </main>
     <footer>
     </footer>
@@ -108,18 +126,20 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
-
         const today = new Date();
-        const formattedDate = today.toLocaleDateString('en-CA');
-
-        const logOutButton = document.querySelector('#logOut')
-        logOutButton.addEventListener ('click', (event) => {
-            event.preventDefault();
-            window.location.href = "login.html";
-        });
-
         const heading = document.querySelector('h3');
-
+        heading.textContent = 'Riwayat Kehadiran (2024-12-01 - 2024-12-11)';
+        const bayarButton = document.getElementById('but_bayar');
+        const statusText = document.getElementById('statusText');
+    
+        if (bayarButton) {
+            bayarButton.addEventListener('click', function () {
+                bayarButton.style.display = 'none';
+                statusText.textContent = 'Status Gaji: sudah dibayar';
+                statusText.style.color = 'green';
+            });
+        }
+    
         function getMonthName() {
             const months = [
                 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -129,7 +149,7 @@
             return months[today.getMonth()];
         }
 
-        heading.textContent = 'Riwayat Kehadiran ' + getMonthName() + ' ' + new Date().getFullYear();
+        heading.textContent = 'Riwayat Kehadiran (2024-12-01 - 2024-12-11)';
     </script>
 </body>
 </html>

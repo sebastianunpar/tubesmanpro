@@ -263,6 +263,7 @@ public class OwnerController {
             pegawai = this.repo.findKehadiranByNomorHp(noHp);
             String nama = pegawai.getFirst().getNama();
             String periode = pegawai.getFirst().getTanggal();
+            String statusGaji = this.repo.getStatusGaji(noHp);
             
             int totalJam = 0;
             int totalMenit = 0;
@@ -295,6 +296,7 @@ public class OwnerController {
             model.addAttribute("durasi", durasi);
             model.addAttribute("totalGaji", totalGaji);
             model.addAttribute("pegawai", null);
+            model.addAttribute("status", statusGaji);
         } else {
             model.addAttribute("pegawai", pegawai);
         }
