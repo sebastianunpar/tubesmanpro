@@ -67,7 +67,8 @@
                     </tr>
                     <tr>
                         <td colspan="2"><Strong>Status Gaji : </Strong></td>
-                        <td  class="status-bayar">belum dibayarkan</td>
+                        <td  class="status-bayar" th:if="${status}=='sudah dibayar'" th:text="'Status Gaji: ' + ${status}" style="background-color: green"></td>
+                        <td  class="status-bayar" th:if="${status}=='belum dibayar'"th:text="'Status Gaji: ' + ${status}" style="background-color: red"></td>
                     </tr>
                 </table>
             </div>

@@ -125,10 +125,15 @@ public class JdbcOwnerImplementation implements OwnerRepository{
         );
     }
 
+    public String getStatusGaji(String nomorhp){
+        String sql = "select statusgaji from StatusGaji where nomorhp = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("statusgaji"), nomorhp).get(0);
+    }
+
     public Pegawai getPegawaiByNomorHp(String nomorhp) {
-        String sql = "SELECT * FROM pegawai WHERE nomorhp = ?";
+        String sql = "select p.namapegawai, p.nomorhp, p.email, a.namajalan, j.namajabatan from pegawai p join alamat a on p.idalamat = a.idalamat join jabatan j on j.idjabatan = p.idjabatan where p.nomorhp = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, this::mapRowToPegawai, nomorhp);
+            return jdbcTemplate.queryForObject(sql, this::mapRowToPegawai2, nomorhp);
         } catch (Exception e) {
             return null;
         }

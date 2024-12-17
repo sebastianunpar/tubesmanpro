@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import com.example.tubesmanpro.kehadiran.Kehadiran;
+import com.example.tubesmanpro.owner.JdbcOwnerImplementation;
 
 
 @Controller
@@ -22,6 +23,8 @@ import com.example.tubesmanpro.kehadiran.Kehadiran;
 public class PegawaiController {
     @Autowired
     private PegawaiService pegawaiService;
+    @Autowired
+    private JdbcOwnerImplementation repo;
 
     @GetMapping("/")
     public String showLogin (Model model) {
@@ -128,6 +131,7 @@ public class PegawaiController {
         LocalDate today = LocalDate.now();
         LocalDate monday = pegawaiService.getMondayOfWeek(today);
         LocalDate sunday = pegawaiService.getSundayOfWeek(monday);
+        String statusGaji = this.repo.getStatusGaji(noHp);
 
         List<Kehadiran> kehadirans = pegawaiService.getKehadiranPerWeek(noHp, monday, sunday);
         double totalGaji = pegawaiService.calculateTotalGaji(kehadirans);
@@ -135,6 +139,7 @@ public class PegawaiController {
         model.addAttribute("minggu", pegawaiService.formatDate(sunday));
         model.addAttribute("kehadiran", kehadirans);
         model.addAttribute("totalGaji", totalGaji);
+        model.addAttribute("status", statusGaji);
         return "pegawai/gaji";
     }
 

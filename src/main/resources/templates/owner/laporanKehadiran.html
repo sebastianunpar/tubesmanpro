@@ -27,7 +27,9 @@
             <li><a href="/owner/bayar-gaji" id="salaryR" >Laporan Gaji</a></li>
         </ul>
         <div class="logoutContainer">
-            <button class="logout-btn" id="logOut">Logout</button>
+            <form id="logoutForm" action="/owner/logout" method="post">
+                <button type="submit" class="logout-btn" id="logOut" th:action="@{/}">Logout</button>
+            </form>
         </div>
     </nav>
     <main>
@@ -99,14 +101,7 @@
             return months[today.getMonth()];
         }
 
-        heading.textContent = 'Riwayat Kehadiran ' + getMonthName() + ' ' + new Date().getFullYear();
-
-
-        const logOutButton = document.querySelector('#logOut')
-        logOutButton.addEventListener ('click', (event) => {
-            event.preventDefault();
-            window.location.href = "login.html";
-        });
+        heading.textContent = 'Riwayat Kehadiran (2024-12-01 - 2024-12-11)';
     </script>
 </body>
 </html>

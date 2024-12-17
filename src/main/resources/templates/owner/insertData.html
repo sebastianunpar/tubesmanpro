@@ -28,7 +28,9 @@
             <li><a href="/owner/bayar-gaji" id="salaryR">Laporan Gaji</a></li>
          </ul>
          <div class="logoutContainer">
-             <button class="logout-btn" id="logOut">Logout</button>
+            <form id="logoutForm" action="/owner/logout" method="post">
+                <button type="submit" class="logout-btn" id="logOut" th:action="@{/}">Logout</button>
+            </form>
          </div>
      </nav>
      <main>
@@ -132,12 +134,6 @@
              const sidebar = document.getElementById('sidebar');
              sidebar.classList.toggle('active');
          }
- 
-         const logOutButton = document.querySelector('#logOut')
-         logOutButton.addEventListener ('click', (event) => {
-             event.preventDefault();
-             window.location.href = "ownerLogin.html";
-         });
          const tableSelect = document.getElementById('table');
          const formPegawai = document.getElementById('form_pegawai');
          const formJabatan = document.getElementById('form_jabatan');
