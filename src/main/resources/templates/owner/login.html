@@ -16,13 +16,13 @@
             <h2>Log in</h2>
             <form action="/owner/login" method="post">
                 <div class="input-group">
-                    <img src="assets/user.png" alt="user">
+                    <img th:src="@{/assets/user.png}" alt="user">
                     <input type="text" id="username" name="username" placeholder="username" th:value="${username}">
                 </div>
                 <div class="input-group">
-                    <img src="assets/lock.png" alt="password">
+                    <img th:src="@{/assets/lock.png}" alt="password">
                     <input type="password" id="password" name="password" placeholder="password" th:value="${password}">
-                </div>
+                </div>                
                 <button id="ownerLogin" type="submit">Log in</button>
             </form>
             <div>

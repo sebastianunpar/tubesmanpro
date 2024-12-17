@@ -135,12 +135,9 @@ public class JdbcOwnerImplementation implements OwnerRepository{
     }
 
     public Pegawai getPegawaiByNama(String nama) {
-        String sql = "SELECT * FROM pegawai WHERE namapegawai = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, this::mapRowToPegawai, nama);
-        } catch (Exception e) {
-            return null;
-        }
+        String sql = "select p.namapegawai, p.nomorhp, p.email, a.namajalan, j.namajabatan from pegawai p join alamat a on p.idalamat = a.idalamat join jabatan j on j.idjabatan = p.idjabatan where p.namapegawai = ?";
+        List<Pegawai> pegawai= jdbcTemplate.query(sql, this::mapRowToPegawai2, nama);
+        return pegawai.getFirst();
     }
 
     public List<String> showAllKecamatan() {
@@ -282,8 +279,19 @@ public class JdbcOwnerImplementation implements OwnerRepository{
     }
 
     public List<Pegawai> showAllPegawai() {
-        String sql = "SELECT * FROM pegawai";
-        List<Pegawai> pegawai= jdbcTemplate.query(sql, this::mapRowToPegawai);
+        String sql = "select p.namapegawai, p.nomorhp, p.email, a.namajalan, j.namajabatan from pegawai p join alamat a on p.idalamat = a.idalamat\n" + //
+                        "join jabatan j on j.idjabatan = p.idjabatan";
+        List<Pegawai> pegawai= jdbcTemplate.query(sql, this::mapRowToPegawai2);
         return pegawai;
+    }
+
+    private Pegawai mapRowToPegawai2(ResultSet resultSet, int rowNum) throws SQLException {
+        return new Pegawai(
+            resultSet.getString("namapegawai"),
+            resultSet.getString("nomorhp"),
+            resultSet.getString("email"),
+            resultSet.getString("namajalan"),
+            resultSet.getString("namajabatan")
+        );
     }
 }
